@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden 임팩트 리포트 생성 - Code Green</title>
+    <link rel="stylesheet" href="hidden.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 랜딩페이지와 동일한 헤더 -->
+    <header class="landing-page-header">
+        <a href="landing.html" class="logo-text">
+            <span class="c-letter">C</span><span class="o-letter">o</span><span class="d-letter">d</span><span class="e-letter">e</span>
+            <span class="green-text"> Green</span>
+        </a>
+        <nav class="nav-links">
+            <div class="dropdown">
+                <button class="dropdown-btn">Service</button>
+                <div class="dropdown-content">
+                    <a href="landing.html#intro">AI 임팩트 리포트</a>
+                    <a href="landing.html#Hidden-Impact">Hidden 임팩트 발굴</a>
+                    <a href="landing.html#Social-Report">심층 소셜벤처 리포트</a>
+                </div>
+            </div>
+            <a href="about_us.html">About us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="report-generator-main">
+        <div class="intro-text">
+            <h1>Hidden 임팩트 리포트 생성</h1>
+            <p>기업 관련 자료를 업로드하시면 AI가 귀사의 숨겨진 임팩트를 진단해 드립니다.</p>
+        </div>
+
+        <div class="generator-container">
+            <!-- 왼쪽: 파일 업로드 패a널 -->
+            <div class="upload-panel">
+                <h3>1. 파일 업로드</h3>
+                <div id="drop-area" class="drop-area">
+                    <input type="file" id="file-input" hidden multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.hwp">
+                    <div class="drop-area-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    </div>
+                    <p class="drop-area-text">여기에 파일을 드래그하거나<br>클릭해서 업로드하세요</p>
+                    <p class="drop-area-desc">PDF, DOCX, PPT, HWP 등</p>
+                </div>
+                <button id="browse-btn" class="browse-btn">파일 찾아보기</button>
+            </div>
+
+            <!-- 오른쪽: 업로드된 파일 목록 -->
+            <div class="file-panel">
+                <h3>2. 업로드된 파일</h3>
+                <div id="file-list-container" class="file-list-container">
+                    <ul id="file-list" class="file-list"></ul>
+                    <div id="file-placeholder" class="file-placeholder">
+                        <p>파일을 업로드하면<br>여기에 표시됩니다.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button id="generate-report-btn" class="generate-report-btn" disabled>✨ Hidden 임팩트 발굴하기</button>
+    </main>
+
+    <!-- 랜딩페이지와 동일한 푸터 -->
+    <footer class="landing-footer">
+        <p>&copy; 2025 Code Green. All rights reserved.</p>
+        <div><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 헤더 관련 스크립트 (랜딩페이지와 동일)
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const header = document.querySelector('.landing-page-header');
+            
+            let lastScrollTop = 0;
+            let scrollTimeout; 
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (dropdownContent && dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                        dropdownBtn.classList.remove('active');
+                    }
+                }, 40); 
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                if (scrollTop > 50) {
+                    header.classList.add('header-solid-bg');
+                } else {
+                    header.classList.remove('header-solid-bg');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+            
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const isShown = dropdownContent.classList.toggle('show');
+                    dropdownBtn.classList.toggle('active', isShown);
+                });
+            }
+            window.addEventListener('click', (event) => {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+
+            // --- 파일 업로드 기능 스크립트 ---
+            const dropArea = document.getElementById('drop-area');
+            const fileInput = document.getElementById('file-input');
+            const browseBtn = document.getElementById('browse-btn');
+            const fileList = document.getElementById('file-list');
+            const filePlaceholder = document.getElementById('file-placeholder');
+            const generateBtn = document.getElementById('generate-report-btn');
+
+            let uploadedFiles = [];
+
+            // 파일 찾아보기 버튼 클릭
+            browseBtn.addEventListener('click', () => fileInput.click());
+            dropArea.addEventListener('click', () => fileInput.click());
+
+            // 파일 선택 시
+            fileInput.addEventListener('change', () => {
+                handleFiles(fileInput.files);
+            });
+
+            // 드래그 이벤트 처리
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => dropArea.classList.add('is-dragging'), false);
+            });
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, () => dropArea.classList.remove('is-dragging'), false);
+            });
+
+            // 파일 드롭 시
+            dropArea.addEventListener('drop', (e) => {
+                handleFiles(e.dataTransfer.files);
+            });
+
+            function handleFiles(files) {
+                [...files].forEach(file => {
+                    // 중복 파일 체크
+                    if (!uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                        uploadedFiles.push(file);
+                    }
+                });
+                updateFileList();
+            }
+
+            function updateFileList() {
+                fileList.innerHTML = ''; // 목록 초기화
+                if (uploadedFiles.length > 0) {
+                    filePlaceholder.style.display = 'none';
+                    generateBtn.disabled = false;
+                } else {
+                    filePlaceholder.style.display = 'flex';
+                    generateBtn.disabled = true;
+                }
+
+                uploadedFiles.forEach((file, index) => {
+                    const li = document.createElement('li');
+                    li.classList.add('file-item');
+                    li.innerHTML = `
+                        <div class="file-info">
+                            <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            <span class="file-name">${file.name}</span>
+                        </div>
+                        <button class="remove-btn" data-index="${index}">&times;</button>
+                    `;
+                    fileList.appendChild(li);
+                });
+            }
+
+            // 파일 삭제 버튼 클릭
+            fileList.addEventListener('click', (e) => {
+                if (e.target.classList.contains('remove-btn')) {
+                    const index = parseInt(e.target.dataset.index);
+                    uploadedFiles.splice(index, 1);
+                    updateFileList();
+                }
+            });
+            // ▼▼▼ [수정] 이 부분을 아래 코드로 교체하세요 ▼▼▼
+
+            generateBtn.addEventListener('click', async () => {
+                if (generateBtn.disabled || uploadedFiles.length === 0) {
+                    return;
+                }
+            
+                // 1. 서버로 보낼 FormData 객체 생성
+                const formData = new FormData();
+                uploadedFiles.forEach(file => {
+                    // 백엔드에서 'files'라는 이름으로 여러 파일을 받을 수 있도록 준비
+                    formData.append('files', file); 
+                });
+            
+                try {
+                    // 버튼을 비활성화하고 로딩 상태로 변경 (선택사항이지만 UX에 좋음)
+                    generateBtn.disabled = true;
+                    generateBtn.innerHTML = 'AI 분석 요청 중...';
+                
+                    // 2. fetch를 사용해 '/upload' API로 파일들 전송
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                
+                    if (!response.ok) {
+                        throw new Error('파일 업로드에 실패했습니다.');
+                    }
+                
+                    // 3. 서버로부터 { "job_id": "..." } 형태의 응답을 받음
+                    const data = await response.json();
+                
+                    // 4. job_id를 가지고 로딩 페이지로 이동 (폴링 시작점)
+                    if (data.job_id) {
+                        window.location.href = `hd_generating.html?job_id=${data.job_id}`;
+                    } else {
+                        throw new Error('서버로부터 job_id를 받지 못했습니다.');
+                    }
+                
+                } catch (error) {
+                    console.error('리포트 생성 실패:', error);
+                    alert('리포트 생성에 실패했습니다. 다시 시도해주세요.');
+                    // 에러 발생 시 버튼을 다시 활성화
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = '✨ Hidden 임팩트 발굴하기';
+                }
+            });
+            // ▲▲▲ [수정] 여기까지 교체 ▲▲▲
+        });
+    </script>
+</body>
+</html>

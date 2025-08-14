@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Impact Report - 에어키친</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm;
+            margin: 20mm auto;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            page-break-after: always;
+            box-sizing: border-box;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        h1, h2, h3 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 11pt;
+            white-space: pre-wrap;
+        }
+
+        /* Cover Page */
+        .cover {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .cover .logo { font-size: 24pt; font-weight: 700; color: #27ae60; }
+        .cover h1 { font-size: 48pt; margin: 20px 0; color: #2c3e50; }
+        .cover .company-name { font-size: 18pt; margin-top: 40px; }
+
+        /* Header for content pages */
+        .page-header {
+            border-bottom: 2px solid #27ae60;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .page-header h1 {
+            font-size: 24pt;
+            color: #27ae60;
+            margin: 0;
+        }
+
+        /* Content Styles */
+        .section {
+            margin-bottom: 35px;
+        }
+        .section h2 {
+            font-size: 18pt;
+            color: #2c3e50;
+            margin: 0 0 15px 0;
+        }
+
+        /* SDG Grid */
+        .sdg-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        .sdg-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            border-left: 5px solid #27ae60;
+        }
+        .sdg-card .sdg-title {
+            display: flex;
+            align-items: center;
+            font-size: 12pt;
+            font-weight: 700;
+        }
+        .sdg-card .sdg-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+        .sdg-card p {
+            font-size: 10pt;
+            margin: 10px 0 0 0;
+            color: #555;
+        }
+
+        /* Analysis Grid */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .analysis-column p {
+            font-size: 10pt;
+        }
+
+        /* Footer */
+        .page-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 10pt;
+            color: #aaa;
+            padding-top: 30px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <div class="cover">
+            <div class="logo">Code Green</div>
+            <h1>IMPACT REPORT</h1>
+            <p class="company-name">에어키친</p>
+        </div>
+        <div class="page-footer">2025년 8월 13일 | 에어키친 임팩트 보고서</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header">
+            <h1>Executive Summary & SDGs</h1>
+        </div>
+        <div class="section">
+            <h2>AI 종합 요약</h2>
+            <p>에어키친은 외식·공유(센트럴) 키친 및 배달 플랫폼 산업에서 선도적인 역할을 하는 기업으로, SDG 8 및 12번에 부합합니다. 에어키친은 표준화된 공유 키친과 중앙 조달, 온라인 브랜딩·메뉴 최적화 플랫폼을 통해 소상공인의 매출 증대와 운영비 절감(경제적 가치) 및 음식물 쓰레기·일회용 플라스틱 배출 저감(환경적 가치)에 기여하며, 친환경 포장재 도입, 폐기물 회수·지자체 협업, 핵심 지역 파일럿 확장 등을 통해 지속가능한 미래를 추구하고 있습니다. 직접적 수혜자는 하노이·인근 지역의 개인 운영 식당과 포장·배달 중심 사업자들로, 중앙 조달로 인한 원가 절감(대량구매·필요수량 기반 공급), 플랫폼을 통한 저수수료·온라인 최적화로 매출 확대 효과를 기대할 수 있고, 간접적으로는 소비자(위생적·친환경적 선택지 확대)와 지역사회의 플라스틱·생활폐기물 감소 효과도 발생합니다. 성과는 플랫폼 참여 식당 수·주문 건수, 구매 단가 차이와 재고회전율 변화(음식물 쓰레기 감소 추정), 친환경 포장 적용 비율과 플라스틱 감축량(kg), 소상공인 평균 월간 매출·영업이익 변화, 고객 만족도·재주문율 등으로 정량화할 수 있으며, 필요시 폐기물 처리 배출계수로 GHG 저감량(톤CO2e) 환산도 가능합니다. 한편 친환경 포장 단가 프리미엄, 공급망·품질 리스크, 소비자 수용성 한계, 지역별 재활용 인프라 미비 등의 리스크가 있어 대량구매 계약·단계적 파일럿·상인 교육·브랜딩 지원·폐기물 회수 루프 구축·수수료·프로모션 인센티브 등으로 이를 완화해 나가야 합니다.</p>
+        </div>
+        <div class="section">
+            <h2>주요 SDG 연계</h2>
+            <div class="sdg-grid">
+                <div class="sdg-card">
+                    <div class="sdg-title">
+                        <img src="path/to/sdg8_icon.png" alt="SDG 8 Icon" class="sdg-icon">
+                        <span>SDG 8: 양질의 일자리와 경제 성장</span>
+                    </div>
+                    <p>소상공인 매출 증대·비용 절감으로 경제적 기회 확대와 생계 안정에 기여</p>
+                </div>
+                <div class="sdg-card">
+                    <div class="sdg-title">
+                        <img src="path/to/sdg12_icon.png" alt="SDG 12 Icon" class="sdg-icon">
+                        <span>SDG 12: 지속가능한 소비 및 생산</span>
+                    </div>
+                    <p>음식물 쓰레기 저감과 일회용 플라스틱 대체를 통한 지속가능한 생산·소비 방식 촉진</p>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 2</div>
+    </div>
+
+    <div class="page">
+        <div class="page-header">
+            <h1>상세 분석: What & Who</h1>
+        </div>
+        <div class="analysis-grid">
+            <div class="analysis-column">
+                <div class="section">
+                    <h2>What (어떤 변화를 만드는가)</h2>
+                    <p>
+에어키친이 창출하는 사회적 가치는 크게 경제적 가치와 환경적 가치로 구분됩니다. 경제적 측면에서는 중앙 조달과 플랫폼을 통한 주문형 메뉴 개발·브랜딩 지원으로 소상공인의 원가 절감(대량구매, 필요수량 기반 공급)과 매출 증대(온라인 최적화, 낮은 수수료)를 촉진하여 지속적·포용적 경제 성장( SDG 8)에 기여합니다. 환경적 측면에서는 표준화된 제조·재고관리로 음식물 쓰레기 발생을 줄이고, 배달용 플라스틱을 생분해성·재활용 가능한 용기로 대체함으로써 지속가능한 소비·생산 촉진( SDG 12)에 연결됩니다. 또한 보건(위생적 조리 환경)과 고용(키친 운영·배달 인력의 고용 안정) 영역에서도 긍정적 효과가 발생합니다.</p>
+                </div>
+            </div>
+            <div class="analysis-column">
+                <div class="section">
+                    <h2>Who (누구에게 변화가 일어나는가)</h2>
+                    <p>
+직접적 수혜자는 하노이·인근 지역의 소규모 음식점(개인 운영 식당, 포장·배달 위주 사업자)과 그 종사자들입니다. 이들은 과잉 재고·비효율적 구매로 인한 손실, 온라인 플랫폼 접근성 부족, 높은 중개수수료 등의 문제를 경험해왔으며, 에어키친의 중앙 조달·브랜딩·저수수료 플랫폼을 통해 비용 절감·매출 확대 혜택을 받습니다. 간접적 수혜자는 해당 도시의 소비자(더 친환경적·위생적인 배달 선택지 확보)와 지역사회(하천·해안의 플라스틱 오염 감소), 그리고 폐기물 관리 부문(감축된 가연·혼합 폐기물로 인한 처리 부담 완화)입니다. 특히 소득이 불안정한 소상공인은 운영비 절감과 매출 안정화를 통해 생계 개선 효과를 체감할 가능성이 큽니다.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 3</div>
+    </div>
+    
+    <div class="page">
+        <div class="page-header">
+            <h1>상세 분석: How Much & Risk</h1>
+        </div>
+        <div class="analysis-grid">
+             <div class="analysis-column">
+                <div class="section">
+                    <h2>How Much (변화의 수준)</h2>
+                    <p>
+에어키친의 임팩트는 정량적 지표와 비교 측정을 통해 평가할 수 있습니다. 핵심 측정 항목은 (1) 플랫폼 참여 식당 수 및 활성주문 건수, (2) 중앙 조달 도입 전·후 식자재 구매단가 차이와 평균 재고회전율 변화(음식물 쓰레기 감소량 추정), (3) 친환경 포장재 적용 비율과 이를 기반으로 환산한 단위당 플라스틱 사용량 감소 및 총 플라스틱 감축량(kg), (4) 소상공인 평균 월간 매출·영업이익 변화, (5) 고객 만족도·재주문율 변화입니다.</p>
+                </div>
+            </div>
+            <div class="analysis-column">
+                <div class="section">
+                    <h2>Risk (리스크 요인)</h2>
+                    <p>
+사회적 가치 실현에는 몇 가지 리스크가 존재합니다. 첫째, 친환경 포장재의 단가 프리미엄으로 인해 소상공인이 비용 부담을 느껴 도입을 거부할 가능성이 있습니다. 둘째, 친환경 소재의 안정적 공급망 미비 또는 품질 문제로 대체가 지연될 수 있습니다. 셋째, 소비자 수용성과 배달 플랫폼 간 경쟁에 따른 수수료·가격 압박은 사업 지속성에 영향을 줄 수 있습니다. 넷째, 베트남의 분리수거·재활용 인프라가 취약해 실제 재활용·분해가 이루어지지 않는 구조적 한계가 남습니다.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page-footer">Page 4</div>
+    </div>
+
+</body>
+</html>

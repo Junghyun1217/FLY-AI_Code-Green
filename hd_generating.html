@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리포트 생성 중 - Code Green</title>
+    
+    <!-- generating.css 파일을 연결합니다 -->
+    <link rel="stylesheet" href="hd_generating.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Lottie Player 라이브러리 로드 -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body>
+
+    <!-- 랜딩페이지와 동일한 헤더 -->
+    <header class="landing-page-header">
+        <a href="landing.html" class="logo-text">
+            <span class="c-letter">C</span><span class="o-letter">o</span><span class="d-letter">d</span><span class="e-letter">e</span>
+            <span class="green-text"> Green</span>
+        </a>
+        <nav class="nav-links">
+            <div class="dropdown">
+                <button class="dropdown-btn">Service</button>
+                <div class="dropdown-content">
+                    <a href="landing.html#intro">AI 임팩트 리포트</a>
+                    <a href="landing.html#Hidden-Impact">Hidden 임팩트 발굴</a>
+                    <a href="landing.html#Social-Report">심층 소셜벤처 리포트</a>
+                </div>
+            </div>
+            <a href="about_us.html">About us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="generating-main">
+        <div class="generating-container">
+            <div class="generating-animation">
+                <lottie-player src="lottie/star_loading.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+            </div>
+            <h1>AI가 숨겨진 임팩트를 발굴 중입니다.</h1>
+            <p>업로드된 파일을 분석하여 임팩트 리포트를 구성하고 있습니다.<br>잠시만 기다려주세요.</p>
+        </div>
+    </main>
+
+    <!-- 랜딩페이지와 동일한 푸터 -->
+    <footer class="landing-footer">
+        <p>&copy; 2025 Code Green. All rights reserved.</p>
+        <div><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></div>
+    </footer>
+    
+    <script>
+
+        // 헤더의 드롭다운 기능은 다른 페이지와 동일하게 유지합니다.
+        document.addEventListener('DOMContentLoaded', () => {
+            // ▼▼▼ [추가] 3초 후 페이지 이동 ▼▼▼
+            setTimeout(() => {
+            window.location.href = 'hd_report_result.html';
+            }, 6000); // 3000ms = 3초
+            // ▲▲▲ [추가] 3초 후 페이지 이동 ▲▲
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const header = document.querySelector('.landing-page-header');
+            
+            let lastScrollTop = 0;
+            let scrollTimeout; 
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (dropdownContent && dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                        dropdownBtn.classList.remove('active');
+                    }
+                }, 40); 
+                
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                
+                if (scrollTop > 50) {
+                    header.classList.add('header-solid-bg');
+                } else {
+                    header.classList.remove('header-solid-bg');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+            
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const isShown = dropdownContent.classList.toggle('show');
+                    dropdownBtn.classList.toggle('active', isShown);
+                });
+            }
+            window.addEventListener('click', (event) => {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Green - Main</title>
+    <!-- main.css 파일을 연결합니다 -->
+    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 랜딩페이지와 동일한 헤더 -->
+    <header class="landing-page-header">
+        <a href="landing.html" class="logo-text">
+            <span class="c-letter">C</span><span class="o-letter">o</span><span class="d-letter">d</span><span class="e-letter">e</span>
+            <span class="green-text"> Green</span>
+        </a>
+        <nav class="nav-links">
+            <div class="dropdown">
+                <button class="dropdown-btn">Service</button>
+                <div class="dropdown-content">
+                    <a href="landing.html#intro">AI 임팩트 리포트</a>
+                    <a href="landing.html#Hidden-Impact">Hidden 임팩트 발굴</a>
+                    <a href="landing.html#Social-Report">심층 소셜벤처 리포트</a>
+                </div>
+            </div>
+            <a href="about_us.html">About us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 메인 소개 섹션 -->
+        <section class="main-intro-section">
+            <div class="intro-content">
+                <p class="sub-heading">일반 기업부터 사회적 기업까지</p>
+                <h1>Code Green의<br>두 가지 핵심 기능을 만나보세요.</h1>
+                <a href="#selection-section" class="scroll-down-button">확인하러 가기 &darr;</a>
+            </div>
+        </section>
+
+        <!-- 기능 선택 섹션 -->
+        <section id="selection-section" class="selection-section">
+            <h2>어떤 도움이 필요하신가요?</h2>
+            <div class="selection-cards">
+                <!-- ▼▼▼ [수정된 부분] 카드 1 내용 ▼▼▼ -->
+                <a href="hidden.html" class="selection-card">
+                    <div class="card-icon">💡</div>
+                    <h3>"ESG, 어디서부터 시작할지 막막하신가요?"</h3>
+                    <p>아직 구체적인 사회적 목표는 없지만, 우리 회사가 가진 긍정적인 영향력이 궁금하신가요? AI가 기존 자료를 분석해 숨겨진 ESG 잠재력을 찾아드립니다.</p>
+                </a>
+                <!-- ▼▼▼ [수정된 부분] 카드 2 내용 ▼▼▼ -->
+                <a href="impact_reporting.html" class="selection-card">
+                    <div class="card-icon">📄</div>
+                    <h3>"우리의 사회적 가치를 증명하고 싶으신가요?"</h3>
+                    <p>이미 사회적 미션을 가지고 사업을 운영하고 계신가요? 흩어져 있는 성과 자료를 바탕으로 설득력 있는 임팩트 리포트를 쉽고 빠르게 만들어보세요.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- 랜딩페이지와 동일한 푸터 -->
+    <footer class="landing-footer">
+        <p>&copy; 2025 Code Green. All rights reserved.</p>
+        <div><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></div>
+    </footer>
+    
+    <!-- 랜딩페이지와 동일한 스크립트 -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const header = document.querySelector('.landing-page-header');
+            
+            let lastScrollTop = 0;
+            let scrollTimeout; 
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (dropdownContent && dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                        dropdownBtn.classList.remove('active');
+                    }
+                }, 40); 
+                
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                
+                if (scrollTop > 50) {
+                    header.classList.add('header-solid-bg');
+                } else {
+                    header.classList.remove('header-solid-bg');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+            
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const isShown = dropdownContent.classList.toggle('show');
+                    dropdownBtn.classList.toggle('active', isShown);
+                });
+            }
+            window.addEventListener('click', (event) => {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // 300px 이상 스크롤되면 버튼 보이기
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 부드럽게 스크롤
+                });
+            });
+        });
+    </script>
+<a href="#" id="scrollTopBtn" class="scroll-top-btn">TOP</a>
+</body>
+</html>

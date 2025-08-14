@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Result - Code Green</title>
+
+    <link rel="stylesheet" href="report_result.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="landing-page-header">
+        <a href="landing.html" class="logo-text">
+            <span class="c-letter">C</span><span class="o-letter">o</span><span class="d-letter">d</span><span class="e-letter">e</span>
+            <span class="green-text"> Green</span>
+        </a>
+        <nav class="nav-links">
+            <div class="dropdown">
+                <button class="dropdown-btn">Service</button>
+                <div class="dropdown-content">
+                    <a href="landing.html#intro">AI 임팩트 리포트</a>
+                    <a href="landing.html#Hidden-Impact">Hidden 임팩트 발굴</a>
+                    <a href="landing.html#Social-Report">심층 소셜벤처 리포트</a>
+                </div>
+            </div>
+            <a href="about_us.html">About us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <main class="report-result-page">
+        <section class="result-header">
+            <h1>AI 임팩트 리포트 초안이 완성되었습니다.</h1>
+            <p>아래에서 생성된 리포트 초안을 확인하고, 전문가의 최종 검토를 요청할 수 있습니다.</p>
+        </section>
+
+        <section class="report-preview-container">
+            <div class="report-cover-new">
+                <p class="cover-brand">CODE GREEN</p>
+                <p class="cover-title">IMPACT REPORT</p>
+                <p class="cover-subtitle">TOWARD THE GREAT BREAKTHROUGH</p>
+                <p class="cover-company-name">(주)당신회사의 임팩트 리포트</p>
+                <p class="cover-date">2025</p>
+            </div>
+        </section>
+        <div class="report-actions">
+            <a href="#" class="action-btn view-pdf">PDF로 보기</a>
+            <a href="#" class="action-btn download-pdf">PDF 다운로드</a>
+        </div>
+        <section class="expert-review-section">
+            <h2>전문가에게 최종 검토 요청하기</h2>
+            <p>AI가 분석한 리포트를 바탕으로 전문가가 직접 검토하여 공신력을 더합니다.</p>
+            <form class="review-form" action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">휴대폰 번호</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="requests">추가 요청사항 (선택)</label>
+                    <textarea id="requests" name="requests"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">검토 요청하기</button>
+            </form>
+        </section>
+        </main>
+
+    <footer class="landing-footer">
+        <p>© 2025 Code Green. All rights reserved.</p>
+        <div><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></div>
+    </footer>
+
+    <a href="#" id="scrollTopBtn" class="scroll-top-btn">TOP</a>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            let lastScrollTop = 0;
+            const header = document.querySelector('.landing-page-header');
+            // 헤더 스크롤 효과 및 드랍다운 닫기 스크립트
+            let scrollTimeout; // 스크롤 타임아웃을 저장할 변수
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                // ▼▼▼ 스크롤 시 드랍다운 닫기 (딜레이 추가) ▼▼▼
+                // 일단 기존에 설정된 타임아웃이 있다면 취소
+                clearTimeout(scrollTimeout);
+
+                // 0.5초 후에 드랍다운을 닫는 새로운 타임아웃 설정
+                scrollTimeout = setTimeout(() => {
+                    if (dropdownContent && dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                        dropdownBtn.classList.remove('active');
+                    }
+                }, 40); // 500ms = 0.5초
+
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                if (scrollTop > 50) {
+                    header.classList.add('header-solid-bg');
+                } else {
+                    header.classList.remove('header-solid-bg');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+
+            // 스크롤 애니메이션 스크립트
+            const introObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    } else {
+                        if (entry.boundingClientRect.top > 0) {
+                            entry.target.classList.remove('is-visible');
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            const introSection = document.querySelector('.intro-section');
+            if (introSection) {
+                introObserver.observe(introSection);
+            }
+
+            // ▼▼▼ 드랍다운 메뉴 클릭 제어 스크립트 (새로 추가) ▼▼▼
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // 이벤트 버블링 방지
+                    const isShown = dropdownContent.classList.toggle('show');
+                    dropdownBtn.classList.toggle('active', isShown); // 메뉴가 보일 때 버튼에 active 클래스 추가/제거
+                });
+            }
+
+            // 다른 곳을 클릭하면 드랍다운 메뉴가 닫히도록 설정
+            window.addEventListener('click', (event) => {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // 300px 이상 스크롤되면 버튼 보이기
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 부드럽게 스크롤
+                });
+            });
+             // ▼▼▼ [추가] 팝업 기능 스크립트 ▼▼▼
+            const expertConsultBtn = document.getElementById('expert-consult-btn');
+            const reportModal = document.getElementById('report-modal');
+            const modalCancelBtn = document.getElementById('modal-cancel-btn');
+
+            if (expertConsultBtn && reportModal) {
+                // 버튼 클릭 시 팝업 열기
+                expertConsultBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); // 링크의 기본 동작(페이지 이동) 막기
+                    reportModal.classList.add('show');
+                });
+
+                // '취소' 버튼 클릭 시 팝업 닫기
+                modalCancelBtn.addEventListener('click', () => {
+                    reportModal.classList.remove('show');
+                });
+
+                // 팝업 바깥의 어두운 영역 클릭 시 팝업 닫기
+                reportModal.addEventListener('click', (e) => {
+                    if (e.target === reportModal) {
+                        reportModal.classList.remove('show');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

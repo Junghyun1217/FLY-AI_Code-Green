@@ -1,0 +1,395 @@
+/* --- 기본 설정 --- */
+* { 
+    box-sizing: border-box; 
+}
+html { 
+    scroll-behavior: smooth; 
+}
+body {
+    font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- Code Green 로고 텍스트 스타일 --- */
+.logo-text {
+    text-decoration: none;
+}
+.c-letter, .o-letter, .d-letter, .e-letter {
+    font-family: 'Roboto Mono', Consolas, 'Cascadia Code', 'Source Code Pro', monospace;
+    font-weight: 700;
+    transition: color 0.5s ease;
+}
+.c-letter { color: #7f8c8d; }
+.o-letter { color: #95a5a6; }
+.d-letter { color: #aec6cc; }
+.e-letter { color: #c0d9e0; }
+.green-text {
+    color: #27ae60;
+    font-weight: 700;
+}
+.logo-text:hover .c-letter { color: #e74c3c; }
+.logo-text:hover .o-letter { color: #f39c12; }
+.logo-text:hover .d-letter { color: #f1c40f; }
+.logo-text:hover .e-letter { color: #2ecc71; }
+
+
+/* --- landing.html 페이지 스타일 --- */
+
+/* 랜딩 페이지 헤더 */
+/* --- 상단바 드랍다운 메뉴 --- */
+/* --- landing.html 페이지 스타일 --- */
+
+/* 랜딩 페이지 헤더 */
+/* 랜딩 페이지 헤더 */
+.landing-page-header {
+    background-color: rgba(20, 20, 20, 0.7);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+.landing-page-header.header-solid-bg {
+    background-color: rgba(20, 20, 20, 0.7);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.landing-page-header.header-hidden {
+    transform: translateY(-100%);
+}
+.landing-page-header .logo-text {
+    font-size: 2.0em;
+    color: white;
+}
+.landing-page-header .green-text {
+    color: #6edc86;
+}
+.landing-page-header .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+.landing-page-header .nav-links > a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* '기능' 드랍다운 버튼의 간격 */
+.landing-page-header .nav-links > .dropdown {
+    margin-left: 25px; /* 이 값을 조절하세요 */
+    position: relative;
+    display: inline-block;
+}
+.landing-page-header .nav-links a:hover {
+    color: #00bfff;
+}
+
+/* --- 상단바 드랍다운 메뉴 --- */
+/* --- 상단바 드랍다운 메뉴 (수정됨) --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 25px;
+}
+.dropdown-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0;
+    transition: color 0.3s ease;
+    padding-right: 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.dropdown-btn::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 65%;
+    margin-top: -3px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid white;
+    transition: transform 0.3s ease;
+}
+.dropdown-btn.active::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(40, 40, 40, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 12px;
+    margin-top: 15px;
+    left: 50%; /* 버튼 기준으로 가운데 정렬 */
+    transform: translateX(-40%); /* 정확한 중앙 정렬을 위한 트릭 */
+    padding: 5px; /* 박스 자체에 약간의 내부 여백을 줍니다 */
+   
+}
+
+.dropdown-content a {
+    color: #f0f0f0;
+    padding: 13px 10px; /* 내부 컨텐츠 여백 */
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 0.9em;
+    margin: 0; /* margin-left 초기화 */
+    margin-left: 0; 
+    border-radius: 8px; /* 각 항목에도 둥근 모서리를 줍니다 */
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-weight: 500;
+}
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(80, 80, 80, 0.7);
+    color: #ffffff;
+}
+/* '기능' 버튼에 마우스를 올렸을 때 색상 변경 */
+.dropdown-btn:hover {
+    color: #00bfff; /* 다른 링크와 동일한 호버 색상 적용 */
+}
+
+/* '기능' 버튼의 화살표도 함께 색상이 바뀌도록 추가 */
+.dropdown-btn:hover::after {
+    border-top-color: #00bfff;
+}
+
+/* 푸터 */
+.landing-footer {
+    background-color:  #F0F2F5;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 10px 200px;
+    border-top: 2px solid #dee2e6;
+}
+.landing-footer p {
+    margin: 8px 0;
+    font-size: 0.9em;
+}
+.landing-footer a {
+    color: #bdc3c7;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+/* --- Scroll to Top 버튼 (원래 코드) --- */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 45px;
+    right: 30px;
+    background-color: rgba(0, 0, 0, 0.6); /* 반투명 검정 배경 */
+    color: white;
+    width: 60px;  /* 크기 조정 */
+    height: 60px;
+    border: 2px solid white; /* 흰색 테두리 */
+    border-radius: 10px; /* 둥근 사각형 */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    z-index: 999;
+    
+    /* 텍스트 중앙 정렬 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+}
+.scroll-top-btn.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.scroll-top-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+/* ========================================
+   리포트 결과 페이지 전용 스타일
+   ======================================== */
+.report-result-page {
+    padding-top: 60px;
+    padding-bottom: 80px;
+    background-color: #F0F2F5;
+}
+
+.result-header {
+    text-align: center;
+    padding: 40px 20px 0 20px;
+}
+.result-header h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin: 0 0 10px 0;
+}
+.result-header p {
+    font-size: 1.05em;
+    color: #555;
+    margin: 0 0 30px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 새로운 리포트 커버 */
+.report-preview-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+.report-cover-new {
+    border: 1px solid #e0e0e0;
+    padding: 80px 40px;
+    text-align: center;
+}
+.cover-brand {
+    font-weight: 700;
+    color: #27ae60;
+    font-size: 1.3em;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.cover-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 3.5em;
+    color: #2c3e50;
+    font-weight: 700;
+    margin: 10px 0;
+}
+.cover-subtitle {
+    font-size: 1em;
+    color: #999;
+    letter-spacing: 3px;
+    margin: 0 0 60px 0;
+}
+.cover-company-name {
+    margin: 0;
+    font-size: 1.2em;
+}
+.cover-date {
+    margin: 10px 0 0 0;
+    font-size: 1.2em;
+    color: #7f8c8d;
+}
+
+/* PDF 버튼 */
+.report-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: -10px; /* 미리보기와 살짝 겹치도록 */
+    position: relative;
+    z-index: 2;
+}
+.action-btn {
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 50px; /* 둥근 버튼 */
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.view-pdf {
+    background-color: #fff;
+    color: #343a40;
+    border-color: #ddd;
+}
+.view-pdf:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+    transform: translateY(-2px);
+}
+.download-pdf {
+    background-color: #27ae60;
+    color: white;
+}
+.download-pdf:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+}
+
+/* 전문가 검토 요청 폼 */
+.expert-review-section {
+    max-width: 800px;
+    margin: 80px auto 0 auto;
+    background-color: #fff;
+    padding: 40px 50px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+.expert-review-section h2 {
+    font-size: 2em;
+    margin: 0 0 10px 0;
+}
+.expert-review-section p {
+    font-size: 1.1em;
+    color: #555;
+    margin: 0 auto 30px auto;
+    max-width: 450px;
+}
+.review-form {
+    text-align: left;
+}
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
+.form-group input, .form-group textarea {
+    width: 100%; padding: 12px 15px; border-radius: 8px;
+    border: 1px solid #ccc; font-size: 1em; font-family: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus {
+    outline: none; border-color: #27ae60;
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+}
+.form-group textarea { resize: vertical; min-height: 100px; }
+.submit-btn {
+    width: 100%; padding: 15px; margin-top: 10px; font-size: 1.2em; font-weight: 700;
+    color: white; background-color: #2c3e50; border: none;
+    border-radius: 8px; cursor: pointer; transition: background-color 0.3s, transform 0.2s;
+}
+.submit-btn:hover { background-color: #34495e; transform: translateY(-2px); }
+
+@media (max-width: 768px) {
+    .intro-content h1 { font-size: 2.5em; }
+}

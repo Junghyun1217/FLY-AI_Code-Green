@@ -1,0 +1,441 @@
+/* --- 기본 설정 및 공통 스타일 --- */
+* { 
+    box-sizing: border-box; 
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    font-family: 'Noto Sans KR', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- Code Green 로고 텍스트 스타일 --- */
+.logo-text {
+    text-decoration: none;
+}
+.c-letter, .o-letter, .d-letter, .e-letter {
+    font-family: 'Roboto Mono', Consolas, 'Cascadia Code', 'Source Code Pro', monospace;
+    font-weight: 700;
+    transition: color 0.5s ease;
+}
+.c-letter { color: #7f8c8d; }
+.o-letter { color: #95a5a6; }
+.d-letter { color: #aec6cc; }
+.e-letter { color: #c0d9e0; }
+.green-text {
+    color: #27ae60;
+    font-weight: 700;
+}
+.logo-text:hover .c-letter { color: #e74c3c; }
+.logo-text:hover .o-letter { color: #f39c12; }
+.logo-text:hover .d-letter { color: #f1c40f; }
+.logo-text:hover .e-letter { color: #2ecc71; }
+
+
+/* --- landing.html 페이지 스타일 --- */
+
+/* 랜딩 페이지 헤더 */
+/* --- 상단바 드랍다운 메뉴 --- */
+/* --- landing.html 페이지 스타일 --- */
+
+/* 랜딩 페이지 헤더 */
+/* 랜딩 페이지 헤더 */
+.landing-page-header {
+    background-color: rgba(20, 20, 20, 0.7);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+.landing-page-header.header-solid-bg {
+    background-color: rgba(20, 20, 20, 0.7);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+.landing-page-header.header-hidden {
+    transform: translateY(-100%);
+}
+.landing-page-header .logo-text {
+    font-size: 2.0em;
+    color: white;
+}
+.landing-page-header .green-text {
+    color: #6edc86;
+}
+.landing-page-header .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+.landing-page-header .nav-links > a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.2em;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* '기능' 드랍다운 버튼의 간격 */
+.landing-page-header .nav-links > .dropdown {
+    margin-left: 25px; /* 이 값을 조절하세요 */
+    position: relative;
+    display: inline-block;
+}
+.landing-page-header .nav-links a:hover {
+    color: #00bfff;
+}
+
+/* --- 상단바 드랍다운 메뉴 --- */
+/* --- 상단바 드랍다운 메뉴 (수정됨) --- */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: 25px;
+}
+.dropdown-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0;
+    transition: color 0.3s ease;
+    padding-right: 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+.dropdown-btn::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 65%;
+    margin-top: -3px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 6px solid white;
+    transition: transform 0.3s ease;
+}
+.dropdown-btn.active::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(40, 40, 40, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 12px;
+    margin-top: 15px;
+    left: 50%; /* 버튼 기준으로 가운데 정렬 */
+    transform: translateX(-40%); /* 정확한 중앙 정렬을 위한 트릭 */
+    padding: 5px; /* 박스 자체에 약간의 내부 여백을 줍니다 */
+   
+}
+
+.dropdown-content a {
+    color: #f0f0f0;
+    padding: 13px 10px; /* 내부 컨텐츠 여백 */
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 0.9em;
+    margin: 0; /* margin-left 초기화 */
+    margin-left: 0; 
+    border-radius: 8px; /* 각 항목에도 둥근 모서리를 줍니다 */
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-weight: 500;
+}
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(80, 80, 80, 0.7);
+    color: #ffffff;
+}
+/* '기능' 버튼에 마우스를 올렸을 때 색상 변경 */
+.dropdown-btn:hover {
+    color: #00bfff; /* 다른 링크와 동일한 호버 색상 적용 */
+}
+
+/* '기능' 버튼의 화살표도 함께 색상이 바뀌도록 추가 */
+.dropdown-btn:hover::after {
+    border-top-color: #00bfff;
+}
+
+/* --- 메인 콘텐츠 --- */
+.report-generator-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+.intro-text {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.intro-text h1 {
+    font-size: 3.0em;
+    margin: 50px 0 20px 0;
+}
+.intro-text p {
+    font-size: 1.4em;
+    color: #555;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.generator-container {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* 왼쪽: 업로드 패널 (수정) */
+.upload-panel {
+    flex: 1;
+}
+.upload-panel h3, .file-panel h3 {
+    font-size: 1.5em;
+    margin: 0 0 20px 0;
+    text-align: left;
+}
+
+/* 두개로 나뉜 업로드 영역 컨테이너 */
+.upload-split-container {
+    display: flex;
+    gap: 15px;
+}
+
+/* 작아진 드롭 영역 */
+.upload-panel .drop-area {
+    border: 3px dashed #ced4da;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50%; /* 너비를 절반으로 */
+    min-height: 248px; /* 최소 높이 조정 */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+.upload-panel .drop-area:hover, .upload-panel .drop-area.is-dragging {
+    border-color: #27ae60;
+    background-color: #f1fef6;
+}
+.upload-panel .drop-area-icon svg {
+    color: #27ae60;
+    margin-bottom: 15px;
+}
+.upload-panel .drop-area-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+/* 기존 찾아보기 버튼 숨김 */
+.browse-btn {
+    display: none;
+}
+
+/* 업로드 확인 체크리스트 */
+.upload-checklist {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+.check-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.check-item:first-child {
+    margin-bottom: 10px;
+}
+
+.check-icon {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ced4da;
+    border-radius: 50%;
+    margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.check-icon.checked {
+    background-color: #27ae60;
+    border-color: #27ae60;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* 오른쪽: 파일 목록 패널 */
+.file-panel {
+    flex: 1;
+}
+.file-list-container {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 16px;
+    min-height: 365px;
+    padding: 20px;
+    overflow-y: auto;
+}
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.file-placeholder {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #888;
+    font-size: 1.1em;
+}
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.file-icon {
+    color: #495057;
+}
+.file-name {
+    font-weight: 500;
+}
+.remove-btn {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #adb5bd;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.remove-btn:hover {
+    color: #e63946;
+}
+
+/* 리포트 생성 버튼 */
+.generate-report-btn {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(39, 174, 96, 0.3);
+    transition: all 0.3s ease;
+}
+.generate-report-btn:hover:not(:disabled) {
+    background-color: #229954;
+    transform: translateY(3px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5);
+}
+.generate-report-btn:disabled {
+    background-color: #ced4da;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+
+.landing-button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+.landing-button:hover {
+    background-color: #0056b3;
+}
+
+/* 푸터 */
+.landing-footer {
+    background-color: #f0f2f5;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 10px 200px;
+    border-top: 2px solid #dee2e6;
+}
+.landing-footer p {
+    margin: 8px 0;
+    font-size: 0.9em;
+}
+.landing-footer a {
+    color: #bdc3c7;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+
+/* 반응형 */
+@media (max-width: 992px) {
+    .visual-flow-container,
+    .feature-highlight-section .feature-container {
+        flex-direction: column;
+    }
+    .flow-arrow {
+        transform: rotate(90deg);
+        margin: 20px 0;
+    }
+}
+@media (max-width: 768px) {
+    .intro-text h1 { font-size: 2.2em; }
+}

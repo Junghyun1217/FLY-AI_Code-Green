@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Code Green</title>
+
+    
+    <link rel="stylesheet" href="about_us.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@400;700&family=Roboto+Mono:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <header class="landing-page-header">
+        <a href="landing.html" class="logo-text">
+            <span class="c-letter">C</span><span class="o-letter">o</span><span class="d-letter">d</span><span class="e-letter">e</span>
+            <span class="green-text"> Green</span>
+        </a>
+        <nav class="nav-links">
+            <div class="dropdown">
+                <button class="dropdown-btn">Service</button>
+                <div class="dropdown-content">
+                    <a href="landing.html#intro">AI 임팩트 리포트</a>
+                    <a href="landing.html#Hidden-Impact">Hidden 임팩트   발굴</a>
+                    <a href="landing.html#Social-Report">심층 소셜벤처 리포트</a>
+                </div>
+            </div>
+            <a href="about_us.html">About us</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+
+    <main>
+        <section class="about-page-container">
+            <section class="milestones-section">
+                <div class="milestones-container">
+                    <div class="title-wrap">
+                        <h2>The Value We Create</h2>
+                    </div>
+                    <div class="text-wrap">
+                        <p>우리의 코드는 직접 숲을 만들지 않습니다. 대신, 우리는 숲을 만드는 기업이 더 크게 성장하도록 돕습니다. Code Green은 기업의 숨겨진 ESG 가치를 데이터로 증명하는 '임팩트 보고서'를 통해, 그들의 선한 영향력이 더 큰 투자와 기회로 증폭되도록 만듭니다. 선한 기업의 성장은 곧 더 나은 사회를 의미하기에, 우리는 그 위대한 여정을 함께하는 기술 파트너입니다.</p>
+                    </div>
+                </div>
+            </section>
+             <div class="philosophy-section-new">
+                <h2 class="philosophy-title">Philosophy</h2>
+                <div class="philosophy-slider">
+                    <div class="slider-track-new">
+                        <div class="slide-new">
+                            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80" alt="Philosophy 1">
+                            <div class="slide-text">
+                                <h3>Our Mission</h3>
+                                <p>AI 기술을 활용하여 사회적 기업과 소셜벤처가 직면한 데이터 측정, 성과 보고의 어려움을 해결합니다. 우리는 모든 긍정적 변화가 명확하게 측정되고, 그 가치를 인정받을 수 있어야 한다고 믿습니다.</p>
+                            </div>
+                        </div>
+                        <div class="slide-new">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80" alt="Philosophy 2">
+                            <div class="slide-text">
+                                <h3>Our Vision</h3>
+                                <p>단순한 리포팅 도구를 넘어, 사회적 가치를 창출하는 모든 조직이 성장하고, 투자받고, 협력할 수 있는 데이터 기반의 생태계를 조성하는 것을 목표로 합니다.</p>
+                            </div>
+                        </div>
+                        <div class="slide-new">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80" alt="Philosophy 3">
+                            <div class="slide-text">
+                                <h3>Our Values</h3>
+                                <p><strong>투명성, 혁신, 협력.</strong> 이 세 가지 가치를 기반으로 생태계의 모든 구성원과 함께 동반 성장을 추구합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-dots-new"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <p>&copy; 2025 Code Green. All rights reserved.</p>
+        <div><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></div>
+    </footer>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            // 헤더 스크롤 효과 스크립트
+            let lastScrollTop = 0;
+            const header = document.querySelector('.landing-page-header');
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    if (dropdownContent && dropdownContent.classList.contains('show')) {
+                        dropdownContent.classList.remove('show');
+                        dropdownBtn.classList.remove('active');
+                    }
+                }, 40);
+
+                if (scrollTop > lastScrollTop && scrollTop > 50) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+                if (scrollTop > 50) {
+                    header.classList.add('header-solid-bg');
+                } else {
+                    header.classList.remove('header-solid-bg');
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            }, false);
+
+            // 드랍다운 메뉴 클릭 제어 스크립트
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const isShown = dropdownContent.classList.toggle('show');
+                    dropdownBtn.classList.toggle('active', isShown);
+                });
+            }
+
+            window.addEventListener('click', (event) => {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+            
+            // --- Philosophy 슬라이더 스크립트 (간격 계산 수정) ---
+            const trackNew = document.querySelector('.slider-track-new');
+            if (trackNew) {
+                const slidesNew = Array.from(trackNew.children);
+                const dotsNavNew = document.querySelector('.slider-dots-new');
+                let currentSlideIndex = 0;
+            
+                if (slidesNew.length > 0) {
+                    // 점(dot) 생성
+                    slidesNew.forEach((_, index) => {
+                        const dot = document.createElement('button');
+                        dot.classList.add('dot-new');
+                        if (index === 0) dot.classList.add('active');
+                        dotsNavNew.appendChild(dot);
+                    });
+                    const dotsNew = Array.from(dotsNavNew.children);
+                
+                    // 슬라이드 이동 함수 (수정)
+                    const moveToSlideNew = (targetIndex) => {
+                        const slideWidth = slidesNew[0].offsetWidth;
+                        const gap = parseInt(getComputedStyle(trackNew).gap) || 0;
+                        const amountToMove = targetIndex * (slideWidth + gap);
+
+                        trackNew.style.transform = `translateX(-${amountToMove}px)`;
+                        currentSlideIndex = targetIndex;
+                    
+                        dotsNew.forEach(dot => dot.classList.remove('active'));
+                        dotsNew[targetIndex].classList.add('active');
+                    }
+                
+                    // 점(dot) 클릭 이벤트
+                    dotsNavNew.addEventListener('click', e => {
+                        const targetDot = e.target.closest('button.dot-new');
+                        if (!targetDot) return;
+                        const targetIndex = dotsNew.findIndex(dot => dot === targetDot);
+                        moveToSlideNew(targetIndex);
+                    });
+                
+                    // 창 크기 변경 시 위치 재조정
+                    window.addEventListener('resize', () => {
+                        moveToSlideNew(currentSlideIndex);
+                    });
+                
+                    // 자동 슬라이드
+                    setInterval(() => {
+                        const nextSlideIndex = (currentSlideIndex + 1) % slidesNew.length;
+                        moveToSlideNew(nextSlideIndex);
+                    }, 5000);
+                }
+            }
+
+
+            // ▼▼▼ [수정된 부분] 스크롤 애니메이션 스크립트 ▼▼▼
+            const milestonesSection = document.querySelector('.milestones-section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // is-visible 클래스를 추가하여 CSS 애니메이션을 실행
+                        entry.target.classList.add('is-visible');
+                        // is-dark 클래스를 추가하여 배경/텍스트 색상 변경
+                        entry.target.classList.add('is-dark');
+                    } else {
+                        // ✨ 수정: 위로 스크롤해서 화면 밖으로 나갈 때만 원래대로 돌아가도록 변경
+                        if (entry.boundingClientRect.top < 0) {
+                            entry.target.classList.remove('is-visible');
+                            entry.target.classList.remove('is-dark');
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5 // 섹션이 50% 보일 때 효과 적용
+            });
+
+            if (milestonesSection) {
+                observer.observe(milestonesSection);
+            }
+            // ▲▲▲ [수정된 부분] 끝 ▲▲▲
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // 300px 이상 스크롤되면 버튼 보이기
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 부드럽게 스크롤
+                });
+            });
+        });
+    </script>
+    <a href="#" id="scrollTopBtn" class="scroll-top-btn">TOP</a>
+</body>
+
+</html>
