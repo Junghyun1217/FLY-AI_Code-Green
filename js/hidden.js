@@ -9,7 +9,7 @@ async function loadAndDisplayServerFiles() {
     tableBody.innerHTML = '<tr><td colspan="4">목록을 불러오는 중...</td></tr>';
 
     try {
-        const response = await fetch('/files'); // 백엔드 API 호출
+        const response = await fetch('/api/files'); // ◀️ 수정 1: '/api' 추가
         if (!response.ok) throw new Error('서버에서 파일 목록을 가져오는 데 실패했습니다.');
         
         const data = await response.json();
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
             // /upload API 호출
            // 2. fetch를 사용해 백엔드 서버의 전체 주소로 파일들 전송
-            const response = await fetch('http://127.0.0.1:8000/upload', {
+            const response = await fetch('/api/upload', { // ◀️ 수정 2: 주소를 '/api/upload'로 변경
                 method: 'POST',
                 body: formData,
             });

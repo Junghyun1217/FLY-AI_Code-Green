@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // 3초마다 상태를 체크하는 '폴링(Polling)'을 시작합니다.
             const pollingInterval = setInterval(async () => {
                 try {
-                    // 백엔드 서버의 전체 주소로 직접 상태 확인 요청을 보냅니다.
-                    const response = await fetch(`http://127.0.0.1:8000/status/${jobId}`);
+                    // 백엔드 서버의 '/api' 경로로 상태 확인 요청을 보냅니다.
+                    const response = await fetch(`/api/status/${jobId}`); // ◀️ 여기를 수정했습니다.
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
