@@ -21,7 +21,7 @@ jobs:
 
     # 2. FTP(FileZilla 방식)로 서버에 파일을 업로드하는 단계
     - name: SFTP Deploy
-      uses: wlixcc/SFTP-Deploy-Action@v1.2.9
+      uses: wlixcc/SFTP-Deploy-Action@v1
       with:
         # FTP 서버 주소 (FileZilla에 입력하던 주소)
         server: codegreen.ai.kr
