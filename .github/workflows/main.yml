@@ -1,0 +1,33 @@
+# 워크플로우의 이름
+name: Deploy to Server with FTP
+
+# 언제 이 로봇을 동작시킬 것인가?
+# main 브랜치에 코드가 push(업로드)될 때마다!
+on:
+  push:
+    branches: [ main ]
+
+# 어떤 작업을 할 것인가?
+jobs:
+  deploy:
+    # 어떤 환경에서 실행할 것인가? (그냥 두면 됨)
+    runs-on: ubuntu-latest
+
+    # 작업 단계들
+    steps:
+    # 1. 깃허브에 올라온 최신 코드를 내려받는 단계
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # 2. FTP(FileZilla 방식)로 서버에 파일을 업로드하는 단계
+    - name: FTP Deploy
+      uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      with:
+        # FTP 서버 주소 (FileZilla에 입력하던 주소)
+        server: codegreen.ai.kr
+        # FTP 아이디
+        username: frontend
+        # FTP 비밀번호
+        password: ${{ secrets.FTP_PASSWORD }}
+        # 서버의 어떤 폴더에 업로드할지 (예: /var/www/html)
+        server-dir: /uploads
