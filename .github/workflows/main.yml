@@ -21,14 +21,12 @@ jobs:
 
     # 2. FTP(FileZilla 방식)로 서버에 파일을 업로드하는 단계
     - name: SFTP Deploy
-      uses: wlixcc/SFTP-Deploy-Action@v1
+      uses: appleboy/sftp-action@master
       with:
-        # FTP 서버 주소 (FileZilla에 입력하던 주소)
+        host: codegreen.ai.kr
         server: codegreen.ai.kr
-        # FTP 아이디
+        port: 22
         username: frontend
-        # FTP 비밀번호
         password: ${{ secrets.FTP_PASSWORD }}
-        # 서버의 어떤 폴더에 업로드할지 (예: /var/www/html)
-        server-dir: /uploads/
+        target: /uploads/
         disable_key_check: true
