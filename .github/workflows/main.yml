@@ -30,4 +30,4 @@ jobs:
         # FTP 비밀번호
         password: ${{ secrets.FTP_PASSWORD }}
         # 서버의 어떤 폴더에 업로드할지 (예: /var/www/html)
-        server-dir: /uploads
+        server-dir: /uploads/
