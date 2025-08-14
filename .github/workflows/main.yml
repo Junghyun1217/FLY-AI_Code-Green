@@ -31,3 +31,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         # 서버의 어떤 폴더에 업로드할지 (예: /var/www/html)
         server-dir: /uploads/
+        disable_key_check: true
