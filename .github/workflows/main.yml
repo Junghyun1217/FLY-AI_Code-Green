@@ -1,7 +1,5 @@
-# 워크플로우의 이름
-name: Deploy to Server
+name: Deploy via SFTP
 
-# master 브랜치에 코드가 push(업로드)될 때마다 동작
 on:
   push:
     branches: [ master ]
@@ -13,19 +11,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to Server via SFTP
-        # uses 부분의 버전 번호를 @4로 수정했습니다.
-        uses: SamKirkland/FTP-Deploy-Action@4
-        with:
-          # 서버 주소
-          server: codegreen.ai.kr
-          # 서버 아이디
-          username: frontend
-          # 서버 비밀번호 (깃허브 Secrets에 저장된 값)
-          password: ${{ secrets.FTP_PASSWORD }}
-          # SFTP 프로토콜 사용
-          protocol: sftp 
-          # SFTP 기본 포트
-          port: 22
-          # 최종 목적지 폴더
-          server-dir: /uploads/
+      - name: Install lftp
+        run: sudo apt-get -y install lftp
+
+      - name: Deploy to Server
+        env:
+          FTP_SERVER: codegreen.ai.kr
+          FTP_USERNAME: frontend
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          lftp -c "set sftp:auto-confirm yes; open -u $FTP_USERNAME,$FTP_PASSWORD sftp://$FTP_SERVER; mirror -Rev ./ /uploads/"
