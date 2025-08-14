@@ -130,7 +130,11 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.innerHTML = 'AI 분석 요청 중...';
         
             // /upload API 호출
-            const response = await fetch('/upload', { method: 'POST', body: formData });
+           // 2. fetch를 사용해 백엔드 서버의 전체 주소로 파일들 전송
+            const response = await fetch('http://127.0.0.1:8000/upload', {
+                method: 'POST',
+                body: formData,
+            });
             if (!response.ok) throw new Error('파일 업로드 실패');
         
             const data = await response.json();
