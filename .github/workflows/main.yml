@@ -1,32 +1,30 @@
 # 워크플로우의 이름
-name: Deploy to Server with FTP
+name: Deploy to Server
 
-# 언제 이 로봇을 동작시킬 것인가?
-# main 브랜치에 코드가 push(업로드)될 때마다!
+# master 브랜치에 코드가 push(업로드)될 때마다 동작
 on:
   push:
     branches: [ master ]
 
-# 어떤 작업을 할 것인가?
 jobs:
   deploy:
-    # 어떤 환경에서 실행할 것인가? (그냥 두면 됨)
     runs-on: ubuntu-latest
-
-    # 작업 단계들
     steps:
-    # 1. 깃허브에 올라온 최신 코드를 내려받는 단계
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # 2. FTP(FileZilla 방식)로 서버에 파일을 업로드하는 단계
-    - name: SFTP Deploy
-      uses: appleboy/sftp-action@master
-      with:
-        host: codegreen.ai.kr
-        server: codegreen.ai.kr
-        port: 22
-        username: frontend
-        password: ${{ secrets.FTP_PASSWORD }}
-        target: /uploads/
-        disable_key_check: true
+      - name: Deploy to Server via SFTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.4
+        with:
+          # 서버 주소
+          server: codegreen.ai.kr
+          # 서버 아이디
+          username: frontend
+          # 서버 비밀번호 (깃허브 Secrets에 저장된 값)
+          password: ${{ secrets.FTP_PASSWORD }}
+          # SFTP 프로토콜 사용
+          protocol: sftp 
+          # SFTP 기본 포트
+          port: 22
+          # 최종 목적지 폴더 (사용자님께서 지정하신 경로)
+          server-dir: /uploads/
