@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const data = await response.json();
                 
                     // 서버가 "complete" 응답을 보내면,
-                    if (data.status === 'complete') {
+                    if (data.status === 'completed') {
                         clearInterval(pollingInterval); // 확인 작업을 멈추고
                         // 최종 결과 페이지로 이동합니다.
                         window.location.href = `hd_report_result.html?job_id=${jobId}`;
