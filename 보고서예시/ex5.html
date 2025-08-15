@@ -69,55 +69,64 @@
         /* ▼▼▼ [수정] KPI Dashboard 스타일 ▼▼▼ */
         .kpi-card {
             background-color: #ffffff;
-            border-radius: 12px; /* 모서리를 더 둥글게 */
+            border-radius: 12px;
             padding: 20px;
-            text-align: left; /* 텍스트를 왼쪽 정렬로 변경 */
-            border: 1px solid #e9ecef; /* 옅은 테두리 추가 */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* 부드러운 그림자 효과 */
-            transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* 가로 배치를 위해 flex 사용 */
+            flex-direction: row; /* 가로 방향으로 설정 */
+            align-items: center; /* 세로 중앙 정렬 */
+            gap: 15px; /* 아이콘과 텍스트 사이 간격 */
         }
 
         .kpi-card:hover {
-            transform: translateY(-5px); /* 마우스 올리면 살짝 위로 이동 */
+            transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
         .kpi-card h4 {
-            font-size: 11pt; /* 글자 크기 조정 */
-            color: #6c757d; /* 제목 색상을 부드럽게 */
-            margin-bottom: 20px; /* 값과의 간격 확보 */
+            font-size: 10pt; /* 제목 글자 크기를 살짝 줄여 균형 맞춤 */
+            color: #6c757d;
             font-weight: 700;
             line-height: 1.4;
-            min-height: 2.8em; 
+            margin: 0 0 5px 0; /* 상하 여백 재조정 */
+            min-height: 0; /* 세로 길이를 유발하던 속성 제거 */
         }
-
+        
         .kpi-card .value-wrapper {
-            text-align: right; /* 숫자 관련 부분만 오른쪽 정렬 */
+            text-align: left;
+            display: flex; /* 값과 단위를 나란히 배치 */
+            align-items: baseline; /* 텍스트 베이스라인 정렬 */
         }
 
         .kpi-card .value {
-            font-size: 26pt; /* 값을 더 강조 */
+            font-size: 22pt; /* 공간에 맞춰 크기 살짝 조정 */
             font-weight: 700;
-            color: #343a40; /* 더 진한 색상으로 변경 */
-            margin-right: 5px; /* 단위와의 간격 */
+            color: #343a40;
+            margin-right: 5px;
         }
 
         .kpi-card .unit {
-            font-size: 11pt; /* 단위 글자 크기 조정 */
+            font-size: 10pt; /* 공간에 맞춰 크기 살짝 조정 */
             color: #27ae60;
             font-weight: 500;
         }
         /* ▲▲▲ [수정] KPI Dashboard 스타일 ▲▲▲ */
 
-        /* ▼▼▼ [추가] 아이콘 스타일 ▼▼▼ */
+        /* ▼▼▼ [수정] 아이콘 및 콘텐츠 영역 스타일 ▼▼▼ */
         .kpi-icon {
-            font-size: 24px;
+            font-size: 28px; /* 아이콘 크기 조정 */
             color: #27ae60;
-            margin-bottom: 15px;
             opacity: 0.8;
+            flex-shrink: 0; /* 아이콘이 찌그러지지 않도록 설정 */
+            margin: 0; /* 기존 여백 제거 */
+        }
+
+        .kpi-content {
+            display: flex;
+            flex-direction: column; /* 제목과 값을 세로로 배치 */
+            flex-grow: 1; /* 남은 공간을 모두 차지 */
         }
     </style>
 </head>
@@ -193,39 +202,39 @@
             <h2>핵심 효율성 지표</h2>
             <div class="kpi-grid">
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">🍽️</div>
+                    <div class="kpi-icon">🍽️</div>
+                    <div class="kpi-content">
                         <h4>총 플랫폼을 통한 제공 식사 건수</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">50,000</span><span class="unit">건/월</span>
+                        <div class="value-wrapper">
+                            <span class="value">50,000</span><span class="unit">건/월</span>
+                        </div>
                     </div>
                 </div>
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">🧒</div>
+                    <div class="kpi-icon">🧒</div>
+                    <div class="kpi-content">
                         <h4>총 고유 이용 아동 수</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">10,000</span><span class="unit">명</span>
+                        <div class="value-wrapper">
+                            <span class="value">10,000</span><span class="unit">명</span>
+                        </div>
                     </div>
                 </div>
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">🔁</div>
+                    <div class="kpi-icon">🔁</div>
+                    <div class="kpi-content">
                         <h4>총 아동 1인당 월 평균 식사 제공 횟수</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">15</span><span class="unit">회/월</span>
+                        <div class="value-wrapper">
+                            <span class="value">15</span><span class="unit">회/월</span>
+                        </div>
                     </div>
                 </div>
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">📈</div>
+                    <div class="kpi-icon">📈</div>
+                    <div class="kpi-content">
                         <h4>총 플랫폼 기여로 인한 가맹점 매출 증가율</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">20</span><span class="unit">%</span>
+                        <div class="value-wrapper">
+                            <span class="value">20</span><span class="unit">%</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -235,39 +244,39 @@
             <h2>핵심 효율성 지표 (매출 1억당)</h2>
              <div class="kpi-grid">
                  <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">💰</div>
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-content">
                         <h4>매출 1억당 플랫폼을 통한 제공 식사 건수</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">14,855</span><span class="unit">건</span>
+                        <div class="value-wrapper">
+                            <span class="value">14,855</span><span class="unit">건</span>
+                        </div>
                     </div>
                 </div>
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">👨‍👩‍👧‍👦</div>
+                    <div class="kpi-icon">👨‍👩‍👧‍👦</div>
+                    <div class="kpi-content">
                         <h4>매출 1억당 고유 이용 아동 수</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">2,971</span><span class="unit">명</span>
+                        <div class="value-wrapper">
+                            <span class="value">2,971</span><span class="unit">명</span>
+                        </div>
                     </div>
                 </div>
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">🗓️</div>
+                    <div class="kpi-icon">🗓️</div>
+                    <div class="kpi-content">
                         <h4>매출 1억당 아동 1인당 월 평균 식사 제공 횟수</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">4.46</span><span class="unit">회</span>
+                        <div class="value-wrapper">
+                            <span class="value">4.46</span><span class="unit">회</span>
+                        </div>
                     </div>
                 </div>
                 <div class="kpi-card">
-                    <div>
-                        <div class="kpi-icon">💹</div>
+                    <div class="kpi-icon">💹</div>
+                    <div class="kpi-content">
                         <h4>매출 1억당 플랫폼 기여로 인한 가맹점 매출 증가율</h4>
-                    </div>
-                    <div class="value-wrapper">
-                        <span class="value">5.94</span><span class="unit">%</span>
+                        <div class="value-wrapper">
+                            <span class="value">5.94</span><span class="unit">%</span>
+                        </div>
                     </div>
                 </div>
             </div>

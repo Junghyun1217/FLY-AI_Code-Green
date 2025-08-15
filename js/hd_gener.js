@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
     // ================================================================
     // 1. 분석 상태 확인 (폴링) 기능
     // ================================================================
@@ -8,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // URL 주소에서 'job_id' 값을 가져옵니다.
         const urlParams = new URLSearchParams(window.location.search);
         const jobId = urlParams.get('job_id');
-
         if (!jobId) {
             // job_id가 없으면 에러 처리
             generatingContainer.innerHTML = `
@@ -20,20 +18,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const pollingInterval = setInterval(async () => {
                 try {
                     // 백엔드 서버의 '/api' 경로로 상태 확인 요청을 보냅니다.
-                    const response = await fetch(`/api/status/${jobId}`); // ◀️ 여기를 수정했습니다.
+                    const response = await fetch(`/api/status/${jobId}`);
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     const data = await response.json();
-                
-                    // 서버가 "complete" 응답을 보내면,
+                    // 서버가 "completed" 응답을 보내면,
                     if (data.status === 'completed') {
                         clearInterval(pollingInterval); // 확인 작업을 멈추고
                         // 최종 결과 페이지로 이동합니다.
                         window.location.href = `hd_report_result.html?job_id=${jobId}`;
+                    } else if (data.status === 'failed') {
+                        // 실패 응답을 받으면 에러 메시지를 표시
+                        clearInterval(pollingInterval);
+                        generatingContainer.innerHTML = `
+                            <h1>리포트 생성에 실패했습니다.</h1>
+                            <p>오류가 발생했습니다: ${data.error || '알 수 없는 오류'}</p>
+                        `;
                     }
-                    // "processing" 등 다른 응답이면, 아무것도 하지 않고 3초 뒤에 다시 물어봅니다.
-
+                    // "in_progress" 등 다른 응답이면, 아무것도 하지 않고 3초 뒤에 다시 물어봅니다.
                 } catch (error) {
                     console.error("상태 확인 중 에러:", error);
                     clearInterval(pollingInterval); // 에러 발생 시 확인 작업을 멈추고
@@ -46,33 +49,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000); // 3초 간격
         }
     }
-
     // ================================================================
     // 2. 헤더 및 드롭다운 메뉴 기능 (기존 코드 유지)
     // ================================================================
     const dropdownBtn = document.querySelector('.dropdown-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
     const header = document.querySelector('.landing-page-header');
-    
     let lastScrollTop = 0;
-    let scrollTimeout; 
+    let scrollTimeout;
     window.addEventListener('scroll', function() {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
             if (dropdownContent && dropdownContent.classList.contains('show')) {
                 dropdownContent.classList.remove('show');
                 dropdownBtn.classList.remove('active');
             }
-        }, 40); 
-        
+        }, 40);
         if (scrollTop > lastScrollTop && scrollTop > 50) {
             header.classList.add('header-hidden');
         } else {
             header.classList.remove('header-hidden');
         }
-        
         if (scrollTop > 50) {
             header.classList.add('header-solid-bg');
         } else {
@@ -80,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, false);
-    
     if (dropdownBtn) {
         dropdownBtn.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -88,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdownBtn.classList.toggle('active', isShown);
         });
     }
-
     window.addEventListener('click', (event) => {
         if (dropdownContent && dropdownContent.classList.contains('show')) {
             dropdownContent.classList.remove('show');
