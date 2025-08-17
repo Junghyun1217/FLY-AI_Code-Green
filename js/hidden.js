@@ -151,4 +151,40 @@ document.addEventListener('DOMContentLoaded', () => {
             generateBtn.innerHTML = '✨ Hidden 임팩트 발굴하기';
         }
     });
+           // ▼▼▼ 드랍다운 메뉴 클릭 제어 스크립트 (새로 추가) ▼▼▼
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            const dropdownContent = document.querySelector('.dropdown-content');
+
+            if (dropdownBtn) {
+                dropdownBtn.addEventListener('click', (event) => {
+                    event.stopPropagation(); // 이벤트 버블링 방지
+                    const isShown = dropdownContent.classList.toggle('show');
+                    dropdownBtn.classList.toggle('active', isShown); // 메뉴가 보일 때 버튼에 active 클래스 추가/제거
+                });
+            }
+
+            // 다른 곳을 클릭하면 드랍다운 메뉴가 닫히도록 설정
+            window.addEventListener('click', (event) => {
+                if (dropdownContent && dropdownContent.classList.contains('show')) {
+                    dropdownContent.classList.remove('show');
+                    dropdownBtn.classList.remove('active');
+                }
+            });
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // 300px 이상 스크롤되면 버튼 보이기
+                    scrollTopBtn.classList.add('show');
+                } else {
+                    scrollTopBtn.classList.remove('show');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' // 부드럽게 스크롤
+                });
+            });
 });
