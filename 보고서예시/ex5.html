@@ -2,104 +2,162 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Code Green AI Impact Report - 에어키친</title>
+    <title>Impact Report - 에어키친</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&family=Playfair+Display:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background-color: #f0f2f5; color: #333; }
-        .page {
-            width: 210mm; min-height: 297mm; padding: 25mm; margin: 20mm auto;
-            background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            page-break-after: always; box-sizing: border-box; position: relative;
-            display: flex; flex-direction: column;
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
         }
-        h1, h2, h3, h4 { font-family: 'Roboto', sans-serif; font-weight: 700; margin: 0; }
-        p { line-height: 1.8; font-size: 10pt; white-space: pre-wrap; color: #555; margin-top: 0; }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm;
+            margin: 20mm auto;
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            position: relative;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin: 0;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 10pt;
+            color: #555;
+        }
 
-        /* Cover Page */
-        .cover-page { justify-content: center; align-items: center; text-align: center; }
-        .cover-page .logo-text { font-size: 36pt; color: #27ae60; margin-bottom: 20px; }
-        .cover-page h1 { font-size: 52pt; color: #34495e; margin-bottom: 10px; }
-        .cover-page .company-name { font-size: 28pt; color: #555; }
-        .cover-page .report-date { font-size: 14pt; color: #777; margin-top: 40px; }
+        /* --- 표지 스타일 --- */
+        .cover-page {
+            padding: 0;
+            justify-content: flex-start;
+            align-items: flex-start;
+            background: url('http://googleusercontent.com/file_content/3') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+        }
+        .cover-text {
+            padding: 60px;
+            margin-top: 120px;
+            text-align: left;
+            line-height: 1.3;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .cover-text .line1 { font-size: 2rem; letter-spacing: 4px; }
+        .cover-text .line2 { font-size: 4.2rem; font-weight: 300; letter-spacing: 1px; }
+        .cover-text .line3 { font-size: 3rem; font-weight: 200; margin-top: 8px; }
+        .cover-text .line4 { font-size: 1.8rem; font-weight: 300; margin-top: 20px; }
 
-        /* Header & Footer */
-        .page-header { border-bottom: 2px solid #27ae60; padding-bottom: 10px; margin-bottom: 30px; }
-        .page-header h1 { font-size: 22pt; color: #27ae60; }
-        .page-footer { margin-top: auto; text-align: center; font-size: 9pt; color: #aaa; padding-top: 20px; border-top: 1px solid #eee; }
+        /* --- 페이지 헤더 및 푸터 --- */
+        .page-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 24pt;
+            color: #0d3d56;
+            text-align: center;
+            border-bottom: 2px solid #0d3d56;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        .page-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 9pt;
+            color: #aaa;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
 
-        /* Content Styles */
-        .section { margin-bottom: 25px; }
-        .section h2 { font-size: 16pt; color: #2c3e50; margin-bottom: 15px; }
-        .section h3 { font-size: 13pt; color: #34495e; margin: 20px 0 10px 0; }
+        /* --- 섹션 공통 스타일 --- */
+        .section { margin-bottom: 35px; }
+        .section-title {
+            font-size: 16pt;
+            color: #0d3d56;
+            margin-bottom: 20px;
+            border-left: 4px solid #c5a47e;
+            padding-left: 15px;
+        }
+        .section h3 {
+            font-size: 13pt;
+            color: #34495e;
+            margin: 20px 0 10px 0;
+        }
+
+        /* --- 콘텐츠 카드 (심층분석, KPI 등) --- */
+        .card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            background-color: #f8f9fa;
+        }
         
-        /* Grid Layout */
-        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        /* --- 그리드 레이아웃 --- */
+        .grid-container-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-container-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 
-        /* SDG Card */
-        .sdg-card { display: flex; align-items: flex-start; gap: 15px; }
-        .sdg-icon { width: 60px; height: 60px; flex-shrink: 0; }
-        .sdg-text h4 { font-size: 11pt; color: #27ae60; margin-bottom: 5px; }
+        /* --- SDG 카드 --- */
+        .sdg-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .sdg-icon { width: 50px; height: 50px; flex-shrink: 0; }
+        .sdg-text h4 { font-size: 11pt; color: #0d3d56; margin-bottom: 5px; }
         .sdg-text p { font-size: 9pt; margin: 0; }
-        .sdg-sub-list { list-style: none; padding-left: 0; }
+        .sdg-sub-list { list-style: none; padding-left: 0; margin-top: 15px; }
         .sdg-sub-list li { background-color: #f8f9fa; padding: 10px; border-radius: 4px; margin-bottom: 8px; font-size: 9pt; }
 
-        /* Info Box (AI 해설, 비유 등) */
+        /* --- 인포 박스 (AI 해설) --- */
         .info-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #27ae60;
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
             padding: 15px 20px;
             border-radius: 4px;
             margin-top: 10px;
         }
-        .info-box p { font-size: 10pt; color: #2c3e50; margin: 0; }
-        .info-box strong { display: block; margin-bottom: 5px; font-size: 11pt; }
+        .info-box p { font-size: 10pt; color: #004085; margin: 0; }
+        .info-box strong { color: #004085; }
 
-        /* ▼▼▼ [수정] .content-box는 기존 .kpi-card 스타일 적용 ▼▼▼ */
-        .content-box {
-            background-color: #f8f9fa; /* 기존 kpi-card 배경색 */
-            border-radius: 8px; /* 기존 kpi-card 모서리 둥글기 */
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-        .content-box h2 {
-            font-size: 14pt;
-            margin-bottom: 15px;
-        }
-
-        /* ▼▼▼ [수정] .kpi-card는 기존 .content-box 스타일 및 정렬 속성 적용 ▼▼▼ */
+        /* --- KPI 카드 --- */
         .kpi-card {
-            background-color: #fff; /* 기존 content-box 배경색 */
-            border: 1px solid #e9ecef; /* 기존 content-box 테두리 */
-            border-radius: 12px; /* 기존 content-box 모서리 둥글기 */
+            background-color: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.07); /* 기존 content-box 그림자 */
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            height: 100%;
         }
-        
         .kpi-card h4 {
+            font-family: 'Noto Sans KR', sans-serif;
             font-size: 10pt;
             color: #555;
-            margin-bottom: 15px; /* 하단 숫자와의 간격 조정 */
+            margin-bottom: 15px;
             font-weight: 500;
         }
         .kpi-card .value {
+            font-family: 'Poppins', sans-serif;
             font-size: 24pt;
             font-weight: 700;
-            color: #2c3e50;
+            color: #0d3d56;
         }
         .kpi-card .unit {
             font-size: 9pt;
             color: #777;
             display: block;
         }
-        
-        /* 변화량 그래프 */
+
+        /* --- 변화량 그래프 --- */
         .chart-container {
             border: 1px solid #e0e0e0;
             border-radius: 8px;
@@ -113,225 +171,194 @@
         .legend-color { width: 15px; height: 15px; border-radius: 3px; }
         .chart-area {
             display: flex; justify-content: space-around; align-items: flex-end;
-            height: 250px; padding: 10px 0; position: relative;
+            height: 250px; padding: 10px 0;
         }
-        .bar-group { width: 25%; display: flex; justify-content: center; align-items: flex-end; gap: 10px; text-align: center; height: 100%; position: relative; }
-        .bar { width: 35px; background-color: #ccc; border-radius: 4px 4px 0 0; position: relative; transition: height 0.5s ease-out; }
-        .bar-sales { background-color: #3498db; }
-        .bar-plastic { background-color: #27ae60; }
+        .bar-group { width: 25%; text-align: center; position: relative; display: flex; justify-content: center; align-items: flex-end; gap: 10px; }
+        .bar { width: 35px; border-radius: 4px 4px 0 0; position: relative; }
+        .bar-sales { background: linear-gradient(to top, #0d3d56, #1a5f7a); }
+        .bar-plastic { background: linear-gradient(to top, #c5a47e, #e3c194); }
         .bar-label { position: absolute; bottom: -25px; width: 100%; left: 0; font-size: 10pt; font-weight: 500; color: #555;}
         .bar-value { position: absolute; top: -20px; width: 100%; left: 0; font-size: 9pt; font-weight: 700; color: #333; }
     </style>
 </head>
 <body>
 
-    <div class="page cover-page">
-        <div class="logo-text">Code Green</div>
-        <h1>IMPACT REPORT</h1>
-        <p class="company-name">에어키친</p>
-        <p class="report-date">2025년 8월 15일</p>
+<!-- 표지 페이지 -->
+<div class="page cover-page">
+    <div class="cover-text">
+        <div class="line1">Code Green</div>
+        <div class="line2">Impact Report</div>
+        <div class="line3">2025</div>
+        <div class="line4">에어키친</div>
     </div>
+</div>
 
-    <div class="page">
-        <div class="page-header">
-            <h1>기업 분석 및 SDGs 연계</h1>
-        </div>
-        <div class="section">
-            <h2>기업 소개</h2>
-            <p>에어키친은 하노이 지역 소상공인의 낮은 매출 및 브랜딩 한계와 배달·포장 과정에서 발생하는 음식물 쓰레기 및 일회용 플라스틱 폐기물 증가 문제를 해결하기 위해 공유(센트럴) 키친과 온라인 플랫폼을 통해 메뉴 개발·브랜딩·원재료 유통을 지원하고 저수수료 판매 채널과 친환경(종이·생분해성) 포장 대체를 제공합니다.</p>
-        </div>
-        <div class="section">
-            <h2>SDGs 연계</h2>
-            <h3>주요 목표</h3>
-            <div class="grid-container">
-                <div class="sdg-card">
-                    <img src="https://placehold.co/60x60/C5192D/FFFFFF?text=SDG8" alt="SDG 8" class="sdg-icon">
-                    <div class="sdg-text">
-                        <h4>SDG 8: 양질의 일자리와 경제 성장</h4>
-                        <p>소상공인 매출 증대·비용 절감으로 경제적 기회 확대와 생계 안정에 기여</p>
-                    </div>
-                </div>
-                <div class="sdg-card">
-                    <img src="https://placehold.co/60x60/19486A/FFFFFF?text=SDG12" alt="SDG 12" class="sdg-icon">
-                    <div class="sdg-text">
-                        <h4>SDG 12: 지속가능한 소비 및 생산</h4>
-                        <p>음식물 쓰레기 저감과 일회용 플라스틱 대체를 통한 지속가능한 생산·소비 방식 촉진</p>
-                    </div>
+<!-- 2페이지: 기업 분석 및 SDGs 연계 -->
+<div class="page">
+    <h1 class="page-header">기업 분석 및 SDGs 연계</h1>
+    <div class="section">
+        <h2 class="section-title">기업 소개</h2>
+        <p>에어키친은 하노이 지역 소상공인의 낮은 매출 및 브랜딩 한계와 배달·포장 과정에서 발생하는 음식물 쓰레기 및 일회용 플라스틱 폐기물 증가 문제를 해결하기 위해 공유(센트럴) 키친과 온라인 플랫폼을 통해 메뉴 개발·브랜딩·원재료 유통을 지원하고 저수수료 판매 채널과 친환경(종이·생분해성) 포장 대체를 제공합니다.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">SDGs 연계</h2>
+        <h3>주요 목표</h3>
+        <div class="grid-container-2">
+            <div class="sdg-card">
+                <img src="https://placehold.co/60x60/C5192D/FFFFFF?text=SDG8" alt="SDG 8" class="sdg-icon">
+                <div class="sdg-text">
+                    <h4>SDG 8: 양질의 일자리와 경제 성장</h4>
+                    <p>소상공인 매출 증대·비용 절감으로 경제적 기회 확대와 생계 안정에 기여</p>
                 </div>
             </div>
-            <h3>세부 목표</h3>
-            <ul class="sdg-sub-list">
-                <li><strong>8.5:</strong> 완전하고 생산적인 고용과 양질의 일자리 확보</li>
-                <li><strong>12.5:</strong> 폐기물 예방·감소·재활용 촉진</li>
-            </ul>
-        </div>
-        <div class="section">
-            <h2>사회적 가치 창출 포인트</h2>
-            <p>에어키친의 가치는 소상공인의 수익성 문제와 배달·포장으로 인한 환경 문제를 동시에 완화하는 데서 창출됩니다.</p>
-            <div class="info-box">
-                <p><strong>AI 해설:</strong> 동네의 여러 식당이 각자 장을 보지 않고 공동 주방과 통일된 포장을 쓰며 운영비와 쓰레기를 함께 줄이는 것과 비슷합니다.</p>
+            <div class="sdg-card">
+                <img src="https://placehold.co/60x60/19486A/FFFFFF?text=SDG12" alt="SDG 12" class="sdg-icon">
+                <div class="sdg-text">
+                    <h4>SDG 12: 지속가능한 소비 및 생산</h4>
+                    <p>음식물 쓰레기 저감과 일회용 플라스틱 대체를 통한 지속가능한 생산·소비 방식 촉진</p>
+                </div>
             </div>
         </div>
-        <div class="page-footer">Page 2</div>
+        <h3>세부 목표</h3>
+        <ul class="sdg-sub-list">
+            <li><strong>8.5:</strong> 완전하고 생산적인 고용과 양질의 일자리 확보</li>
+            <li><strong>12.5:</strong> 폐기물 예방·감소·재활용 촉진</li>
+        </ul>
     </div>
-
-    <div class="page">
-        <div class="page-header">
-            <h1>KPI 대시보드</h1>
+    <div class="section">
+        <h2 class="section-title">사회적 가치 창출 포인트</h2>
+        <p>에어키친의 가치는 소상공인의 수익성 문제와 배달·포장으로 인한 환경 문제를 동시에 완화하는 데서 창출됩니다.</p>
+        <div class="info-box">
+            <p><strong>AI 해설:</strong> 동네의 여러 식당이 각자 장을 보지 않고 공동 주방과 통일된 포장을 쓰며 운영비와 쓰레기를 함께 줄이는 것과 비슷합니다.</p>
         </div>
-        <div class="content-box">
-            <h2>주요 성과와 체감하기 (비유)</h2>
+    </div>
+    <div class="page-footer">Page 2</div>
+</div>
+
+<!-- 3페이지: KPI 대시보드 -->
+<div class="page">
+    <h1 class="page-header">KPI 대시보드</h1>
+    <div class="section">
+        <h2 class="section-title">주요 성과와 체감하기 (비유)</h2>
+        <div class="card">
             <p>플랫폼을 통한 월 5만 건의 식사 제공은 매일 1,667명의 아동이 따뜻한 식사를 받는 것과 같으며, 이는 지역 사회의 식사 복지 인프라를 크게 강화하는 역할을 합니다.</p>
         </div>
-        <div class="section">
-            <h2>핵심 효율성 지표</h2>
-            <div class="kpi-grid">
-                 <div class="kpi-card">
-                    <h4>총 플랫폼을 통한 제공 식사 건수</h4>
-                    <div>
-                        <span class="value">50,000</span> <span class="unit">건/월</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
-                    <h4>총 고유 이용 아동 수</h4>
-                    <div>
-                        <span class="value">10,000</span> <span class="unit">명</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
-                    <h4>총 아동 1인당 월 평균 식사 제공 횟수</h4>
-                    <div>
-                        <span class="value">15</span> <span class="unit">회/월</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
-                    <h4>총 플랫폼 기여로 인한 가맹점 매출 증가율</h4>
-                    <div>
-                        <span class="value">20</span> <span class="unit">%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h2>핵심 효율성 지표 (매출 1억당)</h2>
-             <div class="kpi-grid">
-                <div class="kpi-card">
-                    <h4>매출 1억당 제공 식사 건수</h4>
-                    <div>
-                        <span class="value">14,855</span> <span class="unit">건/매출 1억 원</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
-                    <h4>매출 1억당 고유 이용 아동 수</h4>
-                    <div>
-                        <span class="value">2,971</span> <span class="unit">명/매출 1억 원</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
-                    <h4>매출 1억당 월 평균 식사 제공 횟수</h4>
-                    <div>
-                        <span class="value">4.46</span> <span class="unit">회/매출 1억 원</span>
-                    </div>
-                </div>
-                <div class="kpi-card">
-                    <h4>매출 1억당 가맹점 매출 증가율</h4>
-                    <div>
-                        <span class="value">5.94</span> <span class="unit">% /매출 1억 원</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer">Page 3</div>
     </div>
+    <div class="section">
+        <h2 class="section-title">핵심 효율성 지표</h2>
+        <div class="grid-container-4">
+            <div class="kpi-card">
+                <h4>총 플랫폼을 통한 제공 식사 건수</h4>
+                <div><span class="value">50,000</span> <span class="unit">건/월</span></div>
+            </div>
+            <div class="kpi-card">
+                <h4>총 고유 이용 아동 수</h4>
+                <div><span class="value">10,000</span> <span class="unit">명</span></div>
+            </div>
+            <div class="kpi-card">
+                <h4>총 아동 1인당 월 평균 식사 제공 횟수</h4>
+                <div><span class="value">15</span> <span class="unit">회/월</span></div>
+            </div>
+            <div class="kpi-card">
+                <h4>가맹점 매출 증가율</h4>
+                <div><span class="value">20</span> <span class="unit">%</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="section-title">핵심 효율성 지표 (매출 1억당)</h2>
+        <div class="grid-container-4">
+            <div class="kpi-card">
+                <h4>제공 식사 건수</h4>
+                <div><span class="value">14,855</span> <span class="unit">건/매출 1억 원</span></div>
+            </div>
+            <div class="kpi-card">
+                <h4>고유 이용 아동 수</h4>
+                <div><span class="value">2,971</span> <span class="unit">명/매출 1억 원</span></div>
+            </div>
+            <div class="kpi-card">
+                <h4>월 평균 식사 제공 횟수</h4>
+                <div><span class="value">4.46</span> <span class="unit">회/매출 1억 원</span></div>
+            </div>
+            <div class="kpi-card">
+                <h4>가맹점 매출 증가율</h4>
+                <div><span class="value">5.94</span> <span class="unit">% /매출 1억 원</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">Page 3</div>
+</div>
 
-    <div class="page">
-        <div class="page-header">
-            <h1>심층 분석</h1>
+<!-- 4페이지: 심층 분석 -->
+<div class="page">
+    <h1 class="page-header">심층 분석</h1>
+    <div class="grid-container-2">
+        <div class="card">
+            <h2 class="section-title">What (어떤 변화)</h2>
+            <p>경제적으로는 소상공인의 원가 절감과 매출 증대를 촉진하고, 환경적으로는 음식물 쓰레기 및 플라스틱 발생을 줄입니다.</p>
         </div>
-        <div class="grid-container">
-            <div class="content-box">
-                <h2>What (어떤 변화)</h2>
-                <p>경제적으로는 소상공인의 원가 절감과 매출 증대를 촉진하고, 환경적으로는 음식물 쓰레기 및 플라스틱 발생을 줄입니다.</p>
-            </div>
-            <div class="content-box">
-                <h2>Who (수혜자)</h2>
-                <p>직접적 수혜자는 하노이 지역의 소규모 음식점 사업자와 종사자들입니다.</p>
-            </div>
-            <div class="content-box">
-                <h2>How Much (변화 수준)</h2>
-                <p>참여 식당 수, 재고회전율, 플라스틱 감축량(kg), 소상공인 매출 변화 등 정량적 지표로 평가할 수 있습니다.</p>
-            </div>
-            <div class="content-box">
-                <h2>RISK (리스크)</h2>
-                <p>친환경 포장재의 단가 부담, 공급망 문제, 소비자 수용성, 지역의 재활용 인프라 부족 등이 주요 리스크입니다.</p>
-            </div>
+        <div class="card">
+            <h2 class="section-title">Who (수혜자)</h2>
+            <p>직접적 수혜자는 하노이 지역의 소규모 음식점 사업자와 종사자들입니다.</p>
         </div>
-        <div class="page-footer">Page 4</div>
+        <div class="card">
+            <h2 class="section-title">How Much (변화 수준)</h2>
+            <p>참여 식당 수, 재고회전율, 플라스틱 감축량(kg), 소상공인 매출 변화 등 정량적 지표로 평가할 수 있습니다.</p>
+        </div>
+        <div class="card">
+            <h2 class="section-title">RISK (리스크)</h2>
+            <p>친환경 포장재의 단가 부담, 공급망 문제, 소비자 수용성, 지역의 재활용 인프라 부족 등이 주요 리스크입니다.</p>
+        </div>
     </div>
+    <div class="page-footer">Page 4</div>
+</div>
 
-    <div class="page">
-        <div class="page-header">
-            <h1>변화량 및 확장 전략</h1>
-        </div>
-        <div class="section">
-            <h2>분기별 핵심 성과 변화</h2>
-            <div class="chart-container">
-                <div class="chart-legend">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #3498db;"></div>
-                        <span>소상공인 월 평균 매출 (만원)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #27ae60;"></div>
-                        <span>플라스틱 폐기물 감축량 (kg)</span>
-                    </div>
+<!-- 5페이지: 변화량 및 확장 전략 -->
+<div class="page">
+    <h1 class="page-header">변화량 및 확장 전략</h1>
+    <div class="section">
+        <h2 class="section-title">분기별 핵심 성과 변화</h2>
+        <div class="chart-container">
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #0d3d56;"></div>
+                    <span>소상공인 월 평균 매출 (만원)</span>
                 </div>
-                <div class="chart-area">
-                    <div class="bar-group">
-                        <div class="bar bar-sales" style="height: 71%;">
-                            <span class="bar-value">500</span>
-                        </div>
-                        <div class="bar bar-plastic" style="height: 56%;">
-                            <span class="bar-value">100</span>
-                        </div>
-                        <div class="bar-label">'24년 1분기</div>
-                    </div>
-                    <div class="bar-group">
-                        <div class="bar bar-sales" style="height: 79%;">
-                            <span class="bar-value">550</span>
-                        </div>
-                        <div class="bar bar-plastic" style="height: 67%;">
-                            <span class="bar-value">120</span>
-                        </div>
-                        <div class="bar-label">'24년 2분기</div>
-                    </div>
-                    <div class="bar-group">
-                        <div class="bar bar-sales" style="height: 89%;">
-                            <span class="bar-value">620</span>
-                        </div>
-                        <div class="bar bar-plastic" style="height: 83%;">
-                            <span class="bar-value">150</span>
-                        </div>
-                        <div class="bar-label">'24년 3분기</div>
-                    </div>
-                    <div class="bar-group">
-                        <div class="bar bar-sales" style="height: 100%;">
-                            <span class="bar-value">700</span>
-                        </div>
-                        <div class="bar bar-plastic" style="height: 100%;">
-                            <span class="bar-value">180</span>
-                        </div>
-                        <div class="bar-label">'24년 4분기</div>
-                    </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #c5a47e;"></div>
+                    <span>플라스틱 폐기물 감축량 (kg)</span>
+                </div>
+            </div>
+            <div class="chart-area">
+                <div class="bar-group">
+                    <div class="bar bar-sales" style="height: 71%;"><span class="bar-value">500</span></div>
+                    <div class="bar bar-plastic" style="height: 56%;"><span class="bar-value">100</span></div>
+                    <div class="bar-label">'24년 1분기</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar bar-sales" style="height: 79%;"><span class="bar-value">550</span></div>
+                    <div class="bar bar-plastic" style="height: 67%;"><span class="bar-value">120</span></div>
+                    <div class="bar-label">'24년 2분기</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar bar-sales" style="height: 89%;"><span class="bar-value">620</span></div>
+                    <div class="bar bar-plastic" style="height: 83%;"><span class="bar-value">150</span></div>
+                    <div class="bar-label">'24년 3분기</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar bar-sales" style="height: 100%;"><span class="bar-value">700</span></div>
+                    <div class="bar bar-plastic" style="height: 100%;"><span class="bar-value">180</span></div>
+                    <div class="bar-label">'24년 4분기</div>
                 </div>
             </div>
         </div>
-        <div class="section">
-            <h2>ESG 확장 전략 (GRI)</h2>
-            <p>향후 GRI 스탠다드에 따라 폐기물(GRI 306), 고용(GRI 401), 지역사회(GRI 413) 등의 항목에 대한 상세 보고를 통해 ESG 공시 기준을 충족할 수 있습니다.</p>
-        </div>
-        <div class="page-footer">Page 5</div>
     </div>
+    <div class="section">
+        <h2 class="section-title">ESG 확장 전략 (GRI)</h2>
+        <p>향후 GRI 스탠다드에 따라 폐기물(GRI 306), 고용(GRI 401), 지역사회(GRI 413) 등의 항목에 대한 상세 보고를 통해 ESG 공시 기준을 충족할 수 있습니다.</p>
+    </div>
+    <div class="page-footer">Page 5</div>
+</div>
 
 </body>
 </html>

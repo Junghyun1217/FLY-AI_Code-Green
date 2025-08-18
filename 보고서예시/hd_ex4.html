@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Hidden Impact Scanner - Light Scan Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto+Mono:wght@500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 200, 255, 0.2); }
+            50% { box-shadow: 0 0 30px rgba(0, 200, 255, 0.5); }
+        }
+        /* ▼▼▼ [신규] 중앙 레티클 회전 애니메이션 ▼▼▼ */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        /* ▲▲▲ [신규] ▲▲▲ */
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            background-color: #f4f7f9;
+            color: #2c3e50;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 20mm auto;
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', 'Roboto', sans-serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 10pt;
+            color: #5a6a79;
+        }
+
+        /* --- 헤더 --- */
+        .scanner-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .scanner-header h1 {
+            font-size: 26pt;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .scanner-header .company-name {
+            color: #00c8ff;
+        }
+        .scanner-header p {
+            font-size: 11pt;
+            color: #8492a6;
+        }
+
+        /* --- 구분선 --- */
+        .scan-divider {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00c8ff, transparent);
+            margin: 40px 0;
+            opacity: 0.5;
+        }
+
+        /* --- 섹션 스타일 --- */
+        .section-box {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        .section-box h2 {
+            font-size: 16pt;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .section-box h2 .highlight {
+            color: #00c8ff;
+        }
+
+        /* ▼▼▼ [신규] 분석 레티클 스코어카드 스타일 ▼▼▼ */
+        .reticle-container {
+            height: 220px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .reticle-center {
+            width: 120px;
+            height: 120px;
+            border: 1px dashed #ced4da;
+            border-radius: 50%;
+            position: relative;
+        }
+        .reticle-center::before, .reticle-center::after {
+            content: '';
+            position: absolute;
+            background-color: #ced4da;
+            z-index: 1;
+        }
+        .reticle-center::before { /* 가로선 */
+            left: -30px; right: -30px; top: 50%; height: 1px; margin-top: -0.5px;
+        }
+        .reticle-center::after { /* 세로선 */
+            top: -30px; bottom: -30px; left: 50%; width: 1px; margin-left: -0.5px;
+        }
+        .reticle-spinner {
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-top-color: #00c8ff;
+            border-radius: 50%;
+            animation: spin 4s linear infinite;
+        }
+        .reticle-node {
+            position: absolute;
+            width: 90px;
+            text-align: center;
+        }
+        .node-chart {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 5px auto;
+        }
+        .node-circle-bg { stroke: #e9ecef; }
+        .node-circle-fg {
+            stroke: #00c8ff;
+            transition: stroke-dashoffset 1s ease-out;
+        }
+        .node-score {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 700;
+            font-size: 14pt;
+        }
+        .node-label {
+            font-size: 9pt;
+            color: #8492a6;
+        }
+        /* ▲▲▲ [신규] 분석 레티클 스코어카드 스타일 ▲▲▲ */
+
+        /* --- SDGs 유사도 --- */
+        .sdg-similarity { margin-top: 25px; }
+        .sdg-item { margin-bottom: 15px; }
+        .sdg-item h4 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 500;
+            font-size: 11pt;
+            color: #2c3e50;
+        }
+        .progress-bar-container {
+            height: 12px;
+            background-color: #e9ecef;
+            border-radius: 6px;
+            margin-top: 5px;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 6px;
+            background: #28a745;
+        }
+
+        /* --- 소셜 임팩트 최종 점수 --- */
+        .final-score-section {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .score-display {
+            min-width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        .score-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 36pt;
+            color: #2c3e50;
+        }
+        .score-text span {
+            font-size: 16pt;
+            color: #8492a6;
+        }
+
+        /* --- AI 컨설턴트 --- */
+        .ai-cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .ai-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .ai-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.1);
+        }
+        .ai-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .ai-card-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        .ai-card h3 {
+            color: #007bff;
+            font-size: 13pt;
+        }
+        
+        /* --- 부록 --- */
+        .appendix-section summary {
+            font-size: 14pt;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="scanner-header">
+        <h1><span class="company-name">[기업명]</span> Hidden Impact Scanner</h1>
+        <p>Industry (GICS): [Industry Information]</p>
+    </div>
+
+    <div class="section-box">
+        <h2>MSCI 기준 <span class="highlight">SDGs Score Card</span></h2>
+        <div class="reticle-container">
+            <div class="reticle-center">
+                <div class="reticle-spinner"></div>
+            </div>
+            <div class="reticle-node" style="top: -20px; left: 50%; transform: translateX(-50%);">
+                <svg class="node-chart" viewBox="0 0 100 100">
+                    <circle class="node-circle-bg" cx="50" cy="50" r="45" stroke-width="10" fill="none"/>
+                    <circle class="node-circle-fg" cx="50" cy="50" r="45" stroke-width="10" fill="none" transform="rotate(-90 50 50)" stroke-dasharray="283" stroke-dashoffset="42.45"/> </svg>
+                <div class="node-score">85</div>
+                <div class="node-label">환경(E)</div>
+            </div>
+            <div class="reticle-node" style="bottom: -20px; left: 50%; transform: translateX(-50%);">
+                <svg class="node-chart" viewBox="0 0 100 100">
+                    <circle class="node-circle-bg" cx="50" cy="50" r="45" stroke-width="10" fill="none"/>
+                    <circle class="node-circle-fg" cx="50" cy="50" r="45" stroke-width="10" fill="none" transform="rotate(-90 50 50)" stroke-dasharray="283" stroke-dashoffset="84.9"/> </svg>
+                <div class="node-score">70</div>
+                <div class="node-label">지배구조(G)</div>
+            </div>
+            <div class="reticle-node" style="top: 50%; left: -30px; transform: translateY(-50%);">
+                <svg class="node-chart" viewBox="0 0 100 100">
+                    <circle class="node-circle-bg" cx="50" cy="50" r="45" stroke-width="10" fill="none"/>
+                    <circle class="node-circle-fg" cx="50" cy="50" r="45" stroke-width="10" fill="none" transform="rotate(-90 50 50)" stroke-dasharray="283" stroke-dashoffset="62.26"/> </svg>
+                <div class="node-score">78</div>
+                <div class="node-label">사회(S)</div>
+            </div>
+            <div class="reticle-node" style="top: 50%; right: -30px; transform: translateY(-50%);">
+                <svg class="node-chart" viewBox="0 0 100 100">
+                    <circle class="node-circle-bg" cx="50" cy="50" r="45" stroke-width="10" fill="none"/>
+                    <circle class="node-circle-fg" cx="50" cy="50" r="45" stroke-width="10" fill="none" transform="rotate(-90 50 50)" stroke-dasharray="283" stroke-dashoffset="22.64"/> </svg>
+                <div class="node-score">92</div>
+                <div class="node-label">혁신</div>
+            </div>
+        </div>
+        <div class="sdg-similarity">
+            <h3>SDGs 유사도 Top 3 항목</h3>
+            <div class="sdg-item">
+                <h4>SDG 3: Health & Well-being</h4>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 80%;"></div>
+                </div>
+            </div>
+            <div class="sdg-item">
+                <h4>SDG 8: Decent Work</h4>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 75%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="section-box final-score-section">
+        <div class="score-display">
+            <div class="score-text">7<span>/10</span></div>
+        </div>
+        <div class="score-details">
+            <h2>소셜 임팩트 <span class="highlight">최종 점수</span></h2>
+            <p>[AI가 분석한 평가 근거 텍스트가 여기에 표시됩니다. 기업의 활동과 SDGs 연관성을 기반으로 점수를 산출합니다.]</p>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <h2>AI 컨설턴트의 <span class="highlight">분석</span></h2>
+        <div class="ai-cards-container">
+            <div class="ai-card">
+                <div class="ai-card-header">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E" class="ai-card-icon">
+                    <h3>정체성 진단</h3>
+                </div>
+                <p>[기업의 핵심 소셜 임팩트 정체성에 대한 AI의 진단 내용]</p>
+            </div>
+            <div class="ai-card">
+                <div class="ai-card-header">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21.21 15.89A10 10 0 1 1 8 2.83'/%3E%3Cpath d='M22 12A10 10 0 0 0 12 2v10z'/%3E%3C/svg%3E" class="ai-card-icon">
+                    <h3>맞춤 컨설팅</h3>
+                </div>
+                <p>[임팩트 강화를 위한 AI의 맞춤형 전략 컨설팅 제안]</p>
+            </div>
+            <div class="ai-card">
+                <div class="ai-card-header">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E" class="ai-card-icon">
+                    <h3>미래 예측</h3>
+                </div>
+                <p>[현재 비즈니스 모델이 미래에 창출할 잠재적 임팩트 예측]</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box appendix-section">
+        <details>
+            <summary>(부록) SDGs 설명</summary>
+            <p>[SDGs 각 항목에 대한 상세 설명이 여기에 들어갑니다. 사용자가 필요할 때 펼쳐볼 수 있습니다.]</p>
+        </details>
+    </div>
+</div>
+
+</body>
+</html>

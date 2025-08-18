@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Hidden Impact Scanner - Terminal Mode</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes scanline {
+            0% { transform: translateY(-10px); opacity: 0.1; }
+            50% { transform: translateY(100%); opacity: 0.8; }
+            100% { transform: translateY(200%); opacity: 0.1; }
+        }
+        @keyframes text-flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        body {
+            font-family: 'Roboto Mono', 'Noto Sans KR', monospace; /* 터미널 느낌의 모노스페이스 폰트 */
+            margin: 0;
+            background-color: #0d1a26;
+            background-image: 
+                linear-gradient(rgba(0, 255, 135, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 135, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #00ff87; /* 메인 네온 그린 */
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 20mm;
+            margin: 20mm auto;
+            background: rgba(13, 26, 38, 0.9);
+            box-shadow: 0 0 40px rgba(0, 255, 135, 0.3);
+            border: 1px solid rgba(0, 255, 135, 0.5);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden; /* 스캔라인 효과를 위해 추가 */
+        }
+        .scan-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, rgba(0, 255, 135, 0.5), transparent);
+            animation: scanline 4s linear infinite;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            margin: 0;
+            text-shadow: 0 0 8px rgba(0, 255, 135, 0.7);
+            animation: text-flicker 3s infinite;
+        }
+        p {
+            line-height: 1.8;
+            font-size: 10pt;
+            color: #b2f2d9;
+        }
+
+        /* --- 헤더 --- */
+        .scanner-header {
+            border-bottom: 1px solid rgba(0, 255, 135, 0.5);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .scanner-header h1 {
+            font-size: 24pt;
+            color: #ffffff;
+        }
+        .scanner-header p {
+            font-size: 11pt;
+            color: #00ff87;
+        }
+
+        /* --- 섹션 스타일 --- */
+        .section-title {
+            font-size: 16pt;
+            color: #ffffff;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .section-title::before {
+            content: '>> ';
+        }
+
+        /* --- MSCI SDGs 스코어 카드 --- */
+        .scorecard-placeholder {
+            height: 200px;
+            border: 1px solid rgba(0, 255, 135, 0.5);
+            background-color: rgba(0, 255, 135, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14pt;
+            letter-spacing: 2px;
+            color: rgba(0, 255, 135, 0.6);
+        }
+        .sdg-similarity { margin-top: 25px; }
+        .sdg-item { margin-bottom: 15px; }
+        .sdg-item h4 { font-size: 11pt; color: #b2f2d9; }
+        .progress-bar-container {
+            height: 10px;
+            background-color: rgba(0,0,0,0.5);
+            border: 1px solid rgba(0, 255, 135, 0.3);
+            margin-top: 5px;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #00ff87;
+            box-shadow: 0 0 15px rgba(0, 255, 135, 0.7);
+        }
+
+        /* --- 소셜 임팩트 최종 점수 --- */
+        .final-score-section {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            border: 1px solid rgba(0, 255, 135, 0.5);
+            padding: 20px;
+            background: rgba(0, 255, 135, 0.05);
+        }
+        .score-display {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #00ff87;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .score-display::before, .score-display::after {
+            content: '';
+            position: absolute;
+            background: #0d1a26;
+        }
+        .score-display::before { width: 100%; height: 2px; } /* 가로선 */
+        .score-display::after { width: 2px; height: 100%; } /* 세로선 */
+        .score-text {
+            font-size: 32pt;
+            color: #ffffff;
+            z-index: 1;
+        }
+        .score-details h3 {
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        /* --- AI 컨설턴트 --- */
+        .ai-cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .ai-card {
+            border: 1px solid rgba(0, 255, 135, 0.5);
+            padding: 20px;
+            background: rgba(0, 255, 135, 0.05);
+        }
+        .ai-card h3 {
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 14pt;
+        }
+        
+        /* --- 부록 --- */
+        .appendix-section details {
+            border: 1px solid rgba(0, 255, 135, 0.5);
+            padding: 15px;
+        }
+        .appendix-section summary {
+            font-size: 14pt;
+            cursor: pointer;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="scan-effect"></div>
+    <div class="scanner-header">
+        <h1>HIDDEN IMPACT SCANNER</h1>
+        <p>TARGET: <span class="company-name">[기업명]</span> // GICS: [산업군 정보]</p>
+    </div>
+
+    <h2 class="section-title">MSCI_SDGs_SCORE_ANALYSIS</h2>
+    <div class="scorecard-placeholder">
+        [SCORE_GRID_VISUALIZATION]
+    </div>
+    <div class="sdg-similarity">
+        <h3>SDGs_SIMILARITY_TOP_3</h3>
+        <div class="sdg-item">
+            <h4>#SDG 3: Health & Well-being</h4>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 80%;"></div>
+            </div>
+        </div>
+        <div class="sdg-item">
+            <h4>#SDG 8: Decent Work</h4>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 75%;"></div>
+            </div>
+        </div>
+        <div class="sdg-item">
+            <h4>#SDG 12: Responsible Consumption</h4>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 60%;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <br>
+
+    <h2 class="section-title">FINAL_IMPACT_SCORE</h2>
+    <div class="final-score-section">
+        <div class="score-display">
+            <div class="score-text">7/10</div>
+        </div>
+        <div class="score-details">
+            <h3>[EVALUATION_LOG]</h3>
+            <p>AI가 분석한 평가 근거 텍스트. 기업 활동과 SDGs 연관성을 기반으로 점수 산출 완료. 시스템 정상.</p>
+        </div>
+    </div>
+    
+    <br>
+
+    <h2 class="section-title">AI_CONSULTANT_MODULES</h2>
+    <div class="ai-cards-container">
+        <div class="ai-card">
+            <h3>IDENTITY_DIAGNOSIS</h3>
+            <p>기업의 핵심 소셜 임팩트 정체성 진단 완료. 데이터 출력 준비.</p>
+        </div>
+        <div class="ai-card">
+            <h3>CUSTOM_CONSULTING</h3>
+            <p>임팩트 강화를 위한 맞춤형 전략 컨설팅 제안. 시뮬레이션 결과 기반.</p>
+        </div>
+        <div class="ai-card">
+            <h3>FUTURE_FORECAST</h3>
+            <p>현재 비즈니스 모델의 잠재적 임팩트 예측. 변수값 적용 완료.</p>
+        </div>
+    </div>
+    
+    <br>
+
+    <div class="appendix-section">
+        <details>
+            <summary>// APPENDIX:SDGs_DATA</summary>
+            <p>[SDGs 각 항목에 대한 상세 설명 데이터. 필요시 로드 가능.]</p>
+        </details>
+    </div>
+</div>
+
+</body>
+</html>
