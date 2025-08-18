@@ -1,4 +1,3 @@
-// URL에서 쿼리 파라미터를 가져오는 함수
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
@@ -19,16 +18,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
             if (data.status === 'completed' && data.result && data.result.download_url) {
-                // 작업이 완료되면 다운로드 버튼의 href를 업데이트합니다.
+                // 백엔드에서 받은 기본 URL (다운로드 파라미터가 포함됨)
                 const downloadUrl = data.result.download_url;
                 const filename = data.result.report_filename;
                 if (downloadBtn) {
+                    // 다운로드 버튼에는 '?download=1' 파라미터를 유지
                     downloadBtn.href = downloadUrl;
                     downloadBtn.textContent = `PDF 다운로드 (${filename})`;
                 }
                 if (viewPdfBtn) {
-                    // PDF 보기 버튼에는 '?download=1'을 제거한 URL을 할당합니다.
+                    // PDF 보기 버튼에는 '?download=1' 파라미터를 제거
                     viewPdfBtn.href = downloadUrl.replace('?download=1', '');
+                    viewPdfBtn.textContent = `PDF 보기`;
                 }
             } else {
                 console.warn('Report not completed or download URL not available.');

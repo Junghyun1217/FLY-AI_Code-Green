@@ -3,41 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hidden Impact Scanner - Light Mode</title>
+    <title>Hidden Impact Scanner - Enhanced Design</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #007bff;
+            --positive-color: #28a745;
+            --negative-color: #fd7e14;
+            --gold-color: #ffd700;
+            --silver-color: #c0c0c0;
+            --bronze-color: #cd7f32;
+            --text-color: #343a40;
+            --light-gray: #f8f9fa;
+            --border-color: #e9ecef;
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
             margin: 0;
-            background-color: #f7f9fc; /* 밝고 깨끗한 배경 */
-            color: #343a40;
+            background-color: #f0f2f5;
+            color: var(--text-color);
         }
         .page {
             width: 210mm;
-            min-height: 297mm;
-            padding: 25mm;
+            height: 297mm; /* min-height에서 height로 변경하여 크기 고정 */
+            padding: 20mm; /* A4에 맞게 여백 조정 */
             margin: 20mm auto;
-            background: #ffffff; /* 순백색 페이지 배경 */
-            box-shadow: 0 10px 40px rgba(108, 117, 125, 0.15);
-            border-radius: 6px;
+            background: #ffffff;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
         }
         h1, h2, h3, h4, h5 {
-            font-family: 'Poppins', 'Roboto', sans-serif; /* 모던한 느낌의 영문 폰트 */
+            font-family: 'Poppins', 'Roboto', sans-serif;
             font-weight: 700;
             margin: 0;
         }
         p, li {
-            line-height: 1.7; 
-            font-size: 10.5pt; 
-            color: #495057; 
+            line-height: 1.8; 
+            font-size: 10pt; 
+            color: #555; 
         }
 
-        /* --- 표지 스타일 --- */
+        /* --- 표지 스타일 (사용자 요청대로 원본 유지) --- */
         .cover-page {
             padding: 0;
             justify-content: flex-start;
@@ -58,218 +70,83 @@
         .cover-text .line3 { font-size: 3rem; font-weight: 200; margin-top: 8px; }
         .cover-text .line4 { font-size: 1.8rem; font-weight: 300; margin-top: 20px; }
 
-
         /* --- 헤더 --- */
-        .scanner-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .scanner-header h1 {
-            font-size: 26pt; 
-            color: #212529;
-            margin-bottom: 10px;
-        }
-        .scanner-header .company-name {
-            color: #007bff; 
-        }
-        .scanner-header p {
-            font-size: 12pt;
-            color: #6c757d;
-        }
+        .scanner-header { text-align: center; margin-bottom: 30px; }
+        .scanner-header h1 { font-size: 24pt; color: #212529; margin-bottom: 10px; }
+        .scanner-header .company-name { color: var(--primary-color); }
+        .scanner-header p { font-size: 11pt; color: #6c757d; }
 
         /* --- 구분선 --- */
-        .light-divider {
-            border: 0;
-            height: 1px;
-            background-color: #e9ecef;
-            margin: 30px 0; 
-        }
+        .light-divider { border: 0; height: 1px; background-color: var(--border-color); margin: 25px 0; } /* 간격 조정 */
 
         /* --- MSCI SDGs 유사도 TOP 3 --- */
-        .scorecard-section h2 {
-            font-size: 15pt; 
-            color: #212529;
-            margin-bottom: 15px; 
-            text-align: center;
-        }
-        .sdg-ranking-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end; 
-            gap: 40px; 
-            margin-top: 20px; 
-            text-align: center;
-            min-height: 200px;
-        }
-        .sdg-rank-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px 8px;
-            border-radius: 8px; 
-            width: 150px; 
-            box-shadow: 0 2px 10px rgba(108, 117, 125, 0.1); 
-            border: 1px solid transparent; 
-            transition: all 0.3s ease;
-        }
-        .sdg-rank-item:hover {
-            transform: translateY(-5px); 
-            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.15); 
-        }
-        .sdg-rank-item.rank-1 { order: 2; height: 190px; }
-        .sdg-rank-item.rank-2 { order: 1; height: 170px; }
-        .sdg-rank-item.rank-3 { order: 3; height: 150px; }
-        
-        .rank-badge {
-            font-size: 20pt; 
-            font-weight: 700;
-            font-family: 'Poppins', sans-serif;
-            margin-bottom: 10px; 
-        }
-        .sdg-rank-item.rank-1 { background-color: #fffbeb; border-color: #ffd700; }
-        .sdg-rank-item.rank-2 { background-color: #f8f9fa; border-color: #c0c0c0; }
-        .sdg-rank-item.rank-3 { background-color: #f8f9fa; border-color: #cd7f32; }
-        .sdg-rank-item.rank-1 .rank-badge { color: #ffc107; }
-        .sdg-rank-item.rank-2 .rank-badge { color: #adb5bd; }
-        .sdg-rank-item.rank-3 .rank-badge { color: #d98e44; }
-        
-        .sdg-icon {
-            width: 70px; 
-            height: 70px; 
-            border-radius: 8px;
-            object-fit: cover;
-        }
-        .sdg-score {
-            font-family: 'Poppins', sans-serif;
-            font-size: 12pt;
-            font-weight: 600;
-            color: #212529;
-            margin-top: auto;
-            padding-top: 10px;
-        }
-        .sdg-reasons {
-            margin-top: 25px;
-            padding: 0 20px;
-        }
-        .sdg-reasons h3 {
-            font-size: 12pt;
-            text-align: center;
-            margin-bottom: 15px;
-            color: #343a40;
-        }
-        .sdg-reasons ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .sdg-reasons li {
-            font-size: 10pt;
-            margin-bottom: 8px;
-        }
-        .sdg-reasons li strong {
-            color: #007bff;
-        }
+        .scorecard-section h2 { font-size: 16pt; text-align: center; margin-bottom: 25px; }
+        .sdg-ranking-container { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin-top: 20px; text-align: center; min-height: 220px; }
+        .sdg-rank-item { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px 10px; border-radius: 12px; width: 150px; box-shadow: 0 8px 25px rgba(108, 117, 125, 0.1); border: 1px solid var(--border-color); transition: all 0.3s ease; }
+        .sdg-rank-item:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 12px 35px rgba(108, 117, 125, 0.2); }
+        .sdg-rank-item.rank-1 { order: 2; height: 220px; background: linear-gradient(145deg, #fff, #fffbeb); border-color: var(--gold-color); }
+        .sdg-rank-item.rank-2 { order: 1; height: 200px; background-color: var(--light-gray); }
+        .sdg-rank-item.rank-3 { order: 3; height: 180px; background-color: var(--light-gray); }
+        .rank-badge { font-size: 18pt; font-weight: 700; font-family: 'Poppins', sans-serif; }
+        .sdg-rank-item.rank-1 .rank-badge { color: var(--gold-color); text-shadow: 0 0 10px rgba(255,215,0,0.5); }
+        .sdg-rank-item.rank-2 .rank-badge { color: var(--silver-color); }
+        .sdg-rank-item.rank-3 .rank-badge { color: var(--bronze-color); }
+        .sdg-icon { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+        .sdg-score { font-family: 'Poppins', sans-serif; font-size: 13pt; font-weight: 600; color: var(--text-color); }
+        .sdg-reasons { margin-top: 25px; padding: 0 10px; } /* 간격 조정 */
+        .sdg-reasons h3 { font-size: 13pt; text-align: center; margin-bottom: 20px; color: var(--text-color); }
+        .sdg-reasons ul { list-style-type: none; padding: 0; margin: 0; }
+        .sdg-reasons li { font-size: 10pt; margin-bottom: 10px; line-height: 1.6; }
+        .sdg-reasons li strong { color: var(--primary-color); font-weight: 700; }
 
         /* --- 소셜 임팩트 최종 점수 --- */
-        .final-score-section { display: flex; gap: 25px; align-items: center; }
-        .score-display { min-width: 140px; height: 140px; position: relative; display: flex; justify-content: center; align-items: center; }
+        .final-score-section { display: flex; gap: 30px; align-items: center; background: var(--light-gray); padding: 25px; border-radius: 12px; margin-top: auto; } /* 페이지 하단에 붙도록 조정 */
+        .score-display { min-width: 150px; height: 150px; position: relative; display: flex; justify-content: center; align-items: center; }
         .score-circle { width: 100%; height: 100%; transform: rotate(-90deg); }
-        .score-circle-bg { stroke: #e9ecef; }
+        .score-circle-bg { stroke: var(--border-color); }
         .score-circle-fg { stroke: url(#scoreGradientLight); stroke-dasharray: 410; stroke-dashoffset: 82; transition: stroke-dashoffset 1s ease-in-out; }
-        .score-text { position: absolute; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 28pt; color: #212529; }
-        .score-details h2 { font-size: 15pt; color: #212529; margin-bottom: 10px; }
-        .score-details h3 { font-size: 13pt; color: #212529; margin-bottom: 8px; }
+        .score-text { position: absolute; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 30pt; color: var(--text-color); }
+        .score-details h2 { font-size: 16pt; color: var(--text-color); margin-bottom: 10px; }
+        .score-details h3 { font-size: 12pt; color: var(--text-color); margin-bottom: 8px; }
         
         /* --- AI 컨설턴트 --- */
-        .ai-consultant-section h2 { text-align: center; font-size: 15pt; color: #212529; margin-bottom: 15px; }
-        .ai-cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
-        .ai-card { background: #ffffff; border-radius: 8px; padding: 18px; text-align: center; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(108, 117, 125, 0.1); border: none; }
-        .ai-card:hover { transform: translateY(-5px); box-shadow: 0 6px 20px rgba(108, 117, 125, 0.2); }
-        .ai-card-icon { width: 40px; height: 40px; margin-bottom: 10px; }
-        .ai-card h3 { color: #007bff; margin-bottom: 10px; font-size: 13pt; }
+        .ai-consultant-section h2 { text-align: center; font-size: 16pt; color: #212529; margin-bottom: 25px; }
+        .ai-cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .ai-card { background: #ffffff; border-radius: 12px; padding: 25px; text-align: center; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(108, 117, 125, 0.08); border-top: 4px solid var(--primary-color); }
+        .ai-card:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(108, 117, 125, 0.15); }
+        .ai-card-icon { width: 45px; height: 45px; margin-bottom: 15px; color: var(--primary-color); }
+        .ai-card h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 14pt; }
 
         /* --- 전체 SDG 스코어카드 --- */
-        .sdg-chart-section { margin-top: 15px; }
-        .sdg-chart-section h2 { text-align: center; font-size: 15pt; color: #212529; margin-bottom: 20px; }
-        .sdg-chart-container { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* 수정 */
-            column-gap: 40px; /* 수정 */
-            row-gap: 15px; /* 수정 */
-            padding-left: 30px; /* <<< 이 값을 조절해서 오른쪽으로 옮길 수 있습니다 */
-            padding-right: 30px;
-        }
-       
-        .sdg-bar-label { 
-            font-size: 9pt; 
-            color: #495057; 
-            margin-bottom: 5px; /* 라벨과 막대그래프 사이 간격 */
-            font-weight: 700;
-        }
-        .sdg-bar-row { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-        }
-        .sdg-bar-wrapper {
-            flex-grow: 1;
-            height: 20px;
-            display: flex;
-            background-color: #e9ecef;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-        }
-        .sdg-bar-wrapper::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background-color: #adb5bd;
-            transform: translateX(-50%);
-        }
-        .sdg-bar-negative {
-            width: 50%;
-            height: 100%;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .sdg-bar-positive {
-            width: 50%;
-            height: 100%;
-            display: flex;
-            justify-content: flex-start;
-        }
+        .sdg-chart-section { margin-top: 8px; } /* 수정 */
+        .sdg-chart-section h2 { text-align: center; font-size: 16pt; color: #212529; margin-bottom: 20px; } /* 수정 */
+        .sdg-chart-container { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 40px; row-gap: 15px; padding-left: 60px; padding-right: 30px;} /* 수정 */
+        .sdg-bar-label { font-size: 9pt; color: #555; margin-bottom: 4px; font-weight: 700; } /* 수정 */
+        .sdg-bar-row { display: flex; align-items: center; gap: 10px; }
+        .sdg-bar-wrapper { flex-grow: 1; height: 18px; display: flex; background-color: #e9ecef; border-radius: 9px; position: relative; overflow: hidden; }
+        .sdg-bar-wrapper::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background-color: #fff; transform: translateX(-50%); }
+        .sdg-bar-negative, .sdg-bar-positive { height: 100%; display: flex; }
+        .sdg-bar-negative { width: 50%; justify-content: flex-end; }
+        .sdg-bar-positive { width: 50%; justify-content: flex-start; }
         .sdg-bar-inner { height: 100%; }
-        .sdg-bar-inner.positive { background-color: #28a745; }
-        .sdg-bar-inner.negative { background-color: #fd7e14; }
-        .sdg-bar-score { 
-            width: 40px; 
-            flex-shrink: 0;
-            font-size: 10pt; 
-            font-weight: 600; 
-            font-family: 'Poppins', sans-serif; 
-            text-align: right;
-        }
-
+        .sdg-bar-inner.positive { background: linear-gradient(90deg, #66bb6a, #43a047); }
+        .sdg-bar-inner.negative { background: linear-gradient(270deg, #ffa726, #fb8c00); }
+        .sdg-bar-score { width: 40px; flex-shrink: 0; font-size: 10pt; font-weight: 600; font-family: 'Poppins', sans-serif; text-align: right; }
 
         /* --- 부록 --- */
         .appendix-section { margin-top: 15px; }
-        .appendix-title { font-family: 'Poppins', sans-serif; font-size: 13pt; color: #212529; margin-bottom: 10px; }
-        .appendix-content { border: 1px solid #e9ecef; border-radius: 8px; padding: 15px; }
-        .appendix-content ul { padding-left: 20px; margin: 0; column-count: 2; column-gap: 30px; }
-        .appendix-content li { font-size: 9pt; margin-bottom: 8px; }
+        .appendix-title { font-size: 14pt; color: #212529; margin-bottom: 15px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
+        .appendix-content { border: none; padding: 0; }
+        .appendix-content ul { padding-left: 20px; margin: 0; column-count: 2; column-gap: 40px; }
+        .appendix-content li { font-size: 9pt; margin-bottom: 10px; }
 
         /* --- 인쇄용 스타일 --- */
         @media print {
             body { background-color: #fff; }
-            .page { width: 100%; min-height: 0; margin: 0; padding: 15mm; box-shadow: none; border-radius: 0; page-break-after: always; }
+            .page { width: 100%; height: 100%; min-height: 0; margin: 0; padding: 15mm; box-shadow: none; border-radius: 0; page-break-after: always; }
             .cover-page { height: 297mm; }
             .ai-card, .sdg-rank-item, .sdg-chart-item { page-break-inside: avoid; }
         }
-
     </style>
 </head>
 <body>
@@ -290,25 +167,20 @@
         <h1><span class="company-name">딥비전스</span>의 Hidden Impact</h1>
         <p>산업군 (GICS 기준): 데이터 기반 환경 솔루션</p>
     </div>
-
     <hr class="light-divider">
-
     <div class="scorecard-section">
         <h2>MSCI 기준 SDGs 유사도 TOP 3</h2>
         <div class="sdg-ranking-container">
-            <!-- 2위 -->
             <div class="sdg-rank-item rank-2">
                 <div class="rank-badge">2nd</div>
                 <img src="../image/sdg11.png" alt="SDG 11 Icon" class="sdg-icon">
                 <h5 class="sdg-score">7.8 / 10</h5>
             </div>
-            <!-- 1위 -->
             <div class="sdg-rank-item rank-1">
                 <div class="rank-badge">1st</div>
                 <img src="../image/sdg3.png" alt="SDG 3 Icon" class="sdg-icon">
                 <h5 class="sdg-score">8.5 / 10</h5>
             </div>
-            <!-- 3위 -->
             <div class="sdg-rank-item rank-3">
                 <div class="rank-badge">3rd</div>
                 <img src="../image/sdg8.png" alt="SDG 8 Icon" class="sdg-icon">
@@ -324,9 +196,6 @@
             </ul>
         </div>
     </div>
-
-    <hr class="light-divider">
-
     <div class="final-score-section">
         <div class="score-display">
             <svg class="score-circle" viewBox="0 0 150 150">
@@ -355,7 +224,7 @@
         <h2>AI 컨설턴트의 눈</h2>
         <div class="ai-cards-container">
             <div class="ai-card">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path>
                     <polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon>
                 </svg>
@@ -363,7 +232,7 @@
                 <p>보이지 않는 대기오염 위험을 데이터로 가시화하여 환경 정보 불평등을 해소하고, 모두의 건강권을 증진하는 '데이터 기반의 환경 정의(Environmental Justice) 실현자'입니다.</p>
             </div>
             <div class="ai-card">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                     <polyline points="2 17 12 22 22 17"></polyline>
                     <polyline points="2 12 12 17 22 12"></polyline>
@@ -372,7 +241,7 @@
                 <p>GRI 스탠다드에 따라 대기 배출(305), 공중 보건, 데이터 보안(418) 항목의 상세 보고를 통해 ESG 경영을 강화하고, 투자 유치를 위한 정보 공시 신뢰도를 제고할 수 있습니다.</p>
             </div>
             <div class="ai-card">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                     <circle cx="12" cy="12" r="3"></circle>
                 </svg>
@@ -395,8 +264,8 @@
 <!-- 부록 페이지 (4페이지) -->
 <div class="page">
     <div class="appendix-section" style="margin-top: 0;">
+        <h3 class="appendix-title">(부록) 17개 지속가능발전목표(SDGs)</h3>
         <div class="appendix-content">
-            <h3 class="appendix-title">(부록) 17개 지속가능발전목표(SDGs)</h3>
             <ul id="sdg-appendix-list">
                 <!-- JavaScript로 동적 생성 -->
             </ul>
@@ -426,7 +295,6 @@
         { name: "17. 지구촌 협력", score: 4.0, description: "이행수단 강화 및 지속가능발전을 위한 글로벌 파트너십 활성화" }
     ];
 
-    // 3페이지의 스코어카드 컨테이너를 선택
     const chartContainerPage3 = document.getElementById('sdg-chart-page3');
     const appendixList = document.getElementById('sdg-appendix-list');
 
@@ -462,12 +330,10 @@
     }
 
     sdgsData.forEach(sdg => {
-        // 3페이지 스코어카드 생성
         if (chartContainerPage3) {
             chartContainerPage3.appendChild(createChartItem(sdg));
         }
         
-        // 부록 리스트 생성
         if (appendixList) {
             const listItem = document.createElement('li');
             listItem.innerHTML = `<strong>${sdg.name.split('. ')[1]}:</strong> ${sdg.description}`;
