@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             if (data.job_id) {
                 // 성공 시 job_id와 함께 생성 페이지로 이동
-                window.location.href = `hd_generating.html?job_id=${data.job_id}`;
+                window.location.href = `generating.html?job_id=${data.job_id}`;
             } else {
                 throw new Error('서버로부터 job_id를 받지 못했습니다.');
             }
