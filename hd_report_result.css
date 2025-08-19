@@ -247,44 +247,56 @@ body {
 
 /* 이미지를 감싸는 흰색 박스 */
 .report-preview-container {
-    /* ▼▼▼ 박스 전체 크기 조정 ▼▼▼ */
-    /* 화면이 아무리 커져도 박스의 최대 너비는 720px로 제한됩니다. */
-    /* 이 값을 '600px' 또는 '900px' 등으로 바꾸면 전체 크기가 조절됩니다. */
     max-width: 720px;
-    width: 90%; /* 화면이 작을 때는 너비의 90%를 차지 */
-    /* ▲▲▲ 전체 크기를 바꾸려면 max-width 값을 수정하세요. ▲▲▲ */
-
-    /* --- 디자인 및 정렬 --- */
-    min-height: 400px; /* 박스의 최소 높이를 확보해 이미지가 없어도 형태 유지 */
-    margin: 40px auto; /* 페이지 중앙 정렬 */
-    padding: 20px; /* 박스 내부의 흰색 여백. 늘리면 이미지 주변 여백이 커집니다. */
+    width: 90%;
+    min-height: 400px;
+    margin: 40px auto;
+    padding: 20px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-
-    /* --- 이미지 정중앙 배치를 위한 Flexbox 설정 --- */
     display: flex;
     justify-content: center;
     align-items: center;
+    /* 추가: 부드러운 크기 전환 효과 */
+    transition: all 0.3s ease;
 }
 
 /* 박스 안에 들어가는 리포트 표지 이미지 */
 .report-cover-image {
-    /* 이미지가 박스 밖으로 절대 나가지 않도록 하는 핵심 설정 */
     max-width: 100%;
     max-height: 100%;
-
-    /* --- 디자인 --- */
-    object-fit: contain; /* 이미지 비율을 유지하면서 영역 안에 딱 맞춤 */
+    object-fit: contain;
     display: block;
-    border-radius: 4px; /* 이미지 자체의 모서리도 살짝 둥글게 */
+    border-radius: 4px;
 }
+
+/* ▼▼▼▼▼ 이 부분이 추가되었습니다 ▼▼▼▼▼ */
+/* --- PDF 뷰어 모드 스타일 --- */
+
+/* 'PDF 보기' 클릭 시 컨테이너 스타일 변경 */
+.report-preview-container.pdf-mode {
+    /* 사진 액자 크기와 동일한 높이를 유지합니다. */
+    height: 450px; /* 최소 높이(400px)와 패딩(20px*2)을 고려한 값 */
+    padding: 0; /* PDF가 꽉 차도록 내부 여백 제거 */
+    background-color: #525659; /* PDF 로딩 중 배경색 */
+}
+
+/* 컨테이너 안에 생성될 PDF 뷰어(iframe) 스타일 */
+.report-preview-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none; /* iframe 기본 테두리 제거 */
+}
+/* ▲▲▲▲▲ 여기까지 추가되었습니다 ▲▲▲▲▲ */
+
+
 /* PDF 버튼 */
 .report-actions {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 25px; /* 미리보기 이미지와의 간격 조정 */
+    margin-top: 25px;
     position: relative;
     z-index: 2;
 }
