@@ -2,35 +2,53 @@ function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
+
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. URL에서 job_id를 가져와서 다운로드 링크를 설정하는 로직
+    // ▼▼▼▼▼ 1. PDF 미리보기 기능에 필요한 요소들을 먼저 찾아둡니다. ▼▼▼▼▼
+    const previewContainer = document.getElementById('preview-container');
+    const downloadBtn = document.getElementById('download-pdf-btn'); // ID로 변경
+    const viewPdfBtn = document.getElementById('view-pdf-btn');       // ID로 변경
+    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
+    // 2. URL에서 job_id를 가져와서 다운로드 링크를 설정하는 로직 (기존 코드 개선)
     const jobId = getQueryParam('job_id');
-    const downloadBtn = document.querySelector('.download-pdf');
-    const viewPdfBtn = document.querySelector('.view-pdf');
+
     if (!jobId) {
         console.error('Error: Job ID not found in URL.');
-        if (downloadBtn) downloadBtn.style.display = 'none';
-        if (viewPdfBtn) viewPdfBtn.style.display = 'none';
+        if(downloadBtn) downloadBtn.style.display = 'none';
+        if(viewPdfBtn) viewPdfBtn.style.display = 'none';
     } else {
         try {
-            // 백엔드 API를 호출하여 최종 결과 데이터를 가져옵니다.
             const response = await fetch(`/api/status/${jobId}`);
             if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const data = await response.json();
+
             if (data.status === 'completed' && data.result && data.result.download_url) {
-                // 백엔드에서 받은 기본 URL (다운로드 파라미터가 포함됨)
                 const downloadUrl = data.result.download_url;
                 const filename = data.result.report_filename;
+
                 if (downloadBtn) {
-                    // 다운로드 버튼에는 '?download=1' 파라미터를 유지
                     downloadBtn.href = downloadUrl;
                     downloadBtn.textContent = `PDF 다운로드 (${filename})`;
                 }
-                if (viewPdfBtn) {
-                    // PDF 보기 버튼에는 '?download=1' 파라미터를 제거
-                    viewPdfBtn.href = downloadUrl.replace('?download=1', '');
-                    viewPdfBtn.textContent = `PDF 보기`;
+
+                // ▼▼▼▼▼ 3. 'PDF 보기' 버튼에 클릭 이벤트 리스너를 추가합니다. ▼▼▼▼▼
+                if (viewPdfBtn && previewContainer) {
+                    // 보기용 URL에서 '?download=1' 파라미터를 제거합니다.
+                    const viewUrl = downloadUrl.replace('?download=1', '');
+
+                    viewPdfBtn.addEventListener('click', (event) => {
+                        event.preventDefault(); // 기본 링크 이동 동작을 막습니다.
+
+                        // 컨테이너의 내용을 iframe(PDF 뷰어)으로 교체합니다.
+                        previewContainer.innerHTML = `<iframe src="${viewUrl}" frameborder="0"></iframe>`;
+
+                        // PDF 뷰어에 최적화된 스타일 클래스를 추가합니다.
+                        previewContainer.classList.add('pdf-mode');
+                    });
                 }
+                // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+
             } else {
                 console.warn('Report not completed or download URL not available.');
                 if (downloadBtn) downloadBtn.style.display = 'none';
@@ -42,7 +60,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (viewPdfBtn) viewPdfBtn.style.display = 'none';
         }
     }
-    // 2. 헤더 스크롤 효과 및 드랍다운 메뉴 기능 (기존 코드)
+
+    // 4. 헤더 스크롤 효과 및 드랍다운 메뉴 기능 (기존 코드 유지)
+    // ... (이하 기존 코드는 변경 없이 그대로 유지됩니다) ...
     let lastScrollTop = 0;
     const header = document.querySelector('.landing-page-header');
     let scrollTimeout;
