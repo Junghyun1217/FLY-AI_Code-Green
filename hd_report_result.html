@@ -32,20 +32,22 @@
     </header>
 
     <main class="report-result-page">
-        <section class="result-header">
-            <h1>AI Hidden 리포트 초안이 완성되었습니다.</h1>
-            <p>아래에서 생성된 리포트 초안을 확인하고 귀사의 숨겨진 임팩트를 체크해보세요.</p>
-        </section>
+    <section class="result-header">
+        <h1>AI Hidden 리포트 초안이 완성되었습니다.</h1>
+        <p>아래에서 생성된 리포트 초안을 확인하고 귀사의 숨겨진 임팩트를 체크해보세요.</p>
+    </section>
 
-        <section class="report-preview-container">
-            <img src="image/hidden-scanner-cover.png" alt="Hidden Scanner 리포트 표지 미리보기" class="report-cover-image">
-        </section>
-        <div class="report-actions">
-            <a href="#" class="action-btn view-pdf">PDF로 보기</a>
-            <a href="#" class="action-btn download-pdf">PDF 다운로드</a>
-        </div>
+    <section class="report-preview-container" id="preview-container">
+        <img src="images/hidden-scanner-cover.png" alt="Hidden Scanner 리포트 표지 미리보기" class="report-cover-image">
+    </section>
+    
+    <div class="report-actions">
+        <a href="#" class="action-btn view-pdf" id="view-pdf-btn">PDF 보기</a>
+        <a href="#" class="action-btn download-pdf" id="download-pdf-btn">PDF 다운로드</a>
+    </div>
 
-        </main>
+    <div id="error-message" style="text-align: center; color: red; margin-top: 20px; font-weight: bold;"></div>
+</main>
 
     <footer class="landing-footer">
         <p>© 2025 Code Green. All rights reserved.</p>

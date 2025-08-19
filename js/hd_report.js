@@ -1,65 +1,87 @@
-function getQueryParam(param) {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get(param);
-}
+// 페이지 로딩이 완료되면 즉시 실행
+document.addEventListener('DOMContentLoaded', () => {
 
-document.addEventListener('DOMContentLoaded', async () => {
-    // ▼▼▼▼▼ 1. PDF 미리보기 기능에 필요한 요소들을 먼저 찾아둡니다. ▼▼▼▼▼
+    // --- 1. 필요한 HTML 요소들을 ID로 정확하게 찾습니다. ---
     const previewContainer = document.getElementById('preview-container');
-    const downloadBtn = document.getElementById('download-pdf-btn'); // ID로 변경
-    const viewPdfBtn = document.getElementById('view-pdf-btn');       // ID로 변경
-    // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+    const viewPdfBtn = document.getElementById('view-pdf-btn');
+    const downloadBtn = document.getElementById('download-pdf-btn');
+    const errorMessageDiv = document.getElementById('error-message');
 
-    // 2. URL에서 job_id를 가져와서 다운로드 링크를 설정하는 로직 (기존 코드 개선)
-    const jobId = getQueryParam('job_id');
+    // --- 에러 메시지를 화면에 표시하는 함수 ---
+    function showError(message) {
+        console.error(message); // 개발자 콘솔에도 에러 출력
+        if (errorMessageDiv) {
+            errorMessageDiv.textContent = message; // 화면에도 에러 메시지 표시
+        }
+        // 에러 발생 시 버튼들을 숨김
+        if (viewPdfBtn) viewPdfBtn.style.display = 'none';
+        if (downloadBtn) downloadBtn.style.display = 'none';
+    }
 
+    // --- 2. URL에서 job_id를 가져옵니다. ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const jobId = urlParams.get('job_id');
+
+    // job_id가 없으면 즉시 에러 처리
     if (!jobId) {
-        console.error('Error: Job ID not found in URL.');
-        if(downloadBtn) downloadBtn.style.display = 'none';
-        if(viewPdfBtn) viewPdfBtn.style.display = 'none';
-    } else {
+        showError('오류: URL에서 작업 ID(job_id)를 찾을 수 없습니다.');
+        return; // 코드 실행 중단
+    }
+
+    console.log(`Job ID: ${jobId} 로 PDF 정보 요청을 시작합니다.`);
+
+    // --- 3. 백엔드 API를 호출하여 PDF 정보를 가져옵니다. (async/await 사용) ---
+    const fetchPdfInfo = async () => {
         try {
             const response = await fetch(`/api/status/${jobId}`);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-            const data = await response.json();
+            console.log('백엔드 응답 수신:', response);
 
+            if (!response.ok) {
+                throw new Error(`서버 응답 오류: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log('응답 데이터 (JSON):', data);
+
+            // PDF URL이 정상적으로 왔는지 확인
             if (data.status === 'completed' && data.result && data.result.download_url) {
                 const downloadUrl = data.result.download_url;
-                const filename = data.result.report_filename;
+                const filename = data.result.report_filename || 'report.pdf';
+                const viewUrl = downloadUrl.replace('?download=1', '');
 
+                console.log('다운로드 URL:', downloadUrl);
+                console.log('미리보기 URL:', viewUrl);
+
+                // --- 4. 버튼에 기능과 링크를 연결합니다. ---
                 if (downloadBtn) {
                     downloadBtn.href = downloadUrl;
                     downloadBtn.textContent = `PDF 다운로드 (${filename})`;
+                    console.log('다운로드 버튼 설정 완료.');
                 }
 
-                // ▼▼▼▼▼ 3. 'PDF 보기' 버튼에 클릭 이벤트 리스너를 추가합니다. ▼▼▼▼▼
-                if (viewPdfBtn && previewContainer) {
-                    // 보기용 URL에서 '?download=1' 파라미터를 제거합니다.
-                    const viewUrl = downloadUrl.replace('?download=1', '');
-
-                    viewPdfBtn.addEventListener('click', (event) => {
-                        event.preventDefault(); // 기본 링크 이동 동작을 막습니다.
-
-                        // 컨테이너의 내용을 iframe(PDF 뷰어)으로 교체합니다.
-                        previewContainer.innerHTML = `<iframe src="${viewUrl}" frameborder="0"></iframe>`;
-
-                        // PDF 뷰어에 최적화된 스타일 클래스를 추가합니다.
+                if (viewPdfBtn) {
+                    viewPdfBtn.addEventListener('click', (e) => {
+                        e.preventDefault(); // 기본 링크 이동 방지
+                        console.log('PDF 보기 버튼 클릭됨.');
+                        
+                        previewContainer.innerHTML = `<iframe src="${viewUrl}"></iframe>`;
                         previewContainer.classList.add('pdf-mode');
+                        
+                        console.log('미리보기 영역을 PDF 뷰어로 교체 완료.');
                     });
+                    console.log('미리보기 버튼 설정 완료.');
                 }
-                // ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
             } else {
-                console.warn('Report not completed or download URL not available.');
-                if (downloadBtn) downloadBtn.style.display = 'none';
-                if (viewPdfBtn) viewPdfBtn.style.display = 'none';
+                throw new Error('보고서가 아직 준비되지 않았거나, PDF URL 정보가 없습니다.');
             }
+
         } catch (error) {
-            console.error("결과 확인 중 에러:", error);
-            if (downloadBtn) downloadBtn.style.display = 'none';
-            if (viewPdfBtn) viewPdfBtn.style.display = 'none';
+            showError(`PDF 정보를 가져오는 중 문제가 발생했습니다: ${error.message}`);
         }
-    }
+    };
+
+    fetchPdfInfo(); // PDF 정보 가져오는 함수 실행
 
     // 4. 헤더 스크롤 효과 및 드랍다운 메뉴 기능 (기존 코드 유지)
     // ... (이하 기존 코드는 변경 없이 그대로 유지됩니다) ...
