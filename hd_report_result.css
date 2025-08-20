@@ -243,32 +243,66 @@ body {
     margin-right: auto;
 }
 
-/* --- 미리보기 영역 최종 수정 코드 --- */
+/* ========================================
+   리포트 결과 페이지 - 텍스트 기반 표지 스타일
+   ======================================== */
 
-/* 이미지를 감싸는 흰색 박스 */
+/* 미리보기 전체를 감싸는 흰색 박스 */
 .report-preview-container {
-    max-width: 720px;
-    width: 90%;
-    min-height: 400px;
+    max-width: 800px;
     margin: 40px auto;
     padding: 20px;
     background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* 추가: 부드러운 크기 전환 효과 */
-    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border-radius: 8px;
 }
 
-/* 박스 안에 들어가는 리포트 표지 이미지 */
-.report-cover-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    display: block;
-    border-radius: 4px;
+/* 텍스트가 들어가는 실제 표지 영역 */
+.report-cover-new {
+    border: 1px solid #e0e0e0;
+    padding: 80px 40px;
+    text-align: center;
+    background-color: #fff; /* 표지 배경색 */
+}
+
+/* "CODE GREEN" 브랜드 텍스트 */
+.cover-brand {
+    font-weight: 700;
+    color: #27ae60;
+    font-size: 1.3em;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+/* "IMPACT REPORT" 메인 타이틀 */
+.cover-title {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 3.5em;
+    color: #2c3e50;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+/* 부제 텍스트 */
+.cover-subtitle {
+    font-size: 1em;
+    color: #999;
+    letter-spacing: 3px;
+    margin: 0 0 60px 0;
+}
+
+/* 회사 이름 */
+.cover-company-name {
+    margin: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+/* 연도 */
+.cover-date {
+    margin: 10px 0 0 0;
+    font-size: 1.2em;
+    color: #7f8c8d;
 }
 
 /* ▼▼▼▼▼ 이 부분이 추가되었습니다 ▼▼▼▼▼ */
