@@ -138,14 +138,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (viewPdfBtn) {
                     viewPdfBtn.addEventListener('click', (e) => {
-                        e.preventDefault(); // 기본 링크 이동 방지
-                        console.log('PDF 보기 버튼 클릭됨.');
-                        
-                        previewContainer.innerHTML = `<iframe src="${viewUrl}"></iframe>`;
-                        previewContainer.classList.add('pdf-mode');
-                        
-                        console.log('미리보기 영역을 PDF 뷰어로 교체 완료.');
-                    });
+    e.preventDefault();
+    console.log('PDF 보기 버튼 클릭됨.');
+
+    // 1. 기존 표지 내용을 찾아서 숨깁니다.
+    const coverContent = previewContainer.querySelector('.report-cover-new');
+    if (coverContent) {
+        coverContent.style.display = 'none';
+    }
+
+    // 2. 새로운 iframe 요소를 만들어서 추가합니다.
+    const iframe = document.createElement('iframe');
+    iframe.src = viewUrl;
+
+    // 기존 내용을 덮어쓰는 대신, 자식 요소로 추가합니다.
+    // 이렇게 하면 기존 요소들을 숨기고 새 요소만 표시하기 용이합니다.
+    previewContainer.appendChild(iframe);
+
+    // 3. 컨테이너에 pdf-mode 클래스를 추가합니다.
+    previewContainer.classList.add('pdf-mode');
+
+    console.log('미리보기 영역을 PDF 뷰어로 교체 완료.');
+});
                     console.log('미리보기 버튼 설정 완료.');
                 }
 
