@@ -49,21 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. TOP 버튼 기능
-    if (scrollTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-        });
-        scrollTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-
+    
     // 4. 파일 업로드 기능 (드래그 앤 드롭 포함)
     if (dropArea) {
         browseBtn.addEventListener('click', () => fileInput.click());
