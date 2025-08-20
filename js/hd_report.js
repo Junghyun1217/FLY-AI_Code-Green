@@ -1,6 +1,83 @@
 // 페이지 로딩이 완료되면 즉시 실행
 document.addEventListener('DOMContentLoaded', () => {
 
+     // 4. 헤더 스크롤 효과 및 드랍다운 메뉴 기능 (기존 코드 유지)
+    // ... (이하 기존 코드는 변경 없이 그대로 유지됩니다) ...
+    let lastScrollTop = 0;
+    const header = document.querySelector('.landing-page-header');
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const dropdownContent = document.querySelector('.dropdown-content');
+            const dropdownBtn = document.querySelector('.dropdown-btn');
+            if (dropdownContent && dropdownContent.classList.contains('show')) {
+                dropdownContent.classList.remove('show');
+                dropdownBtn.classList.remove('active');
+            }
+        }, 40);
+        if (scrollTop > lastScrollTop && scrollTop > 50) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+        if (scrollTop > 50) {
+            header.classList.add('header-solid-bg');
+        } else {
+            header.classList.remove('header-solid-bg');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, false);
+    // 3. 스크롤 애니메이션, 팝업, TOP 버튼 등 기타 기능 (기존 코드)
+    const introObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            } else {
+                if (entry.boundingClientRect.top > 0) {
+                    entry.target.classList.remove('is-visible');
+                }
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+    const introSection = document.querySelector('.intro-section');
+    if (introSection) {
+        introObserver.observe(introSection);
+    }
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const isShown = dropdownContent.classList.toggle('show');
+            dropdownBtn.classList.toggle('active', isShown);
+        });
+    }
+    window.addEventListener('click', (event) => {
+        if (dropdownContent && dropdownContent.classList.contains('show')) {
+            dropdownContent.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        }
+    });
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+    });
+    scrollTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
     // --- 1. 필요한 HTML 요소들을 ID로 정확하게 찾습니다. ---
     const previewContainer = document.getElementById('preview-container');
     const viewPdfBtn = document.getElementById('view-pdf-btn');
@@ -83,82 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchPdfInfo(); // PDF 정보 가져오는 함수 실행
 
-    // 4. 헤더 스크롤 효과 및 드랍다운 메뉴 기능 (기존 코드 유지)
-    // ... (이하 기존 코드는 변경 없이 그대로 유지됩니다) ...
-    let lastScrollTop = 0;
-    const header = document.querySelector('.landing-page-header');
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            const dropdownContent = document.querySelector('.dropdown-content');
-            const dropdownBtn = document.querySelector('.dropdown-btn');
-            if (dropdownContent && dropdownContent.classList.contains('show')) {
-                dropdownContent.classList.remove('show');
-                dropdownBtn.classList.remove('active');
-            }
-        }, 40);
-        if (scrollTop > lastScrollTop && scrollTop > 50) {
-            header.classList.add('header-hidden');
-        } else {
-            header.classList.remove('header-hidden');
-        }
-        if (scrollTop > 50) {
-            header.classList.add('header-solid-bg');
-        } else {
-            header.classList.remove('header-solid-bg');
-        }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    }, false);
-    // 3. 스크롤 애니메이션, 팝업, TOP 버튼 등 기타 기능 (기존 코드)
-    const introObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            } else {
-                if (entry.boundingClientRect.top > 0) {
-                    entry.target.classList.remove('is-visible');
-                }
-            }
-        });
-    }, {
-        threshold: 0.1
-    });
-    const introSection = document.querySelector('.intro-section');
-    if (introSection) {
-        introObserver.observe(introSection);
-    }
-    const dropdownBtn = document.querySelector('.dropdown-btn');
-    const dropdownContent = document.querySelector('.dropdown-content');
-    if (dropdownBtn) {
-        dropdownBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
-            const isShown = dropdownContent.classList.toggle('show');
-            dropdownBtn.classList.toggle('active', isShown);
-        });
-    }
-    window.addEventListener('click', (event) => {
-        if (dropdownContent && dropdownContent.classList.contains('show')) {
-            dropdownContent.classList.remove('show');
-            dropdownBtn.classList.remove('active');
-        }
-    });
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            scrollTopBtn.classList.add('show');
-        } else {
-            scrollTopBtn.classList.remove('show');
-        }
-    });
-    scrollTopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
     const expertConsultBtn = document.getElementById('expert-consult-btn');
     const reportModal = document.getElementById('report-modal');
     const modalCancelBtn = document.getElementById('modal-cancel-btn');

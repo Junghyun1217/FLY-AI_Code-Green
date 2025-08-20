@@ -250,27 +250,38 @@ body {
 }
 
 .result-header {
-    text-align: center;
-    padding: 40px 20px 0 20px;
+    /* Flexbox로 자식 요소(h1, p)를 정렬합니다 */
+    display: flex;
+    flex-direction: column; /* 세로로 쌓기 */
+    align-items: center;   /* 가로축 중앙 정렬 */
+    text-align: center;      /* 텍스트 자체도 가운데 정렬 */
+
+    /* 한글 단어가 어색하게 잘리는 것을 방지합니다 (매우 중요!) */
+    word-break: keep-all;
+    
+    /* 전체 영역의 최대 너비를 지정해 너무 길어지는 것을 방지합니다 */
+    max-width: 800px; 
+    margin: 0 auto; /* 페이지 중앙에 위치시키기 */
+    padding: 40px 20px; /* 위아래, 좌우 여백 */
 }
+/* 제목(h1)과 설명(p) 태그의 기본 스타일 */
 .result-header h1 {
-    font-size: 2.5em;
+    font-size: 2.2em; /* 적절한 폰트 크기 */
+    margin-bottom: 15px; /* 제목과 설명 사이의 간격 */
     color: #2c3e50;
-    margin: 0 0 10px 0;
 }
 .result-header p {
-    font-size: 1.05em;
+    font-size: 1.5em;
     color: #555;
     margin: 0 0 30px 0;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
-
 /* 새로운 리포트 커버 */
 .report-preview-container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: -10px auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 10px 40px rgba(0,0,0,0.1);

@@ -2,6 +2,62 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ================================================================
+    // 기능 3: 공통 UI 스크립트 (헤더, 드롭다운, TOP 버튼)
+    // ================================================================
+    const header = document.querySelector('.landing-page-header');
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    let lastScrollTop = 0;
+
+    // --- 헤더 스크롤 효과 ---
+    window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > 50) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+        if (scrollTop > 50) {
+            header.classList.add('header-solid-bg');
+        } else {
+            header.classList.remove('header-solid-bg');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+
+        // TOP 버튼 보이기/숨기기
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('show');
+        } else {
+            scrollTopBtn.classList.remove('show');
+        }
+    }, false);
+
+    // --- 드롭다운 메뉴 기능 ---
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            dropdownContent.classList.toggle('show');
+            dropdownBtn.classList.toggle('active');
+        });
+    }
+    window.addEventListener('click', () => {
+        if (dropdownContent && dropdownContent.classList.contains('show')) {
+            dropdownContent.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        }
+    });
+
+    // --- TOP 버튼 클릭 시 최상단으로 이동 ---
+    scrollTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // ================================================================
     // 기능 1: AI 리포트 PDF 정보 로딩 및 버튼 기능 활성화
     // ================================================================
 
@@ -124,61 +180,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-
-    // ================================================================
-    // 기능 3: 공통 UI 스크립트 (헤더, 드롭다운, TOP 버튼)
-    // ================================================================
-    const header = document.querySelector('.landing-page-header');
-    const dropdownBtn = document.querySelector('.dropdown-btn');
-    const dropdownContent = document.querySelector('.dropdown-content');
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    let lastScrollTop = 0;
-
-    // --- 헤더 스크롤 효과 ---
-    window.addEventListener('scroll', () => {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop > lastScrollTop && scrollTop > 50) {
-            header.classList.add('header-hidden');
-        } else {
-            header.classList.remove('header-hidden');
-        }
-        if (scrollTop > 50) {
-            header.classList.add('header-solid-bg');
-        } else {
-            header.classList.remove('header-solid-bg');
-        }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-
-        // TOP 버튼 보이기/숨기기
-        if (window.scrollY > 300) {
-            scrollTopBtn.classList.add('show');
-        } else {
-            scrollTopBtn.classList.remove('show');
-        }
-    }, false);
-
-    // --- 드롭다운 메뉴 기능 ---
-    if (dropdownBtn) {
-        dropdownBtn.addEventListener('click', (event) => {
-            event.stopPropagation();
-            dropdownContent.classList.toggle('show');
-            dropdownBtn.classList.toggle('active');
-        });
-    }
-    window.addEventListener('click', () => {
-        if (dropdownContent && dropdownContent.classList.contains('show')) {
-            dropdownContent.classList.remove('show');
-            dropdownBtn.classList.remove('active');
-        }
-    });
-
-    // --- TOP 버튼 클릭 시 최상단으로 이동 ---
-    scrollTopBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
 });
