@@ -1,53 +1,13 @@
-// ================================================================
-// 기능 1: 서버의 파일 목록을 가져와 테이블에 표시하는 함수
-// ================================================================
-async function loadAndDisplayServerFiles() {
-    const tableBody = document.querySelector('#server-files-table tbody');
-    // 이 기능이 필요 없는 페이지일 경우를 대비해, 테이블이 없으면 함수를 조용히 종료
-    if (!tableBody) return;
+// hidden.js 파일의 전체 내용으로 사용하세요.
 
-    tableBody.innerHTML = '<tr><td colspan="4">목록을 불러오는 중...</td></tr>';
-
-    try {
-        const response = await fetch('/api/files'); // ◀️ 수정 1: '/api' 추가
-        if (!response.ok) throw new Error('서버에서 파일 목록을 가져오는 데 실패했습니다.');
-        
-        const data = await response.json();
-        tableBody.innerHTML = ''; // 테이블 내용 초기화
-
-        if (data.files.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="4">서버에 저장된 파일이 없습니다.</td></tr>';
-            return;
-        }
-
-        data.files.forEach(file => {
-            const row = `
-                <tr>
-                    <td>${file.filename}</td>
-                    <td>${file.size_bytes.toLocaleString()}</td>
-                    <td>${new Date(file.modified).toLocaleString()}</td>
-                    <td><a href="${file.url_download}" download>다운로드</a></td>
-                </tr>
-            `;
-            tableBody.innerHTML += row;
-        });
-    } catch (error) {
-        console.error(error);
-        tableBody.innerHTML = '<tr><td colspan="4">목록을 불러오는 중 오류가 발생했습니다.</td></tr>';
-    }
-}
-
-
-// ================================================================
-// 기능 2: 페이지의 UI 조작 및 이벤트 처리
-// ================================================================
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 페이지의 모든 HTML 요소가 준비되면 아래 코드를 실행 ---
+    // --- 헤더 및 공통 UI 요소 ---
+    const header = document.querySelector('.landing-page-header');
+    const dropdownBtn = document.querySelector('.dropdown-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-    // ▼▼▼ 페이지가 열리자마자 서버 파일 목록을 불러옵니다 ▼▼▼
-    loadAndDisplayServerFiles();
-
-    // --- 파일 업로드 UI에 필요한 HTML 요소들을 가져옵니다 ---
+    // --- 파일 업로드 UI 요소 ---
     const dropArea = document.getElementById('drop-area');
     const fileInput = document.getElementById('file-input');
     const browseBtn = document.getElementById('browse-btn');
@@ -55,31 +15,76 @@ document.addEventListener('DOMContentLoaded', () => {
     const filePlaceholder = document.getElementById('file-placeholder');
     const generateBtn = document.getElementById('generate-report-btn');
 
-    // --- 업로드할 파일들을 담아둘 배열 ---
-    let uploadedFiles = [];
+    let uploadedFiles = []; // 업로드할 파일 목록 배열
 
-    // --- 파일 찾아보기 버튼 및 드래그 영역 클릭 이벤트 ---
-    browseBtn.addEventListener('click', () => fileInput.click());
-    dropArea.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+    // 1. 헤더 스크롤 효과
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop && scrollTop > 50) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+        if (scrollTop > 50) {
+            header.classList.add('header-solid-bg');
+        } else {
+            header.classList.remove('header-solid-bg');
+        }
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, false);
 
-    // --- 드래그 앤 드롭 이벤트 처리 ---
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, preventDefaults, false);
-    });
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    // 2. 드랍다운 메뉴 기능
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const isShown = dropdownContent.classList.toggle('show');
+            dropdownBtn.classList.toggle('active', isShown);
+        });
     }
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => dropArea.classList.add('is-dragging'), false);
+    window.addEventListener('click', () => {
+        if (dropdownContent && dropdownContent.classList.contains('show')) {
+            dropdownContent.classList.remove('show');
+            dropdownBtn.classList.remove('active');
+        }
     });
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropArea.addEventListener(eventName, () => dropArea.classList.remove('is-dragging'), false);
-    });
-    dropArea.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
 
-    // --- 파일이 선택되었을 때 처리하는 함수 ---
+    // 3. TOP 버튼 기능
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // 4. 파일 업로드 기능 (드래그 앤 드롭 포함)
+    if (dropArea) {
+        browseBtn.addEventListener('click', () => fileInput.click());
+        dropArea.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, e => {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.add('is-dragging'), false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.remove('is-dragging'), false);
+        });
+        dropArea.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
+    }
+
     function handleFiles(files) {
         [...files].forEach(file => {
             if (!uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
@@ -89,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateFileList();
     }
 
-    // --- 화면에 선택된 파일 목록을 업데이트하는 함수 ---
     function updateFileList() {
         fileList.innerHTML = '';
         filePlaceholder.style.display = uploadedFiles.length > 0 ? 'none' : 'flex';
@@ -97,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         uploadedFiles.forEach((file, index) => {
             const li = document.createElement('li');
-            li.classList.add('file-item');
+            li.className = 'file-item';
             li.innerHTML = `
                 <div class="file-info">
                     <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
@@ -109,7 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 선택한 파일 목록에서 X 버튼을 눌러 삭제하는 기능 ---
     fileList.addEventListener('click', (e) => {
         if (e.target.classList.contains('remove-btn')) {
             const index = parseInt(e.target.dataset.index);
@@ -118,73 +121,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- '리포트 생성하기' 버튼을 눌렀을 때의 동작 ---
-    generateBtn.addEventListener('click', async () => {
-        if (generateBtn.disabled || uploadedFiles.length === 0) return;
-    
-        const formData = new FormData();
-        uploadedFiles.forEach(file => formData.append('files', file));
-    
-        try {
-            generateBtn.disabled = true;
-            generateBtn.innerHTML = 'AI 분석 요청 중...';
-        
-            // /upload API 호출
-           // 2. fetch를 사용해 백엔드 서버의 전체 주소로 파일들 전송
-            const response = await fetch('/api/upload', { // ◀️ 수정 2: 주소를 '/api/upload'로 변경
-                method: 'POST',
-                body: formData,
-            });
-            if (!response.ok) throw new Error('파일 업로드 실패');
-        
-            const data = await response.json();
-            if (data.job_id) {
-                // 성공 시 job_id와 함께 로딩 페이지로 이동
-                window.location.href = `hd_generating.html?job_id=${data.job_id}`;
-            } else {
-                throw new Error('서버로부터 job_id를 받지 못했습니다.');
-            }
-        } catch (error) {
-            console.error('리포트 생성 실패:', error);
-            alert('리포트 생성에 실패했습니다. 다시 시도해주세요.');
-            generateBtn.disabled = false;
-            generateBtn.innerHTML = '✨ Hidden 임팩트 발굴하기';
-        }
-    });
-           // ▼▼▼ 드랍다운 메뉴 클릭 제어 스크립트 (새로 추가) ▼▼▼
-            const dropdownBtn = document.querySelector('.dropdown-btn');
-            const dropdownContent = document.querySelector('.dropdown-content');
+    // 5. '리포트 생성하기' 버튼 클릭 시 서버로 파일 전송
+    if (generateBtn) {
+        generateBtn.addEventListener('click', async () => {
+            if (generateBtn.disabled || uploadedFiles.length === 0) return;
 
-            if (dropdownBtn) {
-                dropdownBtn.addEventListener('click', (event) => {
-                    event.stopPropagation(); // 이벤트 버블링 방지
-                    const isShown = dropdownContent.classList.toggle('show');
-                    dropdownBtn.classList.toggle('active', isShown); // 메뉴가 보일 때 버튼에 active 클래스 추가/제거
+            const formData = new FormData();
+            uploadedFiles.forEach(file => formData.append('files', file));
+
+            try {
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = 'AI 분석 요청 중...';
+
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData,
                 });
-            }
 
-            // 다른 곳을 클릭하면 드랍다운 메뉴가 닫히도록 설정
-            window.addEventListener('click', (event) => {
-                if (dropdownContent && dropdownContent.classList.contains('show')) {
-                    dropdownContent.classList.remove('show');
-                    dropdownBtn.classList.remove('active');
+                if (!response.ok) {
+                    // 서버가 502 에러 등을 반환하면 여기서 에러 발생
+                    throw new Error(`파일 업로드 실패 (서버 상태: ${response.status})`);
                 }
-            });
-            const scrollTopBtn = document.getElementById('scrollTopBtn');
 
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) { // 300px 이상 스크롤되면 버튼 보이기
-                    scrollTopBtn.classList.add('show');
+                const data = await response.json();
+                if (data.job_id) {
+                    window.location.href = `hd_generating.html?job_id=${data.job_id}`;
                 } else {
-                    scrollTopBtn.classList.remove('show');
+                    throw new Error('서버로부터 job_id를 받지 못했습니다.');
                 }
-            });
-
-            scrollTopBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth' // 부드럽게 스크롤
-                });
-            });
+            } catch (error) {
+                console.error('리포트 생성 실패:', error);
+                alert('리포트 생성에 실패했습니다. 서버 상태를 확인하거나 다시 시도해주세요.');
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '✨ Hidden 임팩트 발굴하기';
+            }
+        });
+    }
 });
