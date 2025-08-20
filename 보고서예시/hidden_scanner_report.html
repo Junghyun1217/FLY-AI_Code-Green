@@ -28,8 +28,8 @@
         }
         .page {
             width: 210mm;
-            height: 297mm; /* min-height에서 height로 변경하여 크기 고정 */
-            padding: 20mm; /* A4에 맞게 여백 조정 */
+            height: 297mm;
+            padding: 20mm;
             margin: 20mm auto;
             background: #ffffff;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
@@ -37,6 +37,7 @@
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+            position: relative;
         }
         h1, h2, h3, h4, h5 {
             font-family: 'Poppins', 'Roboto', sans-serif;
@@ -49,7 +50,7 @@
             color: #555; 
         }
 
-        /* --- 표지 스타일 (사용자 요청대로 원본 유지) --- */
+        /* --- 표지 스타일 --- */
         .cover-page {
             padding: 0;
             justify-content: flex-start;
@@ -77,10 +78,17 @@
         .scanner-header p { font-size: 11pt; color: #6c757d; }
 
         /* --- 구분선 --- */
-        .light-divider { border: 0; height: 1px; background-color: var(--border-color); margin: 25px 0; } /* 간격 조정 */
+        .light-divider { border: 0; height: 1px; background-color: var(--border-color); margin: -10px 0; }
+        /* 3페이지 전용 구분선 (새로 추가) */
+        .light-divider-page3 { 
+            border: 0; 
+            height: 1px; 
+            background-color: var(--border-color); 
+            margin: 30px 0; /* 2페이지 구분선과 다르게 여백을 늘림 */
+        }
 
         /* --- MSCI SDGs 유사도 TOP 3 --- */
-        .scorecard-section h2 { font-size: 16pt; text-align: center; margin-bottom: 25px; }
+        .scorecard-section h2 { font-size: 16pt; text-align: center; margin-top: 30px; }
         .sdg-ranking-container { display: flex; justify-content: center; align-items: flex-end; gap: 20px; margin-top: 20px; text-align: center; min-height: 220px; }
         .sdg-rank-item { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px 10px; border-radius: 12px; width: 150px; box-shadow: 0 8px 25px rgba(108, 117, 125, 0.1); border: 1px solid var(--border-color); transition: all 0.3s ease; }
         .sdg-rank-item:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 12px 35px rgba(108, 117, 125, 0.2); }
@@ -93,14 +101,14 @@
         .sdg-rank-item.rank-3 .rank-badge { color: var(--bronze-color); }
         .sdg-icon { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
         .sdg-score { font-family: 'Poppins', sans-serif; font-size: 13pt; font-weight: 600; color: var(--text-color); }
-        .sdg-reasons { margin-top: 25px; padding: 0 10px; } /* 간격 조정 */
+        .sdg-reasons { margin-top: 25px; padding: 0 10px; }
         .sdg-reasons h3 { font-size: 13pt; text-align: center; margin-bottom: 20px; color: var(--text-color); }
         .sdg-reasons ul { list-style-type: none; padding: 0; margin: 0; }
         .sdg-reasons li { font-size: 10pt; margin-bottom: 10px; line-height: 1.6; }
         .sdg-reasons li strong { color: var(--primary-color); font-weight: 700; }
 
         /* --- 소셜 임팩트 최종 점수 --- */
-        .final-score-section { display: flex; gap: 30px; align-items: center; background: var(--light-gray); padding: 25px; border-radius: 12px; margin-top: auto; } /* 페이지 하단에 붙도록 조정 */
+        .final-score-section { display: flex; gap: 30px; align-items: center; background: var(--light-gray); padding: 25px; border-radius: 12px; margin-top: 25px; }
         .score-display { min-width: 150px; height: 150px; position: relative; display: flex; justify-content: center; align-items: center; }
         .score-circle { width: 100%; height: 100%; transform: rotate(-90deg); }
         .score-circle-bg { stroke: var(--border-color); }
@@ -118,10 +126,10 @@
         .ai-card h3 { color: var(--primary-color); margin-bottom: 15px; font-size: 14pt; }
 
         /* --- 전체 SDG 스코어카드 --- */
-        .sdg-chart-section { margin-top: 8px; } /* 수정 */
-        .sdg-chart-section h2 { text-align: center; font-size: 16pt; color: #212529; margin-bottom: 20px; } /* 수정 */
-        .sdg-chart-container { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 40px; row-gap: 15px; padding-left: 60px; padding-right: 30px;} /* 수정 */
-        .sdg-bar-label { font-size: 9pt; color: #555; margin-bottom: 4px; font-weight: 700; } /* 수정 */
+        .sdg-chart-section { margin-top: -10px; }
+        .sdg-chart-section h2 { text-align: center; font-size: 16pt; color: #212529; margin-bottom: 20px; }
+        .sdg-chart-container { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 40px; row-gap: 8px; padding-left: 60px; padding-right: 30px; }
+        .sdg-bar-label { font-size: 9pt; color: #555; margin-bottom: 4px; font-weight: 700; }
         .sdg-bar-row { display: flex; align-items: center; gap: 10px; }
         .sdg-bar-wrapper { flex-grow: 1; height: 18px; display: flex; background-color: #e9ecef; border-radius: 9px; position: relative; overflow: hidden; }
         .sdg-bar-wrapper::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background-color: #fff; transform: translateX(-50%); }
@@ -139,6 +147,20 @@
         .appendix-content { border: none; padding: 0; }
         .appendix-content ul { padding-left: 20px; margin: 0; column-count: 2; column-gap: 40px; }
         .appendix-content li { font-size: 9pt; margin-bottom: 10px; }
+        
+        /* --- 페이지 푸터 --- */
+        .page-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 9pt;
+            color: #aaa;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            width: calc(100% - 40mm);
+            position: absolute;
+            bottom: 10mm;
+            left: 20mm;
+        }
 
         /* --- 인쇄용 스타일 --- */
         @media print {
@@ -146,6 +168,7 @@
             .page { width: 100%; height: 100%; min-height: 0; margin: 0; padding: 15mm; box-shadow: none; border-radius: 0; page-break-after: always; }
             .cover-page { height: 297mm; }
             .ai-card, .sdg-rank-item, .sdg-chart-item { page-break-inside: avoid; }
+            .page-footer { display: none; }
         }
     </style>
 </head>
@@ -216,6 +239,7 @@
             <p>AI 융합 기술로 대기 질 정보의 사각지대를 해소하고, 시민 건강 증진과 지속가능한 도시 환경 조성에 기여하는 점을 높이 평가합니다. 사업 확장이 사회적 가치 창출로 직결되는 명확한 선순환 구조를 보입니다.</p>
         </div>
     </div>
+    <div class="page-footer">페이지 2</div>
 </div>
 
 <!-- 메인 리포트 페이지 (3페이지) -->
@@ -251,7 +275,7 @@
         </div>
     </div>
 
-    <hr class="light-divider">
+    <hr class="light-divider-page3"> <!-- 클래스 변경됨 -->
 
     <div class="sdg-chart-section">
         <h2>Hidden Impact Scorecard</h2>
@@ -259,6 +283,7 @@
             <!-- JavaScript로 동적 생성 -->
         </div>
     </div>
+    <div class="page-footer">페이지 3</div>
 </div>
 
 <!-- 부록 페이지 (4페이지) -->
@@ -271,6 +296,7 @@
             </ul>
         </div>
     </div>
+    <div class="page-footer">페이지 4</div>
 </div>
 
 <script>
