@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 1. 필요한 HTML 요소들을 ID로 정확하게 찾습니다. ---
-    const previewContainer = document.getElementById('preview-container');
+    const previewContainer = document.querySelector('preview-container');
     const viewPdfBtn = document.getElementById('view-pdf-btn');
     const downloadBtn = document.getElementById('download-pdf-btn');
     const errorMessageDiv = document.getElementById('error-message');
