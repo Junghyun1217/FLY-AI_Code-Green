@@ -327,7 +327,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: -10px; /* 미리보기와 살짝 겹치도록 */
+    margin-top: 25px; /* 미리보기와 살짝 겹치도록 */
     position: relative;
     z-index: 2;
 }
