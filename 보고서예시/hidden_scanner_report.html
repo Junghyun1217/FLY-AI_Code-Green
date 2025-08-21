@@ -6,7 +6,7 @@
     <title>Hidden Impact Scanner - Enhanced Design</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=Roboto:wght@700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #007bff;
@@ -33,7 +33,6 @@
             margin: 20mm auto;
             background: #ffffff;
             box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
@@ -48,6 +47,15 @@
             line-height: 1.8; 
             font-size: 10pt; 
             color: #555; 
+        }
+
+        /* --- 페이지 로고 --- */
+        .page-logo {
+            position: absolute;
+            top: 5mm;
+            right: 5mm;
+            width: 120px;
+            height: auto;
         }
 
         /* --- 표지 스타일 --- */
@@ -99,7 +107,7 @@
         .sdg-rank-item.rank-1 .rank-badge { color: var(--gold-color); text-shadow: 0 0 10px rgba(255,215,0,0.5); }
         .sdg-rank-item.rank-2 .rank-badge { color: var(--silver-color); }
         .sdg-rank-item.rank-3 .rank-badge { color: var(--bronze-color); }
-        .sdg-icon { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+        .sdg-icon { width: 100px; height: 100px; border-radius: 8px; object-fit: cover; }
         .sdg-score { font-family: 'Poppins', sans-serif; font-size: 13pt; font-weight: 600; color: var(--text-color); }
         .sdg-reasons { margin-top: 25px; padding: 0 10px; }
         .sdg-reasons h3 { font-size: 13pt; text-align: center; margin-bottom: 20px; color: var(--text-color); }
@@ -128,7 +136,7 @@
         /* --- 전체 SDG 스코어카드 --- */
         .sdg-chart-section { margin-top: -10px; }
         .sdg-chart-section h2 { text-align: center; font-size: 16pt; color: #212529; margin-bottom: 20px; }
-        .sdg-chart-container { display: grid; grid-template-columns: repeat(2, 1fr); column-gap: 40px; row-gap: 8px; padding-left: 60px; padding-right: 30px; }
+        .sdg-chart-container { display: grid;  grid-template-columns: repeat(2, 1fr);grid-template-rows: repeat(9, auto); /* 9개의 행을 만들도록 설정 */grid-auto-flow: column; /* 아이템을 세로 방향으로 먼저 채우도록 변경 */; column-gap: 40px; row-gap: 8px; padding-left: 60px; padding-right: 30px; }
         .sdg-bar-label { font-size: 9pt; color: #555; margin-bottom: 4px; font-weight: 700; }
         .sdg-bar-row { display: flex; align-items: center; gap: 10px; }
         .sdg-bar-wrapper { flex-grow: 1; height: 18px; display: flex; background-color: #e9ecef; border-radius: 9px; position: relative; overflow: hidden; }
@@ -177,8 +185,8 @@
 <!-- 표지 페이지 (1페이지) -->
 <div class="page cover-page">
     <div class="cover-text">
-        <div class="line1">Hidden Impact Scanner</div>
-        <div class="line2">Impact Report</div>
+        <div class="line1">Code Green</div>
+        <div class="line2">Hidden Impact</div>
         <div class="line3">2025</div>
         <div class="line4">딥비전스</div>
     </div>
@@ -186,6 +194,7 @@
 
 <!-- 메인 리포트 페이지 (2페이지) -->
 <div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
     <div class="scanner-header">
         <h1><span class="company-name">딥비전스</span>의 Hidden Impact</h1>
         <p>산업군 (GICS 기준): 데이터 기반 환경 솔루션</p>
@@ -196,17 +205,17 @@
         <div class="sdg-ranking-container">
             <div class="sdg-rank-item rank-2">
                 <div class="rank-badge">2nd</div>
-                <img src="../image/sdg11.png" alt="SDG 11 Icon" class="sdg-icon">
+                <img src="../image/sdg_image/sdg11.png" alt="SDG 11 Icon" class="sdg-icon">
                 <h5 class="sdg-score">7.8 / 10</h5>
             </div>
             <div class="sdg-rank-item rank-1">
                 <div class="rank-badge">1st</div>
-                <img src="../image/sdg3.png" alt="SDG 3 Icon" class="sdg-icon">
+                <img src="../image/sdg_image/sdg3.png" alt="SDG 3 Icon" class="sdg-icon">
                 <h5 class="sdg-score">8.5 / 10</h5>
             </div>
             <div class="sdg-rank-item rank-3">
                 <div class="rank-badge">3rd</div>
-                <img src="../image/sdg8.png" alt="SDG 8 Icon" class="sdg-icon">
+                <img src="../image/sdg_image/sdg8.png" alt="SDG 8 Icon" class="sdg-icon">
                 <h5 class="sdg-score">7.2 / 10</h5>
             </div>
         </div>
@@ -239,11 +248,12 @@
             <p>AI 융합 기술로 대기 질 정보의 사각지대를 해소하고, 시민 건강 증진과 지속가능한 도시 환경 조성에 기여하는 점을 높이 평가합니다. 사업 확장이 사회적 가치 창출로 직결되는 명확한 선순환 구조를 보입니다.</p>
         </div>
     </div>
-    <div class="page-footer">페이지 2</div>
+    <div class="page-footer">2</div>
 </div>
 
 <!-- 메인 리포트 페이지 (3페이지) -->
 <div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
     <div class="ai-consultant-section">
         <h2>AI 컨설턴트의 눈</h2>
         <div class="ai-cards-container">
@@ -269,7 +279,7 @@
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
                     <circle cx="12" cy="12" r="3"></circle>
                 </svg>
-                <h3>미래 예측</h3>
+                <h3>전략적 방향</h3>
                 <p>기술 기반의 확장 가능한(Scalable) 솔루션으로서, 도시 계획 및 공중 보건 정책과 연계하여 더 큰 사회적 비용 절감 및 예방 효과를 창출할 잠재력이 매우 높습니다.</p>
             </div>
         </div>
@@ -283,11 +293,12 @@
             <!-- JavaScript로 동적 생성 -->
         </div>
     </div>
-    <div class="page-footer">페이지 3</div>
+    <div class="page-footer">3</div>
 </div>
 
 <!-- 부록 페이지 (4페이지) -->
 <div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
     <div class="appendix-section" style="margin-top: 0;">
         <h3 class="appendix-title">(부록) 17개 지속가능발전목표(SDGs)</h3>
         <div class="appendix-content">
@@ -296,29 +307,29 @@
             </ul>
         </div>
     </div>
-    <div class="page-footer">페이지 4</div>
+    <div class="page-footer">4</div>
 </div>
 
 <script>
     // SDGs 데이터: 이름, 점수, 설명
     const sdgsData = [
-        { name: "1. 빈곤 종식", score: 1.5, description: "모든 곳에서 모든 형태의 빈곤 종식" },
-        { name: "2. 기아 해소", score: 0.5, description: "기아 종식, 식량 안보와 영양 개선 달성 및 지속가능한 농업 강화" },
-        { name: "3. 건강과 웰빙", score: 8.5, description: "모든 연령층의 건강한 삶 보장 및 웰빙 증진" },
-        { name: "4. 양질의 교육", score: 3.0, description: "모두를 위한 포용적이고 공평한 양질의 교육 보장 및 평생학습 기회 증진" },
-        { name: "5. 성 평등", score: 1.0, description: "성 평등 달성 및 모든 여성과 여아의 권익 신장" },
-        { name: "6. 깨끗한 물과 위생", score: 6.5, description: "모두를 위한 물과 위생의 이용가능성 및 지속가능한 관리 보장" },
-        { name: "7. 모두를 위한 깨끗한 에너지", score: 5.5, description: "모두에게 저렴하고 신뢰성 있으며 지속가능하고 현대적인 에너지에 대한 접근 보장" },
-        { name: "8. 양질의 일자리와 경제성장", score: 7.2, description: "포용적이고 지속가능한 경제성장, 완전하고 생산적인 고용과 모두를 위한 양질의 일자리 증진" },
-        { name: "9. 산업, 혁신, 사회기반시설", score: 6.8, description: "회복력 있는 사회기반시설 구축, 포용적이고 지속가능한 산업화 증진 및 혁신 촉진" },
-        { name: "10. 불평등 감소", score: 4.5, description: "국내 및 국가 간 불평등 감소" },
-        { name: "11. 지속가능한 도시와 공동체", score: 7.8, description: "포용적이고 안전하며 회복력 있고 지속가능한 도시와 주거지 조성" },
-        { name: "12. 책임감 있는 소비와 생산", score: -2.5, description: "지속가능한 소비 및 생산 양식 보장" },
-        { name: "13. 기후변화 대응", score: 6.2, description: "기후변화와 그 영향에 대처하기 위한 긴급 조치 시행" },
-        { name: "14. 해양 생태계 보전", score: 0.0, description: "지속가능발전을 위한 대양, 바다, 해양자원 보존 및 지속가능한 사용" },
-        { name: "15. 육상 생태계 보전", score: 2.0, description: "육상 생태계 보호, 복원 및 증진, 산림의 지속가능한 관리, 사막화 방지, 토지 황폐화 중단 및 복구, 생물다양성 손실 중단" },
-        { name: "16. 평화, 정의, 강력한 제도", score: 3.5, description: "지속가능발전을 위한 평화롭고 포용적인 사회 증진, 모두에게 정의에 대한 접근 제공 및 모든 수준에서 효과적이고 책임감 있으며 포용적인 제도 구축" },
-        { name: "17. 지구촌 협력", score: 4.0, description: "이행수단 강화 및 지속가능발전을 위한 글로벌 파트너십 활성화" }
+        { name: "SDGs 1 | 빈곤 종식", score: 1.5, description: "모든 곳에서 모든 형태의 빈곤 종식" },
+        { name: "SDGs 2 | 기아 해소", score: 0.5, description: "기아 종식, 식량 안보와 영양 개선 달성 및 지속가능한 농업 강화" },
+        { name: "SDGs 3 | 건강과 웰빙", score: 8.5, description: "모든 연령층의 건강한 삶 보장 및 웰빙 증진" },
+        { name: "SDGs 4 | 양질의 교육", score: 3.0, description: "모두를 위한 포용적이고 공평한 양질의 교육 보장 및 평생학습 기회 증진" },
+        { name: "SDGs 5 | 성 평등", score: 1.0, description: "성 평등 달성 및 모든 여성과 여아의 권익 신장" },
+        { name: "SDGs 6 | 깨끗한 물과 위생", score: 6.5, description: "모두를 위한 물과 위생의 이용가능성 및 지속가능한 관리 보장" },
+        { name: "SDGs 7 | 모두를 위한 깨끗한 에너지", score: 5.5, description: "모두에게 저렴하고 신뢰성 있으며 지속가능하고 현대적인 에너지에 대한 접근 보장" },
+        { name: "SDGs 8 | 양질의 일자리와 경제성장", score: 7.2, description: "포용적이고 지속가능한 경제성장, 완전하고 생산적인 고용과 모두를 위한 양질의 일자리 증진" },
+        { name: "SDGs 9 | 산업, 혁신, 사회기반시설", score: 6.8, description: "회복력 있는 사회기반시설 구축, 포용적이고 지속가능한 산업화 증진, 혁신 촉진" },
+        { name: "SDGs 10 | 불평등 감소", score: 4.5, description: "국내 및 국가 간 불평등 감소" },
+        { name: "SDGs 11 | 지속가능한 도시와 공동체", score: 7.8, description: "포용적이고 안전하며 회복력 있고 지속가능한 도시와 주거지 조성" },
+        { name: "SDGs 12 | 책임감 있는 소비와 생산", score: -2.5, description: "지속가능한 소비 및 생산 양식 보장" },
+        { name: "SDGs 13 | 기후변화 대응", score: 6.2, description: "기후변화와 그 영향에 대처하기 위한 긴급 조치 시행" },
+        { name: "SDGs 14 | 해양 생태계 보전", score: 0.0, description: "지속가능발전을 위한 대양, 바다, 해양자원 보존 및 지속가능한 사용" },
+        { name: "SDGs 15 | 육상 생태계 보전", score: 2.0, description: "육상 생태계 보호, 복원 및 증진, 산림의 지속가능한 관리, 사막화 방지, 토지 황폐화 중단 및 복구, 생물다양성 손실 중단" },
+        { name: "SDGs 16 | 평화, 정의, 강력한 제도", score: 3.5, description: "지속가능발전을 위한 평화롭고 포용적인 사회 증진, 모두에게 정의에 대한 접근 제공 및 모든 수준에서 효과적이고 책임감 있으며 포용적인 제도 구축" },
+        { name: "SDGs 17 | 지구촌 협력", score: 4.0, description: "이행수단 강화 및 지속가능발전을 위한 글로벌 파트너십 활성화" }
     ];
 
     const chartContainerPage3 = document.getElementById('sdg-chart-page3');
@@ -362,7 +373,7 @@
         
         if (appendixList) {
             const listItem = document.createElement('li');
-            listItem.innerHTML = `<strong>${sdg.name.split('. ')[1]}:</strong> ${sdg.description}`;
+            listItem.innerHTML = `<strong>${sdg.name}:</strong> ${sdg.description}`;
             appendixList.appendChild(listItem);
         }
     });

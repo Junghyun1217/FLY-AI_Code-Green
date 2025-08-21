@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Impact Report - 나눔비타민</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 기본 설정 --- */
+        :root {
+            --primary-green: #27AE60;
+            --dark-blue: #0d3d56;
+            --text-dark: #2c3e50;
+            --text-light: #5D6D7E;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --accent-blue: #3498DB;
+            --accent-orange: #FFC107; /* 색상 변경 */
+        }
+
+        /* --- CSS 초기화: 모든 요소의 크기 계산 방식을 통일 --- */
+        * {
+            box-sizing: border-box;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm;
+            margin: 20mm auto;
+            background: #ffffff;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: fade-in 0.6s ease-out forwards;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', 'Roboto', sans-serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        p {
+            line-height: 1.9;
+            font-size: 10pt;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* --- 표지 스타일 --- */
+        .cover-page {
+            padding: 0;
+            justify-content: flex-start;
+            align-items: flex-start;
+            background: url('../image/reportbg.png') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+        }
+        .cover-text {
+            padding: 60px;
+            margin-top: 120px;
+            text-align: left;
+            line-height: 1.3;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .cover-text .line1 { font-size: 2rem; letter-spacing: 4px; }
+        .cover-text .line2 { font-size: 4.2rem; font-weight: 300; letter-spacing: 1px; }
+        .cover-text .line3 { font-size: 3rem; font-weight: 200; margin-top: 8px; }
+        .cover-text .line4 { font-size: 1.8rem; font-weight: 300; margin-top: 20px; }
+
+        /* --- 페이지 제목 및 푸터 --- */
+        .main-title {
+            font-size: 26pt;
+            color: var(--primary-green);
+            text-align: left;
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .page-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 9pt;
+            color: #aaa;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            width: calc(100% - 50mm);
+            position: absolute;
+            bottom: 10mm;
+            left: 25mm;
+        }
+        
+        /* --- 페이지 로고 --- */
+        .page-logo {
+            position: absolute;
+            top: 5mm;
+            right: 20mm;
+            width: 120px;
+            height: auto;
+        }
+
+        /* --- 섹션 공통 스타일 --- */
+        .section { margin-bottom: 35px; }
+        
+        .section-title {
+            font-size: 18pt;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sub-title {
+            font-size: 14pt;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        /* --- 레이아웃 --- */
+        .grid-container-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+        /* --- SDG 카드 (2페이지) --- */
+        .sdg-main-subtitle {
+            font-size: 12pt;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        .sdg-goal-group { 
+            margin-bottom: 25px; 
+        }
+        .sdg-goal-group:last-child { 
+            margin-bottom: 0; 
+        }
+        .sdg-card-new {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .sdg-color-box {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+        .sdg-text-content h4 { font-size: 10pt; font-weight: 600; margin-bottom: 8px; }
+        .sdg-text-content p { font-size: 9pt; line-height: 1.6; margin: 0; }
+        .sdg-detail-goal {
+            margin-top: 10px;
+            padding: 20px;
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+        .sdg-detail-goal p { font-size: 10pt; margin: 0; color: var(--text-light); }
+        .sdg-detail-goal strong { font-weight: 700; color: var(--text-dark); margin-right: 9px; } 
+        
+        /* --- 인포 박스 --- */
+        .info-box-new {
+            background: linear-gradient(135deg, #F9F9F9, #FFFFFF);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-green);
+        }
+        .info-box-new p { font-size: 10pt; color: var(--text-dark); margin: 0; }
+        .info-box-new strong { color: var(--primary-green); font-weight: 700; }
+
+        /* --- KPI 카드 (3페이지) --- */
+        .kpi-card-new {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .kpi-card-new h4 {
+            font-size: 7pt;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-weight: 500;
+            min-height: 2.5em;
+        }
+        .kpi-card-new .value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+        .kpi-card-new .value.blue { color: var(--accent-blue); }
+        .kpi-card-new .value.accent { color: var(--accent-orange); }
+        .kpi-card-new .unit { font-size: 9pt; color: var(--text-light); display: block; margin-top: 5px; }
+        
+        /* --- 상세 분석 (4페이지) --- */
+        .analysis-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            align-items: start;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .analysis-item.right-title { grid-template-columns: 1fr 150px; }
+        .analysis-item h3 {
+            font-size: 15pt;
+            color: #fff;
+            background: var(--dark-blue);
+            padding: 25px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .analysis-item p { margin: 0; padding-top: 5px; }
+        
+        /* --- 변화량 그래프 스타일 (5페이지) --- */
+        .chart-container {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            background: #fff;
+        }
+        .chart-legend {
+            display: flex; justify-content: flex-end; gap: 20px;
+            font-size: 9pt; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .legend-color { width: 15px; height: 15px; border-radius: 3px; }
+        .chart-area {
+            display: flex; justify-content: space-around; align-items: flex-end;
+            height: 280px; padding: 20px 0;
+            border-left: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+        .bar-group { 
+            width: 16%; /* 막대 그룹 너비 조정 */
+            height: 100%; 
+            text-align: center; 
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; 
+            gap: 10px; 
+        }
+        .bar { 
+            width: 40px; /* 막대 너비 조정 */
+            border-radius: 4px 4px 0 0; 
+            position: relative; 
+            background: var(--dark-blue);
+        }
+        .bar.predicted {
+            background: var(--accent-orange); /* 예측 데이터 색상 */
+        }
+        .bar-label { position: absolute; bottom: -45px; width: 100%; left: 0; font-size: 10pt; font-weight: 500; color: var(--text-light);}
+        .bar-value { position: absolute; top: -22px; width: 100%; left: 0; font-size: 9pt; font-weight: 700; color: var(--text-dark); }
+    </style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<div class="page cover-page">
+    <div class="cover-text">
+        <div class="line1">Code Green</div>
+        <div class="line2">Impact Report</div>
+        <div class="line3">2025</div>
+        <div class="line4">나눔비타민</div>
+    </div>
+</div>
+
+<!-- Page 2: Introduction & SDGs -->
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">I. 기업 분석</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            기업 소개
+        </h2>
+        <p>결식우려아동이 가맹점 정보 부족·결제 불확실성·낙인 등으로 양질의 식사에 접근하기 어려운 문제를 해결하기 위해 나눔비타민은 결식아동·식사지원가게·지자체·기부단체를 연결하는 플랫폼 '나비얌'을 운영해 아동급식카드 사용자 인증, 가맹점 정보 제공 및 예약·무상·할인 식사 연계를 디지털화합니다. 이를 통해 아동의 식사 접근성과 영양 개선, 낙인 완화 및 지역 중소형 음식점의 수익 증대 등 사회적·경제적 효과가 기대됩니다.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 2a10 10 0 0 0-10 10c0 4.29 2.68 7.94 6.38 9.38"/><path d="M22 12a10 10 0 0 0-9.38-6.38C16.91 3.32 20.66 7 22 12z"/></svg>
+            SDGs 연계
+        </h2>
+        <h3 class="sdg-main-subtitle">주요 목표 및 세부 목표</h3>
+        <div class="sdg-container">
+            <div class="sdg-goal-group">
+                <div class="sdg-card-new">
+                    <div class="sdg-color-box" style="background-image: url('../image/sdg_image/sdg2.png');"></div>
+                    <div class="sdg-text-content">
+                        <h4>SDG 2: 기아 종식</h4>
+                        <p>아동의 식사 접근성 및 영양 개선을 직접적으로 해결하는 서비스</p>
+                    </div>
+                </div>
+                <div class="sdg-detail-goal">
+                    <p><strong>SDG 2.1:</strong> 기아 종식 및 식량 접근성 보장</p>
+                    <p><strong>SDG 2.3:</strong> 영세 농산물 생산자 생산성·소득 증대</p>
+                </div>
+            </div>
+            <div class="sdg-goal-group">
+                <div class="sdg-card-new">
+                    <div class="sdg-color-box" style="background-image: url('../image/sdg_image/sdg10.png');"></div>
+                    <div class="sdg-text-content">
+                        <h4>SDG 10: 불평등 감소</h4>
+                        <p>낙인 완화와 취약계층의 식사 접근성 향상을 통해 사회적·경제적 불평등 완화에 기여</p>
+                    </div>
+                </div>
+                <div class="sdg-detail-goal">
+                    <p><strong>SDG 10.1:</strong> 하위 40% 소득성장 촉진</p>
+                    <p><strong>SDG 10.2:</strong> 사회·경제·정치적 포용 증진</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">2</div>
+</div>
+
+<!-- Page 3: KPI Dashboard -->
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            사회적 가치 창출 포인트 
+        </h2>
+        <p>나눔비타민의 가치는 결식우려 아동이 겪는 식사 접근성 부족과 낙인 문제를 디지털 플랫폼으로 해결하는 데 있습니다. '나비얌'은 아동급식카드 사용처 정보 제공·예약·할인·기부 연계를 통해 아동의 선택권과 이용 편의를 높이고 지역 소상공인의 추가 수익을 창출합니다. 플랫폼 확장 시 아동 영양개선, 빈곤층 식사 안전망 강화 및 지역경제 선순환 효과가 확대될 것으로 기대됩니다.\n플랫폼 확장은 아동은 더 편하게 식사를 선택하고, 소상공인은 손님이 늘어나는 구조로, 마치 동네 식당이 아동을 받으면서 매출도 함께 늘어나는 것과 같습니다.</p>
+        <div class="info-box-new" style="margin-top: 20px;">
+            <p><strong>💡AI 해설:</strong> 이는 동네 식당이 아이들을 받아주면서 자연스럽게 단골이 늘고 매출이 오르는 것과 같습니다.</p>
+        </div>
+    </div>
+    <h1 class="main-title" style="margin-top: 20px; margin-bottom: 20px;">II. 임팩트-재무 KPI 연동 대시보드</h1>
+    <div class="section">
+        <h2 class="sub-title">핵심 성과 지표 (Total)</h2>
+        <div class="grid-container-4">
+            <div class="kpi-card-new">
+                <h4>누적<br>알럼나이</h4>
+                <span class="value">21000<span class="unit">명</span></span>
+            </div>
+            <div class="kpi-card-new">
+                <h4>파트너<br>수</h4>
+                <span class="value blue">900<span class="unit">개</span></span>
+            </div>
+            <div class="kpi-card-new">
+                <h4>진출국<br>수</h4>
+                <span class="value blue">405<span class="unit">개</span></span>
+            </div>
+            <div class="kpi-card-new">
+                <h4>투자<br>건수</h4>
+                <span class="value accent">20<span class="unit">개</span></span>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="sub-title">핵심 효율성 지표 (매출 1억당)</h2>
+        <div class="grid-container-4">
+            <div class="kpi-card-new">
+                <h4><br></h4>
+                <span class="value">-<span class="unit">-</span></span>
+            </div>
+            <div class="kpi-card-new">
+                <h4><br></h4>
+                <span class="value blue">-<span class="unit"></span></span>
+            </div>
+            <div class="kpi-card-new">
+                <h4><br></h4>
+                <span class="value blue">-<span class="unit"></span></span>
+            </div>
+            <div class="kpi-card-new">
+                <h4><br></h4>
+                <span class="value accent">-<span class="unit"></span></span>
+            </div>
+        </div>
+    </div>
+    <div class="page-footer">3</div>
+</div>
+
+<!-- Page 4: Detailed Analysis -->
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">III. 상세 분석</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            IMP 기반 분석
+        </h2>
+        <div class="analysis-item">
+            <h3>What</h3>
+            <p>유디임팩트는 실전 창업교육, 코호트형 육성, 컴퍼니빌더 방식의 자회사 설립·투자, ESG·임팩트 측정 서비스를 결합해 교육·고용·지역경제라는 다층적 가치를 창출합니다. 구체적으로는 청년·예비창업가의 역량 강화(교육), 사회적기업·로컬 벤처의 사업화(육성), 지역 일자리·소상공인 성장(지역발전)에 기여하며 이는 SDGs의 8번(포용적 경제성장·양질의 일자리)과 4번(포용적 실전교육) 달성과 직접 연결됩니다.</p>
+        </div>
+        <div class="analysis-item right-title">
+            <p>직접적 수혜 대상은 예비·초기창업자(청년), 지역 소상공인·로컬 크리에이터, 취약계층 고용을 추진하는 사회적기업이며, 간접적으로는 기업 파트너(CSR 담당), 지방정부와 지역사회가 혜택을 봅니다. 교육 참가자·알럼나이에게는 실전 역량·네트워크·창업·취업 기회가 제공되고, 지역 사업자는 매출·고용 증대와 지역 활력 회복을 기대할 수 있습니다.</p>
+            <h3>Who</h3>
+        </div>
+    </div>
+     <div class="section">
+        <div class="analysis-item">
+            <h3>How much</h3>
+            <p>임팩트 측정은 정량·정성 지표 병행으로 구현합니다. 사용 가능한 지표 예: 누적 알럼나이(현재 21,000명), 파트너 수(405), 진출국 수(20), 창업·투자·엑시트 실적(창업 10개·투자 20건·엑시트 3건)과 PoC→매출 전환 사례(기존 PoC 성과 등)를 기초로 참가자 취업률, 창업 생존율(1·3·5년), 지원기업 평균연매출 성장률, 지역별 고용창출 수 등을 전후 비교하여 산출합니다. 정교한 사회적가치평가(SROI, IRIS+ 지표 등)와 한국사회가치평가(내부 계열사)를 활용해 외부검증을 병행합니다.</p>
+        </div>
+        <div class="analysis-item right-title">
+            <p>주요 리스크는 파트너·자금 의존성, 창업자·팀 이탈, 현지화 실패, 측정 기준 불일치 등입니다. 대응책으로는 수익원 다각화, 거버넌스·회계시스템 강화, 현지 파트너십 확대, 표준화된 평가체계 도입을 병행합니다.</p>
+            <h3>Risk</h3>
+        </div>
+    </div>
+    <div class="page-footer">4</div>
+</div>
+
+<!-- Page 5: Chart & Strategy -->
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">IV. 변화량 및 확장 전략</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            연도별 매출 변화 (단위: 억원)
+        </h2>
+        <div class="chart-container">
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--dark-blue);"></div>
+                    <span>실제 매출</span>
+                </div>
+                 <div class="legend-item">
+                    <div class="legend-color" style="background: var(--accent-orange);"></div>
+                    <span>예측 매출</span>
+                </div>
+            </div>
+            <div class="chart-area">
+                <div class="bar-group">
+                    <div class="bar" style="height: 10.6%;"><span class="bar-value">82</span></div>
+                    <div class="bar-label">'22년</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height: 16.3%;"><span class="bar-value">126</span></div>
+                    <div class="bar-label">'23년</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height: 25.9%;"><span class="bar-value">200</span></div>
+                    <div class="bar-label">'24년</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar predicted" style="height: 45.6%;"><span class="bar-value">352</span></div>
+                    <div class="bar-label">'25년(E)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar predicted" style="height: 77.9%;"><span class="bar-value">602</span></div>
+                    <div class="bar-label">'26년(E)</div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar predicted" style="height: 100%;"><span class="bar-value">771</span></div>
+                    <div class="bar-label">'27년(E)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+    <h2 class="section-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        GRI 지표 추천
+    </h2>
+    <ul>
+        <li><strong>경제 성과 (GRI 201):</strong> 자회사 설립·투자·엑시트·수익원 다각화 등 조직의 경제적 성과와 그 성과가 참가자·파트너·지역에 미치는 영향(예: 창업·고용 성과)을 측정·보고하는 필요성과 직접 연결됩니다.</li>
+        <li><strong>간접 경제 영향 (GRI 203):</strong> 유디임팩트의 핵심 활동(창업교육·컴퍼니빌딩·투자·지역사업 지원)은 지역 고용창출·소상공인 매출증대·지역경제 활성화 같은 간접적 경제효과를 직접 발생시키므로 GRI 203이 가장 직접적으로 연관됩니다.</li>
+        <li><strong>고객 개인정보보호 (GRI 413):</strong> 교육·인큐베이팅·현지 파트너십을 통한 지역사회 참여와 개발 프로그램(지역 활력 회복, 지방정부·지역사회 대상 혜택) 및 영향평가가 유디임팩트의 핵심 활동과 직접적으로 일치합니다.</li>
+    </ul>
+</div>
+    <div class="page-footer">5</div>
+</div>
+
+<!-- Page 6: AI Summary -->
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">V. AI 요약</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            종합 평가
+        </h2>
+        <p>유디임팩트는 실전형 창업교육과 컴퍼니빌딩 모델을 통해 청년 및 지역 창업 생태계를 활성화하고, 일자리 부족과 지역 쇠퇴 등 핵심적인 사회 문제를 해결하는 혁신적인 소셜벤처입니다. 본 보고서의 데이터를 종합 분석한 결과, 유디임팩트는 창업가 역량 강화와 고용 창출이라는 사회적 가치와 지속가능한 창업 생태계 구축이라는 경제적 가치를 동시에 창출하며 꾸준한 성장을 보이고 있습니다. 연도별 성과 변화에서 확인되듯, 사업 확장에 따라 긍정적 임팩트가 꾸준히 증가하고 있어 향후 성장 잠재력이 매우 높다고 평가됩니다.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            주요 성과 요약
+        </h2>
+        <div class="info-box-new">
+            <p><strong>사회적 성과:</strong> 21,000명 이상의 누적 알럼나이를 배출했으며, 이들이 설립하거나 참여한 기업을 통해 직간접적으로 양질의 일자리를 창출했습니다. 특히 청년 및 지역 기반 창업을 촉진하여 사회 안전망 강화에 기여했습니다.<br><br>
+                 <strong>생태계 성과:</strong> 체계적인 교육 및 인큐베이팅을 통해 지원 기업의 초기 생존율을 높이고 평균 매출 성장을 견인했습니다. 400개 이상의 파트너와 협력하며 지역 경제 활성화 및 창업 생태계의 지속가능성을 제고했습니다.</p>
+        </div>
+    </div>
+    <div class="page-footer">6</div>
+</div>
+
+<!-- Page 7: Appendix -->
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">VI. 부록</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            데이터 출처 및 방법론
+        </h2>
+        <ul>
+            <li><strong>핵심 성과 지표 데이터:</strong> 본 보고서에 포함된 누적 알럼나이, 파트너 수, 진출 국가 수, 투자 및 육성 기업 성과(창업, 고용, 매출 성장률 등) 데이터는 유디임팩트 내부 성과 관리 시스템을 통해 집계되었습니다. (데이터 집계 기간: 2015년 1월 1일 ~ 2024년 12월 31일)</li>
+            <li><strong>임팩트 측정 방법론:</strong> 사회적 가치 측정은 Social Value International (SVI)의 사회적 투자수익률(SROI) 측정 원칙을 준용하였으며, 주요 KPI는 Global Impact Investing Network (GIIN)의 IRIS+ 지표 및 유디임팩트 자체 임팩트 프레임워크를 참고하여 설정했습니다.</li>
+        </ul>
+    </div>
+     <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            용어 설명
+        </h2>
+        <p><strong>컴퍼니빌더 (Company Builder):</strong> 단순 지분 투자를 넘어, 아이디어 단계부터 기업 설립, 사업 개발, 운영, 성장까지 전 과정에 직접 참여하여 기업을 함께 만들어가는 적극적인 인큐베이팅 모델입니다.</p>
+        <p><strong>알럼나이 (Alumni):</strong> 유디임팩트가 운영하는 창업 교육 프로그램(언더독스 사관학교 등)을 이수한 졸업생 커뮤니티를 의미하며, 유디임팩트 생태계의 핵심 자산입니다.</p>
+        <p><strong>SROI (Social Return on Investment):</strong> 사회적 투자수익률. 투입된 자원 대비 창출된 사회적 가치를 화폐 단위로 측정하여 보여주는 사회적 성과 측정 방법론입니다.</p>
+        <p><strong>GRI (Global Reporting Initiative):</strong> 지속가능성 보고서에 대한 가이드라인을 제시하는 국제기구. 전 세계적으로 가장 널리 채택되는 표준 중 하나입니다.</p>
+    </div>
+    <div class="page-footer">7</div>
+</div>
+
+</body>
+</html>
