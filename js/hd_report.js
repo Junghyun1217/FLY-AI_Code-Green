@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- 4. 버튼에 기능과 링크를 연결합니다. ---
                 if (downloadBtn) {
                     downloadBtn.href = downloadUrl;
-                    downloadBtn.textContent = `PDF 다운로드 (${filename})`;
+                    downloadBtn.textContent = `PDF 다운로드`;
                     console.log('다운로드 버튼 설정 완료.');
                 }
 

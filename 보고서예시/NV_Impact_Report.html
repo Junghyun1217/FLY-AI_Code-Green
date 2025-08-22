@@ -245,40 +245,74 @@
             padding: 30px;
             background: #fff;
         }
-        .chart-legend {
-            display: flex; justify-content: flex-end; gap: 20px;
-            font-size: 9pt; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
-        }
-        .legend-item { display: flex; align-items: center; gap: 8px; }
-        .legend-color { width: 15px; height: 15px; border-radius: 3px; }
         .chart-area {
-            display: flex; justify-content: space-around; align-items: flex-end;
-            height: 280px; padding: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 280px;
+            padding: 20px 0;
             border-left: 1px solid var(--border-color);
             border-bottom: 1px solid var(--border-color);
             position: relative;
         }
-        .bar-group { 
-            width: 16%; /* 막대 그룹 너비 조정 */
-            height: 100%; 
-            text-align: center; 
-            position: relative; 
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-end; 
-            gap: 10px; 
+        .bar-group {
+            width: 25%;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
         }
-        .bar { 
-            width: 40px; /* 막대 너비 조정 */
-            border-radius: 4px 4px 0 0; 
-            position: relative; 
-            background: var(--dark-blue);
+        .bar {
+            width: 50px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            background: var(--dark-blue); /* 실제 데이터 색상 */
+            z-index: 1;
         }
         .bar.predicted {
-            background: var(--accent-orange); /* 예측 데이터 색상 */
+             background: var(--accent-orange); /* 예측 데이터 색상 */
         }
-        .bar-label { position: absolute; bottom: -45px; width: 100%; left: 0; font-size: 10pt; font-weight: 500; color: var(--text-light);}
-        .bar-value { position: absolute; top: -22px; width: 100%; left: 0; font-size: 9pt; font-weight: 700; color: var(--text-dark); }
+        .bar-label {
+            position: absolute;
+            bottom: -45px;
+            width: 100%;
+            left: 0;
+            font-size: 10pt;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        .bar-value {
+            position: absolute;
+            top: -25px; /* 위치 조정 */
+            width: 100%;
+            left: 0;
+            font-size: 12pt; /* 크기 조정 */
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .bar.predicted .bar-value {
+            color: #E65C00;
+            font-size: 16pt;
+            font-weight: 900;
+        }
+
+        /* --- 재무 데이터 안내 문구 --- */
+        .financial-notice {
+            margin-top: 0; /* 간격 조정 */
+            padding: 15px;
+            background-color: #fffbe6;
+            border: 1px solid #ffe58f;
+            border-left: 5px solid var(--accent-orange);
+            border-radius: 8px;
+        }
+        .financial-notice p {
+            margin: 0;
+            color: #8a6d3b;
+            font-size: 9pt;
+            line-height: 1.7;
+        }
     </style>
 </head>
 <body>
@@ -302,7 +336,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             기업 소개
         </h2>
-        <p>결식우려아동이 가맹점 정보 부족·결제 불확실성·낙인 등으로 양질의 식사에 접근하기 어려운 문제를 해결하기 위해 나눔비타민은 결식아동·식사지원가게·지자체·기부단체를 연결하는 플랫폼 '나비얌'을 운영해 아동급식카드 사용자 인증, 가맹점 정보 제공 및 예약·무상·할인 식사 연계를 디지털화합니다. 이를 통해 아동의 식사 접근성과 영양 개선, 낙인 완화 및 지역 중소형 음식점의 수익 증대 등 사회적·경제적 효과가 기대됩니다.</p>
+        <p><strong>결식우려아동</strong>이 가맹점 정보 부족·결제 불확실성·<strong>낙인</strong> 등으로 <strong>양질의 식사에 접근하기 어려운 문제</strong>를 해결하기 위해 나눔비타민은 결식아동·식사지원가게·지자체·기부단체를 연결하는 <strong>플랫폼 '나비얌'</strong>을 운영해 <strong>아동급식카드 사용자 인증, 가맹점 정보 제공 및 예약·무상·할인 식사 연계를 디지털화</strong>합니다. 이를 통해 아동의 <strong>식사 접근성과 영양 개선, 낙인 완화</strong> 및 지역 중소형 음식점의 <strong>수익 증대</strong> 등 <strong>사회적·경제적 효과</strong>가 기대됩니다.</p>
     </div>
     <div class="section">
         <h2 class="section-title">
@@ -316,7 +350,7 @@
                     <div class="sdg-color-box" style="background-image: url('../image/sdg_image/sdg2.png');"></div>
                     <div class="sdg-text-content">
                         <h4>SDG 2: 기아 종식</h4>
-                        <p>아동의 식사 접근성 및 영양 개선을 직접적으로 해결하는 서비스</p>
+                        <p>아동의 <strong>식사 접근성 및 영양 개선</strong>을 직접적으로 해결하는 서비스</p>
                     </div>
                 </div>
                 <div class="sdg-detail-goal">
@@ -329,7 +363,7 @@
                     <div class="sdg-color-box" style="background-image: url('../image/sdg_image/sdg10.png');"></div>
                     <div class="sdg-text-content">
                         <h4>SDG 10: 불평등 감소</h4>
-                        <p>낙인 완화와 취약계층의 식사 접근성 향상을 통해 사회적·경제적 불평등 완화에 기여</p>
+                        <p><strong>낙인 완화</strong>와 <strong>취약계층의 식사 접근성 향상</strong>을 통해 사회적·경제적 불평등 완화에 기여</p>
                     </div>
                 </div>
                 <div class="sdg-detail-goal">
@@ -350,52 +384,43 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
             사회적 가치 창출 포인트 
         </h2>
-        <p>나눔비타민의 가치는 결식우려 아동이 겪는 식사 접근성 부족과 낙인 문제를 디지털 플랫폼으로 해결하는 데 있습니다. '나비얌'은 아동급식카드 사용처 정보 제공·예약·할인·기부 연계를 통해 아동의 선택권과 이용 편의를 높이고 지역 소상공인의 추가 수익을 창출합니다. 플랫폼 확장 시 아동 영양개선, 빈곤층 식사 안전망 강화 및 지역경제 선순환 효과가 확대될 것으로 기대됩니다.\n플랫폼 확장은 아동은 더 편하게 식사를 선택하고, 소상공인은 손님이 늘어나는 구조로, 마치 동네 식당이 아동을 받으면서 매출도 함께 늘어나는 것과 같습니다.</p>
+        <p>나눔비타민의 가치는 <strong>결식우려 아동</strong>이 겪는 <strong>식사 접근성 부족</strong>과 <strong>낙인 문제</strong>를 <strong>디지털 플랫폼</strong>으로 해결하는 데 있습니다. '나비얌'은 아동급식카드 사용처 정보 제공·예약·할인·기부 연계를 통해 <strong>아동의 선택권과 이용 편의</strong>를 높이고 <strong>지역 소상공인의 추가 수익</strong>을 창출합니다. 플랫폼 확장 시 <strong>아동 영양개선, 빈곤층 식사 안전망 강화</strong> 및 <strong>지역경제 선순환 효과</strong>가 확대될 것으로 기대됩니다.플랫폼 확장은 아동은 더 편하게 식사를 선택하고, 소상공인은 손님이 늘어나는 구조로, 마치 동네 식당이 아동을 받으면서 매출도 함께 늘어나는 것과 같습니다.</p>
         <div class="info-box-new" style="margin-top: 20px;">
-            <p><strong>💡AI 해설:</strong> 이는 동네 식당이 아이들을 받아주면서 자연스럽게 단골이 늘고 매출이 오르는 것과 같습니다.</p>
+            <p><strong>💡AI 해설:</strong> 이는 동네 식당이 아이들을 받아주면서 자연스럽게 <strong>단골이 늘고 매출이 오르는 것</strong>과 같습니다.</p>
         </div>
     </div>
     <h1 class="main-title" style="margin-top: 20px; margin-bottom: 20px;">II. 임팩트-재무 KPI 연동 대시보드</h1>
     <div class="section">
         <h2 class="sub-title">핵심 성과 지표 (Total)</h2>
-        <div class="grid-container-4">
+        <div id="total-kpi-cards" class="grid-container-4">
             <div class="kpi-card-new">
-                <h4>누적<br>알럼나이</h4>
-                <span class="value">21000<span class="unit">명</span></span>
+                <h4>가맹점<br>수</h4>
+                <span class="value">60000<span class="unit">개</span></span>
             </div>
             <div class="kpi-card-new">
-                <h4>파트너<br>수</h4>
-                <span class="value blue">900<span class="unit">개</span></span>
+                <h4>앱 다운로드<br>수</h4>
+                <span class="value blue">30000<span class="unit">건</span></span>
             </div>
             <div class="kpi-card-new">
-                <h4>진출국<br>수</h4>
-                <span class="value blue">405<span class="unit">개</span></span>
+                <h4>재계약<br>률</h4>
+                <span class="value blue">95<span class="unit">%</span></span>
             </div>
             <div class="kpi-card-new">
-                <h4>투자<br>건수</h4>
-                <span class="value accent">20<span class="unit">개</span></span>
+                <h4>초기 거래 실적(예시)<br>거래액</h4>
+                <span class="value accent">5<span class="unit">억(원)</span></span>
             </div>
+        </div>
+        <div id="total-notice-container" class="financial-notice" style="display: none;">
+             <p><strong>참고:</strong> 핵심 성과 데이터가 없어 관련 지표가 표시되지 않았습니다. 정확한 분석을 원하시면 성과 데이터를 업로드하여 리포트를 다시 생성해 주세요.</p>
         </div>
     </div>
     <div class="section">
         <h2 class="sub-title">핵심 효율성 지표 (매출 1억당)</h2>
-        <div class="grid-container-4">
-            <div class="kpi-card-new">
-                <h4><br></h4>
-                <span class="value">-<span class="unit">-</span></span>
-            </div>
-            <div class="kpi-card-new">
-                <h4><br></h4>
-                <span class="value blue">-<span class="unit"></span></span>
-            </div>
-            <div class="kpi-card-new">
-                <h4><br></h4>
-                <span class="value blue">-<span class="unit"></span></span>
-            </div>
-            <div class="kpi-card-new">
-                <h4><br></h4>
-                <span class="value accent">-<span class="unit"></span></span>
-            </div>
+        <div id="efficiency-kpi-cards" class="grid-container-4">
+            <!-- 데이터가 있을 경우 JS가 이 부분을 채웁니다 -->
+        </div>
+        <div id="financial-notice-container" class="financial-notice" style="display: none;">
+             <p>참고: 재무 데이터가 연동되지 않아 관련 효율성 지표가 표시되지 않았습니다. 정확한 분석을 원하시면 재무제표를 업로드하여 리포트를 다시 생성해 주세요.</p>
         </div>
     </div>
     <div class="page-footer">3</div>
@@ -412,20 +437,20 @@
         </h2>
         <div class="analysis-item">
             <h3>What</h3>
-            <p>유디임팩트는 실전 창업교육, 코호트형 육성, 컴퍼니빌더 방식의 자회사 설립·투자, ESG·임팩트 측정 서비스를 결합해 교육·고용·지역경제라는 다층적 가치를 창출합니다. 구체적으로는 청년·예비창업가의 역량 강화(교육), 사회적기업·로컬 벤처의 사업화(육성), 지역 일자리·소상공인 성장(지역발전)에 기여하며 이는 SDGs의 8번(포용적 경제성장·양질의 일자리)과 4번(포용적 실전교육) 달성과 직접 연결됩니다.</p>
+            <p>나눔비타민은 <strong>결식우려 아동의 식사 접근성 및 영양 개선(건강)</strong>과 <strong>사회적 낙인 경감(사회통합)</strong>을 목적으로 디지털 매칭·정보 제공·예약 서비스를 제공합니다. 이는 <strong>지역 소상공인의 매출 증대(경제)</strong>와 <strong>공공서비스의 효율성 증진(행정 혁신)</strong>으로 이어집니다. 본 활동은 <strong>SDG 2(기아 종식)</strong>와 <strong>SDG 10(불평등 감소)</strong>에 기여합니다.</p>
         </div>
         <div class="analysis-item right-title">
-            <p>직접적 수혜 대상은 예비·초기창업자(청년), 지역 소상공인·로컬 크리에이터, 취약계층 고용을 추진하는 사회적기업이며, 간접적으로는 기업 파트너(CSR 담당), 지방정부와 지역사회가 혜택을 봅니다. 교육 참가자·알럼나이에게는 실전 역량·네트워크·창업·취업 기회가 제공되고, 지역 사업자는 매출·고용 증대와 지역 활력 회복을 기대할 수 있습니다.</p>
+            <p><strong>직접적 수혜자</strong>는 <strong>아동급식카드 대상의 결식우려 아동</strong>이며, <strong>간접적 수혜자</strong>는 플랫폼에 참여하는 <strong>지역의 중소형 음식점</strong>과 이를 지원하는 <strong>지자체·기부단체</strong>입니다. 아동은 실시간 가맹점 정보와 예약 기능을 통해 <strong>안전하고 다양한 식사</strong>를 이용할 수 있고, 음식점은 <strong>안정적 고객 유입</strong>과 <strong>사회적 브랜드 가치 향상</strong>을 통해 수익성을 개선합니다.</p>
             <h3>Who</h3>
         </div>
     </div>
      <div class="section">
         <div class="analysis-item">
             <h3>How much</h3>
-            <p>임팩트 측정은 정량·정성 지표 병행으로 구현합니다. 사용 가능한 지표 예: 누적 알럼나이(현재 21,000명), 파트너 수(405), 진출국 수(20), 창업·투자·엑시트 실적(창업 10개·투자 20건·엑시트 3건)과 PoC→매출 전환 사례(기존 PoC 성과 등)를 기초로 참가자 취업률, 창업 생존율(1·3·5년), 지원기업 평균연매출 성장률, 지역별 고용창출 수 등을 전후 비교하여 산출합니다. 정교한 사회적가치평가(SROI, IRIS+ 지표 등)와 한국사회가치평가(내부 계열사)를 활용해 외부검증을 병행합니다.</p>
+            <p>임팩트는 도입 전·후 비교 및 지속 모니터링으로 <strong>정량화</strong>합니다. <strong>핵심 지표</strong>: (1) <strong>플랫폼을 통해 제공된 식사 건수</strong>, (2) <strong>등록·활성화된 착한가게 수</strong>, (3) <strong>아동 1인당 월평균 식사지원 금액과 사용처 다양성</strong>, (4) <strong>아동·부모 대상 낙인 인식 설문 변화</strong>, (5) <strong>지자체·단체 연계 건수와 기부금액</strong>. 추가로 <strong>지역별 커버리지</strong>와 <strong>재이용률(리텐션)</strong>을 추적해 <strong>규모·범위·지속성</strong>을 평가합니다.</p>
         </div>
         <div class="analysis-item right-title">
-            <p>주요 리스크는 파트너·자금 의존성, 창업자·팀 이탈, 현지화 실패, 측정 기준 불일치 등입니다. 대응책으로는 수익원 다각화, 거버넌스·회계시스템 강화, 현지 파트너십 확대, 표준화된 평가체계 도입을 병행합니다.</p>
+            <p><strong>정책(아동급식카드 제도) 변경, 가맹점 참여 저조, 디지털 접근성 한계, 개인정보 이슈</strong>가 주요 리스크입니다. 대응 전략으로는 <strong>다각적 파트너십(지자체·NGO), 오프라인 연계 지원, 보안·프라이버시 강화, 인센티브 설계</strong>로 리스크를 완화합니다.</p>
             <h3>Risk</h3>
         </div>
     </div>
@@ -439,45 +464,31 @@
     <div class="section">
         <h2 class="section-title">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            연도별 매출 변화 (단위: 억원)
+            매출액 추이 (단위: 천만원)
         </h2>
-        <div class="chart-container">
-            <div class="chart-legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background: var(--dark-blue);"></div>
-                    <span>실제 매출</span>
-                </div>
-                 <div class="legend-item">
-                    <div class="legend-color" style="background: var(--accent-orange);"></div>
-                    <span>예측 매출</span>
-                </div>
-            </div>
-            <div class="chart-area">
-                <div class="bar-group">
-                    <div class="bar" style="height: 10.6%;"><span class="bar-value">82</span></div>
-                    <div class="bar-label">'22년</div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar" style="height: 16.3%;"><span class="bar-value">126</span></div>
-                    <div class="bar-label">'23년</div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar" style="height: 25.9%;"><span class="bar-value">200</span></div>
-                    <div class="bar-label">'24년</div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar predicted" style="height: 45.6%;"><span class="bar-value">352</span></div>
-                    <div class="bar-label">'25년(E)</div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar predicted" style="height: 77.9%;"><span class="bar-value">602</span></div>
-                    <div class="bar-label">'26년(E)</div>
-                </div>
-                <div class="bar-group">
-                    <div class="bar predicted" style="height: 100%;"><span class="bar-value">771</span></div>
-                    <div class="bar-label">'27년(E)</div>
+        <div id="sales-chart-container">
+            <div class="chart-container">
+                <div class="chart-area">
+                    <div class="bar-group">
+                        <div class="bar-label">'23년</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height: 13.3%;"><span class="bar-value">40</span></div>
+                        <div class="bar-label">'24년</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar" style="height: 33.3%;"><span class="bar-value">100</span></div>
+                        <div class="bar-label">'25년</div>
+                    </div>
+                    <div class="bar-group">
+                        <div class="bar predicted" style="height: 100%;"><span class="bar-value">300</span></div>
+                        <div class="bar-label">'26년</div>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div id="sales-chart-notice" class="financial-notice" style="display: none;">
+             <p>참고: 표시할 매출 추이 데이터가 없습니다. 분석을 원하시면 관련 데이터를 업로드해 주세요.</p>
         </div>
     </div>
     <div class="section">
@@ -486,9 +497,9 @@
         GRI 지표 추천
     </h2>
     <ul>
-        <li><strong>경제 성과 (GRI 201):</strong> 자회사 설립·투자·엑시트·수익원 다각화 등 조직의 경제적 성과와 그 성과가 참가자·파트너·지역에 미치는 영향(예: 창업·고용 성과)을 측정·보고하는 필요성과 직접 연결됩니다.</li>
-        <li><strong>간접 경제 영향 (GRI 203):</strong> 유디임팩트의 핵심 활동(창업교육·컴퍼니빌딩·투자·지역사업 지원)은 지역 고용창출·소상공인 매출증대·지역경제 활성화 같은 간접적 경제효과를 직접 발생시키므로 GRI 203이 가장 직접적으로 연관됩니다.</li>
-        <li><strong>고객 개인정보보호 (GRI 413):</strong> 교육·인큐베이팅·현지 파트너십을 통한 지역사회 참여와 개발 프로그램(지역 활력 회복, 지방정부·지역사회 대상 혜택) 및 영향평가가 유디임팩트의 핵심 활동과 직접적으로 일치합니다.</li>
+        <li><strong>간접 경제 영향 (GRI 203):</strong> 나비얌은 <strong>지역 가맹점의 고객 유입 및 추가 수익을 창출</strong>하고 지자체·기부 연계를 통해 <strong>지역경제 선순환</strong>을 유도하므로, 조직의 간접적 경제적 영향을 평가하는 GRI 203과 직접 연관됩니다.</li>
+        <li><strong>지역 사회 (GRI 413):</strong> 플랫폼은 <strong>결식 우려 아동의 식사 접근성 개선</strong>과 <strong>지역 소상공인 수익 증대</strong>를 통해 지역사회 개발·복지에 직접적 영향을 미치므로, 지역사회 참여·영향 평가 관련 GRI 413이 핵심적입니다.</li>
+        <li><strong>고객 건강 및 안전 (GRI 416):</strong> 서비스는 <strong>아동의 영양·식사 접근성(건강)</strong>에 직접 영향을 미치며, 제공되는 장소·식사의 안전성과 관련한 평가가 필요하므로 고객(아동) 건강·안전 관련 GRI 416이 직접적입니다.</li>
     </ul>
 </div>
     <div class="page-footer">5</div>
@@ -503,7 +514,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
             종합 평가
         </h2>
-        <p>유디임팩트는 실전형 창업교육과 컴퍼니빌딩 모델을 통해 청년 및 지역 창업 생태계를 활성화하고, 일자리 부족과 지역 쇠퇴 등 핵심적인 사회 문제를 해결하는 혁신적인 소셜벤처입니다. 본 보고서의 데이터를 종합 분석한 결과, 유디임팩트는 창업가 역량 강화와 고용 창출이라는 사회적 가치와 지속가능한 창업 생태계 구축이라는 경제적 가치를 동시에 창출하며 꾸준한 성장을 보이고 있습니다. 연도별 성과 변화에서 확인되듯, 사업 확장에 따라 긍정적 임팩트가 꾸준히 증가하고 있어 향후 성장 잠재력이 매우 높다고 평가됩니다.</p>
+        <p>나눔비타민은 <strong>디지털 플랫폼</strong>을 통해 <strong>결식우려 아동의 식사 접근성과 영양을 개선</strong>하고 <strong>사회적 낙인을 완화</strong>하며, 참여하는 <strong>지역 소상공인에게는 안정적 고객 유입과 추가 수익을 창출</strong>해 <strong>지역경제 활성화</strong>와 <strong>공공서비스 효율성 제고</strong>에 기여하는 혁신적인 기업입니다. <strong>지자체·NGO와의 파트너십 확대, 데이터 기반 운영, 개인정보·보안 강화</strong> 등을 통해 플랫폼을 확장함으로써 <strong>빈곤층 식사 안전망 강화</strong>와 <strong>지역경제의 선순환</strong>을 촉진하는 <strong>지속가능한 미래</strong>를 추구하고 있습니다.</p>
     </div>
     <div class="section">
         <h2 class="section-title">
@@ -511,8 +522,8 @@
             주요 성과 요약
         </h2>
         <div class="info-box-new">
-            <p><strong>사회적 성과:</strong> 21,000명 이상의 누적 알럼나이를 배출했으며, 이들이 설립하거나 참여한 기업을 통해 직간접적으로 양질의 일자리를 창출했습니다. 특히 청년 및 지역 기반 창업을 촉진하여 사회 안전망 강화에 기여했습니다.<br><br>
-                 <strong>생태계 성과:</strong> 체계적인 교육 및 인큐베이팅을 통해 지원 기업의 초기 생존율을 높이고 평균 매출 성장을 견인했습니다. 400개 이상의 파트너와 협력하며 지역 경제 활성화 및 창업 생태계의 지속가능성을 제고했습니다.</p>
+            <p><strong>사회적 성과:</strong> 플랫폼을 통해 결식우려 아동에게 <strong>안정적인 식사를 제공</strong>하고, <strong>다양한 메뉴 선택권</strong>을 보장하여 <strong>영양 불균형 해소</strong>에 기여했습니다. 또한, 일반 결제와 동일한 프로세스를 통해 <strong>사회적 낙인감을 완화</strong>했습니다.<br><br>
+                 <strong>경제적 성과:</strong> <strong>6만 개 이상의 지역 소상공인 가맹점</strong>을 확보하여 이들의 <strong>추가적인 수익 창출</strong>을 지원했으며, <strong>95%의 높은 재계약률</strong>을 통해 지속가능한 협력 모델을 구축했습니다.</p>
         </div>
     </div>
     <div class="page-footer">6</div>
@@ -528,8 +539,8 @@
             데이터 출처 및 방법론
         </h2>
         <ul>
-            <li><strong>핵심 성과 지표 데이터:</strong> 본 보고서에 포함된 누적 알럼나이, 파트너 수, 진출 국가 수, 투자 및 육성 기업 성과(창업, 고용, 매출 성장률 등) 데이터는 유디임팩트 내부 성과 관리 시스템을 통해 집계되었습니다. (데이터 집계 기간: 2015년 1월 1일 ~ 2024년 12월 31일)</li>
-            <li><strong>임팩트 측정 방법론:</strong> 사회적 가치 측정은 Social Value International (SVI)의 사회적 투자수익률(SROI) 측정 원칙을 준용하였으며, 주요 KPI는 Global Impact Investing Network (GIIN)의 IRIS+ 지표 및 유디임팩트 자체 임팩트 프레임워크를 참고하여 설정했습니다.</li>
+            <li><strong>핵심 성과 지표 데이터:</strong> 본 보고서의 핵심 성과 지표는 <strong>제출된 자료를 기반으로 산출</strong>되었으며, 분석 시점 및 데이터의 최신성에 따라 실제 값과 차이가 있을 수 있습니다.</li>
+            <li><strong>임팩트 측정 방법론:</strong> 본 보고서는 <strong>MSCI SDG Alignment Methodology</strong>, <strong>GRI Standards 2021</strong>, <strong>Impact Management Project (IMP) 프레임워크</strong>를 참고하여 작성되었습니다.</li>
         </ul>
     </div>
      <div class="section">
@@ -537,13 +548,58 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
             용어 설명
         </h2>
-        <p><strong>컴퍼니빌더 (Company Builder):</strong> 단순 지분 투자를 넘어, 아이디어 단계부터 기업 설립, 사업 개발, 운영, 성장까지 전 과정에 직접 참여하여 기업을 함께 만들어가는 적극적인 인큐베이팅 모델입니다.</p>
-        <p><strong>알럼나이 (Alumni):</strong> 유디임팩트가 운영하는 창업 교육 프로그램(언더독스 사관학교 등)을 이수한 졸업생 커뮤니티를 의미하며, 유디임팩트 생태계의 핵심 자산입니다.</p>
-        <p><strong>SROI (Social Return on Investment):</strong> 사회적 투자수익률. 투입된 자원 대비 창출된 사회적 가치를 화폐 단위로 측정하여 보여주는 사회적 성과 측정 방법론입니다.</p>
-        <p><strong>GRI (Global Reporting Initiative):</strong> 지속가능성 보고서에 대한 가이드라인을 제시하는 국제기구. 전 세계적으로 가장 널리 채택되는 표준 중 하나입니다.</p>
+        <p><strong>아동급식카드:</strong> 지방자치단체가 결식 우려가 있는 아동에게 식사를 지원하기 위해 제공하는 카드로, 지정된 가맹점에서 사용할 수 있습니다.</p>
+        <p><strong>나비얌:</strong> '나눔비타민'이 운영하는 결식아동 급식지원 플랫폼의 이름입니다. '나비야, 얌얌 먹자'라는 의미를 담고 있습니다.</p>
+        <p><strong>낙인 효과 (Stigma Effect):</strong> 사회적으로 부정적인 인식이 특정 개인이나 집단에게 부정적인 영향을 미치는 현상. 본 보고서에서는 아동급식카드 사용 시 주변의 시선으로 인해 아동이 느끼는 심리적 위축을 의미합니다.</p>
+        <p><strong>GRI (Global Reporting Initiative):</strong> <strong>지속가능성 보고서에 대한 가이드라인</strong>을 제시하는 국제기구. 전 세계적으로 가장 널리 채택되는 표준 중 하나입니다.</p>
     </div>
     <div class="page-footer">7</div>
 </div>
+
+<script>
+    // ▼▼▼ [수정된 부분] KPI 데이터 유무에 따른 표시/숨김 처리 ▼▼▼
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- [1] 핵심 성과 지표 (Total) 데이터 처리 ---
+        // 백엔드에서 이 데이터를 받아온다고 가정합니다.
+        // 데이터가 없는 경우를 테스트하려면 이 값을 null 또는 {} 로 변경하세요.
+        const totalKpiData = {
+            franchisees: '60000개',
+            downloads: '30000건',
+            renewalRate: '95%',
+            initialSales: '5억(원)'
+        }; 
+
+        const totalKpiContainer = document.getElementById('total-kpi-cards');
+        const totalNoticeContainer = document.getElementById('total-notice-container');
+
+        if (totalKpiData && Object.keys(totalKpiData).length > 0) {
+            totalKpiContainer.style.display = 'grid';
+            totalNoticeContainer.style.display = 'none';
+            // TODO: 실제 데이터를 카드에 채워넣는 로직을 여기에 추가합니다.
+        } else {
+            totalKpiContainer.style.display = 'none';
+            totalNoticeContainer.style.display = 'block';
+        }
+
+
+        // --- [2] 핵심 효율성 지표 데이터 처리 ---
+        // 백엔드에서 이 데이터를 받아온다고 가정합니다.
+        // 데이터가 없는 경우를 테스트하려면 이 값을 null 또는 {} 로 변경하세요.
+        const efficiencyKpiData = null; 
+        
+        const efficiencyKpiContainer = document.getElementById('efficiency-kpi-cards');
+        const efficiencyNoticeContainer = document.getElementById('financial-notice-container');
+
+        if (efficiencyKpiData && Object.keys(efficiencyKpiData).length > 0) {
+            efficiencyKpiContainer.style.display = 'grid';
+            efficiencyNoticeContainer.style.display = 'none';
+            // TODO: 실제 데이터를 카드에 채워넣는 로직을 여기에 추가합니다.
+        } else {
+            efficiencyKpiContainer.style.display = 'none';
+            efficiencyNoticeContainer.style.display = 'block';
+        }
+    });
+</script>
 
 </body>
 </html>
