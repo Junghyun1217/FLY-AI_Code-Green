@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Impact Report - 나눔비타민</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- 기본 설정 --- */
+        :root {
+            --primary-green: #27AE60;
+            --dark-blue: #0d3d56;
+            --text-dark: #2c3e50;
+            --text-light: #5D6D7E;
+            --bg-light: #f8f9fa;
+            --border-color: #e9ecef;
+            --accent-blue: #3498DB;
+            --accent-orange: #FFC107;
+        }
+        * { box-sizing: border-box; }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm;
+            margin: 20mm auto;
+            background: #ffffff;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: fade-in 0.6s ease-out forwards;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', 'Roboto', sans-serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        p {
+            line-height: 1.9;
+            font-size: 10pt;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        ul { padding-left: 20px; }
+        li {
+            margin-bottom: 10px;
+        }
+        li strong {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+        .cover-page {
+            padding: 0;
+            justify-content: flex-start;
+            align-items: flex-start;
+            background: url('../image/reportbg.png') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+        }
+        .cover-text {
+            padding: 60px;
+            margin-top: 120px;
+            text-align: left;
+            line-height: 1.3;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        .cover-text .line1 { font-size: 2rem; letter-spacing: 4px; }
+        .cover-text .line2 { font-size: 4.2rem; font-weight: 300; letter-spacing: 1px; }
+        .cover-text .line3 { font-size: 3rem; font-weight: 200; margin-top: 8px; }
+        .cover-text .line4 { font-size: 1.8rem; font-weight: 300; margin-top: 20px; }
+        .main-title {
+            font-size: 26pt;
+            color: var(--primary-green);
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--primary-green);
+        }
+        .page-footer {
+            margin-top: auto;
+            text-align: center;
+            font-size: 9pt;
+            color: #aaa;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            width: calc(100% - 50mm);
+            position: absolute;
+            bottom: 10mm;
+            left: 25mm;
+        }
+        .page-logo {
+            position: absolute;
+            top: 5mm;
+            right: 20mm;
+            width: 120px;
+            height: auto;
+        }
+        .section { margin-bottom: 35px; }
+        .section-title {
+            font-size: 18pt;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .sub-title {
+            font-size: 14pt;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .grid-container-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .sdg-main-subtitle {
+            font-size: 12pt;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+        }
+        .sdg-goal-group { margin-bottom: 25px; }
+        .sdg-goal-group:last-child { margin-bottom: 0; }
+        .sdg-card-new {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+        }
+        .sdg-color-box {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+        }
+        .sdg-text-content h4 { font-size: 10pt; font-weight: 600; margin-bottom: 8px; }
+        .sdg-text-content p { font-size: 9pt; line-height: 1.6; margin: 0; }
+        .sdg-detail-goal {
+            margin-top: 10px;
+            padding: 20px;
+            background-color: var(--bg-light);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-green);
+        }
+        .sdg-detail-goal p { font-size: 10pt; margin: 0; color: var(--text-light); }
+        .sdg-detail-goal strong { font-weight: 700; color: var(--text-dark); margin-right: 9px; }
+        .info-box-new {
+            background: linear-gradient(135deg, #F9F9F9, #FFFFFF);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            border-left: 5px solid var(--primary-green);
+        }
+        .info-box-new p { font-size: 10pt; color: var(--text-dark); margin: 0; }
+        .info-box-new strong { color: var(--primary-green); font-weight: 700; }
+        .kpi-card-new {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 160px; /* 모든 박스의 최소 높이를 지정하여 크기를 통일 */
+            min-width: 0; /* 컨텐츠가 그리드 박스를 넘어서는 것을 방지 */
+        }
+        .kpi-card-new h4 {
+            font-size: 8pt;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            font-weight: 500;
+            min-height: 3em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .kpi-card-new .value-wrapper {
+            line-height: 1.2;
+        }
+        .kpi-card-new .value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--primary-green);
+            overflow-wrap: break-word; /* 긴 숫자가 박스를 넘지 않도록 설정 */
+            display: block;
+        }
+        .kpi-card-new .value.blue { color: var(--accent-blue); }
+        .kpi-card-new .value.accent { color: var(--accent-orange); }
+        .kpi-card-new .unit { 
+            font-size: 9pt; 
+            color: var(--text-light); 
+            display: block;
+            margin-top: 5px; 
+        }
+        .kpi-card-new .unit-sub {
+            display: block;
+            font-size: 8pt;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+        .analysis-item {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            align-items: start;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .analysis-item.right-title { grid-template-columns: 1fr 150px; }
+        .analysis-item h3 {
+            font-size: 15pt;
+            color: #fff;
+            background: var(--dark-blue);
+            padding: 25px 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .analysis-item p { margin: 0; padding-top: 5px; }
+        .chart-container {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            background: #fff;
+        }
+        .chart-area {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 280px;
+            padding: 20px 0;
+            border-left: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+        .bar-group {
+            width: 25%;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+        .bar {
+            width: 50px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            background: var(--dark-blue);
+            z-index: 1;
+            transition: height 0.7s ease-out;
+        }
+        .bar-label {
+            position: absolute;
+            bottom: -45px;
+            width: 100%;
+            left: 0;
+            font-size: 10pt;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            left: 0;
+            font-size: 12pt;
+            font-weight: 700;
+            color: var(--text-dark);
+            opacity: 0;
+            transition: opacity 0.5s ease-in 0.5s;
+        }
+        .bar:hover .bar-value {
+            opacity: 1;
+        }
+        .notice-box, .financial-notice {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #fef9e7;
+            border: 1px solid #f8e5a6;
+            border-left: 5px solid var(--accent-orange);
+            border-radius: 8px;
+        }
+        .notice-box p, .financial-notice p {
+            margin: 0;
+            color: #8a6d3b;
+            font-size: 9pt;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page cover-page">
+    <div class="cover-text">
+        <div class="line1">Code Green</div>
+        <div class="line2">Impact Report</div>
+        <div class="line3">2025</div>
+        <div class="line4">나눔비타민</div>
+    </div>
+</div>
+
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">I. 기업 분석</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            기업 소개
+        </h2>
+        <p>기부·복지의 투명성·효율성 부족과 결식 우려 아동의 급식 접근성·낙인 문제를 해결하기 위해, 나눔비타민은 AI 기반 플랫폼 '나비얌'으로 기부자‑수혜자 실시간 매칭·기부금 흐름 실시간 추적, 급식카드 비대면 인증·온라인 결제, 가맹점 쿠폰 발행 및 기업·지자체·NGO 연계를 제공합니다.  
+이를 통해 기부금 집행의 가시성과 신속성을 높여 자금이 직접 수혜자에게 전달되도록 하고(중개비용 감소), 아동의 낙인 완화 및 식사 접근성 개선, 지역 소상공인의 매출 증대와 기업의 ESG 성과·환경지표 데이터 확보라는 사회적·환경적 효과를 기대합니다.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 2a10 10 0 0 0-10 10c0 4.29 2.68 7.94 6.38 9.38"/><path d="M22 12a10 10 0 0 0-9.38-6.38C16.91 3.32 20.66 7 22 12z"/></svg>
+            SDGs 연계
+        </h2>
+        <h3 class="sdg-main-subtitle">주요 목표 및 세부 목표</h3>
+        <div>
+            
+            <div class="sdg-goal-group">
+                <div class="sdg-card-new">
+                    <div class="sdg-color-box" style="background-image: url('../image/sdg_image/sdg2.png');"></div>
+                    <div class="sdg-text-content">
+                        <h4>SDG 2: 기아 종식</h4>
+                        <p>결식 우려 아동의 급식 접근성 개선과 낙인 완화로 직접적인 식량 지원 관련</p>
+                    </div>
+                </div>
+                <div class="sdg-detail-goal">
+                    
+                        
+                        <p><strong>SDG 2.1:</strong> 기아 종식 및 영양 접근성 보장</p>
+                        
+                    
+                        
+                        <p><strong>SDG 2.4:</strong> 지속가능한 식량생산체제 확립</p>
+                        
+                    
+                        
+                    
+                        
+                    
+                </div>
+            </div>
+            
+            <div class="sdg-goal-group">
+                <div class="sdg-card-new">
+                    <div class="sdg-color-box" style="background-image: url('../image/sdg_image/sdg17.png');"></div>
+                    <div class="sdg-text-content">
+                        <h4>SDG 17: 실행수단 강화 및 파트너십</h4>
+                        <p>기업·지자체·NGO 연계와 기부금 흐름 추적으로 목표 이행수단과 협력 체계 강화 관련</p>
+                    </div>
+                </div>
+                <div class="sdg-detail-goal">
+                    
+                        
+                    
+                        
+                    
+                        
+                        <p><strong>SDG 17.16:</strong> 지속가능발전을 위한 글로벌 다주체 파트너십 강화</p>
+                        
+                    
+                        
+                        <p><strong>SDG 17.6:</strong> 과학·기술·혁신에 대한 국제협력 및 접근성 강화</p>
+                        
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="page-footer">2</div>
+</div>
+
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            사회적 가치 창출 포인트 
+        </h2>
+        <p>나눔비타민은 AI 기반 플랫폼 '나비얌'을 통해 결식아동과 취약계층이 겪는 접근성·낙인·투명성 문제를 완화하고자 하며, 이를 통해 사회적 가치를 창출합니다. 실시간 1:1 매칭과 비대면 급식카드 인증, 기부금→재화 자동전환 기능은 기부 흐름의 투명성과 효율을 높이는 데 기여하고, 지역 소상공인의 매출과의 연계를 지원합니다. 서비스 확장 시 아동의 식사 접근성 개선, 지역경제 활성화, 기부 신뢰 회복 및 국가 단위 복지 데이터 인프라 형성으로 이어질 것으로 기대됩니다.  
+나비얌은 배고픈 이웃에게 매일 한 끼를 안정적으로 제공하는 동네 식당처럼 아동의 식사 접근성과 낙인을 줄이는 역할을 합니다. 실시간 매칭과 인증 기능은 기부 과정을 영수증 있는 가계부처럼 투명하게 보여줘 기부 신뢰를 높입니다.</p>
+        <div class="info-box-new" style="margin-top: 20px;">
+            <p><strong>💡AI 해설:</strong> 나비얌은 기부자와 아동을 실시간으로 연결하고 지출 내역을 명확히 보여주는 '영수증 있는 동네 배달앱'처럼, 한 번의 클릭으로 한 끼를 전달하고 골목상권을 살려냅니다.<br>
+            </p>
+        </div>
+    </div>
+    <h1 class="main-title" style="margin-top: 20px; margin-bottom: 20px;">II. 임팩트-재무 KPI 연동 대시보드</h1>
+    <div class="section">
+        <h2 class="sub-title">핵심 성과 지표 (Total)</h2>
+        <div class="grid-container-4">
+            
+            
+            <div class="kpi-card-new">
+                <h4>플랫폼 가맹점 수</h4>
+                <div class="value-wrapper">
+                    <span class="value "><span class="number-to-format">60000</span></span>
+                    <span class="unit">개</span>
+                </div>
+            </div>
+            
+            
+            <div class="kpi-card-new">
+                <h4>앱 다운로드 수</h4>
+                <div class="value-wrapper">
+                    <span class="value blue"><span class="number-to-format">30000</span></span>
+                    <span class="unit">회</span>
+                </div>
+            </div>
+            
+            
+            <div class="kpi-card-new">
+                <h4>제공된 식사쿠폰 총액</h4>
+                <div class="value-wrapper">
+                    <span class="value blue"><span class="number-to-format">150000000</span></span>
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            
+            
+            <div class="kpi-card-new">
+                <h4>고객 재계약률</h4>
+                <div class="value-wrapper">
+                    <span class="value accent"><span class="number-to-format">95</span></span>
+                    <span class="unit">%</span>
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="section">
+        <h2 class="sub-title">핵심 효율성 지표 (매출 1억당)</h2>
+        
+        <div class="grid-container-4">
+            
+            
+            <div class="kpi-card-new">
+                <h4>매출 1억당 플랫폼 가맹점 수</h4>
+                <div class="value-wrapper">
+                    
+                        
+                        <span class="value ">
+                            <span class="number-to-format">17826.4</span>
+                        </span>
+                        <span class="unit">개/</span>
+                        <span class="unit-sub">매출 1억</span>
+                    
+                </div>
+            </div>
+            
+            
+            <div class="kpi-card-new">
+                <h4>매출 1억당 앱 다운로드 수</h4>
+                <div class="value-wrapper">
+                    
+                        
+                        <span class="value blue">
+                            <span class="number-to-format">8913.2</span>
+                        </span>
+                        <span class="unit">회/</span>
+                        <span class="unit-sub">매출 1억</span>
+                    
+                </div>
+            </div>
+            
+            
+            <div class="kpi-card-new">
+                <h4>매출 1억당 제공된 식사쿠폰 총액</h4>
+                <div class="value-wrapper">
+                    
+                        
+                        <span class="value blue">
+                            <span class="number-to-format">44566060.3</span>
+                        </span>
+                        <span class="unit">원/</span>
+                        <span class="unit-sub">매출 1억</span>
+                    
+                </div>
+            </div>
+            
+            
+            <div class="kpi-card-new">
+                <h4>매출 1억당 고객 재계약률</h4>
+                <div class="value-wrapper">
+                    
+                        
+                        <span class="value accent">
+                            <span class="number-to-format">28.2</span>
+                        </span>
+                        <span class="unit">%/</span>
+                        <span class="unit-sub">매출 1억</span>
+                    
+                </div>
+            </div>
+            
+        </div>
+        
+    </div>
+    <div class="page-footer">3</div>
+</div>
+
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">III. 상세 분석</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            IMP 기반 분석
+        </h2>
+        <div class="analysis-item">
+            <h3>What</h3>
+            <p>나눔비타민은 기술(앱·AI·데이터)을 활용해 식사지원 서비스의 접근성(건강·영양), 심리적 낙인 완화(사회통합), 지역 소상공인 수익 창출(경제적 자립), 그리고 기부·지출의 실시간 추적(거버넌스)을 구현합니다. 이는 직접적으로 SDG 2(기아 종식 — 결식 우려 아동의 급식 접근성 개선 및 낙인 완화)에 기여하며, 기업·지자체·NGO 간 데이터·재원 연계를 통한 SDG 17(파트너십 강화) 달성과도 연결됩니다.</p>
+        </div>
+        <div class="analysis-item right-title">
+            <p>직접 수혜자는 결식우려 아동 및 취약가구로, 아동은 휴대폰 기반 비대면 인증과 쿠폰 선택권을 통해 낙인 없이 양질의 식사를 이용할 수 있습니다. 간접 수혜자는 착한가게·지역 소상공인(매출 증가), 기업 CSR 담당자(ESG 보고 자동화로 업무효율 개선), 지자체·NGO(집행 투명성 확보 및 정책효과 향상)입니다. 각 이해관계자는 플랫폼을 통해 즉시·투명한 혜택을 경험합니다.</p>
+            <h3>Who</h3>
+        </div>
+    </div>
+    <div class="section">
+        <div class="analysis-item">
+            <h3>How much</h3>
+            <p>현재 가시적 성과로 플랫폼 가맹점 60,000여 개, 앱 다운로드 30,000회·플레이스토어 평점 5.0, 거래액 약 5억 원, 고객 재계약률 95%가 보고되어 있으며(매출액 추이 표기: 단위 천만원 — 2024:40, 2025:100, 2026:300), 강서구·건협 협력으로 1억5천만원 상당 식사쿠폰 제공 사례 등이 있습니다. 임팩트 측정은 쿠폰 발행액·사용률(실제 식사 제공 건수), 수혜자 고유 ID 기반 이용빈도, 가맹점 당 매출 증가율, 기부금 집행의 실시간 추적 비율, 낙인감·만족도 정기 설문(VoC) 등을 활용해 정량화할 수 있습니다. 또한 기업 파트너의 ESG 보고서 반영 건수와 재계약률을 통해 지속성·확산성을 모니터링합니다.</p>
+        </div>
+        <div class="analysis-item right-title">
+            <p>정책·급식지원 규정 변경, 개인정보·결제 보안 리스크, 가맹점 참여 저하, 공공예산 의존도 증가는 성과 실현의 주요 리스크입니다. 이를 완화하기 위해 공공·민간 MOU 확대, 특허·IP·보안체계 강화, 복수 재원모델(기업·개인·데이터 서비스) 도입으로 리스크 분산을 추진합니다.</p>
+            <h3>Risk</h3>
+        </div>
+    </div>
+    <div class="page-footer">4</div>
+</div>
+
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">IV. 변화량 및 확장 전략</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            매출액 추이 
+        </h2>
+        <div class="notice-box">
+             <p>참고: 표시할 매출 추이 데이터가 없습니다. 분석을 원하시면 관련 데이터를 업로드해 주세요.</p>
+        </div>
+    </div>
+    <div class="section">
+    <h2 class="section-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        GRI 지표 추천
+    </h2>
+    <ul id="gri-list">
+        
+        <li><strong>간접 경제 영향 (GRI 203):</strong> 플랫폼이 지역 소상공인 매출 증대와 지역경제 활성화 같은 간접적 경제적 영향을 유발(기부→재화 전환, 가맹점 매출 증가 등)하므로 간접 경제영향 보고가 핵심임.</li>
+        
+        <li><strong>지역 사회 (GRI 413):</strong> 주요 활동이 결식우려 아동에 대한 식사지원과 지역 NGO·지자체 협력, 지역 소상공인 연계로 지역사회 참여·영향·개발 프로그램을 직접적으로 생성하므로 해당 표준과 직접 연관됨.</li>
+        
+        <li><strong>고객 개인정보보호 (GRI 418):</strong> 휴대폰 기반 비대면 인증·수혜자 고유 ID·결제 데이터 등 민감한 고객(수혜자) 데이터를 처리하며 개인정보·결제 보안 리스크를 명시하고 있어 고객 개인정보보호 표준 적용이 직접적 필요함.</li>
+        
+    </ul>
+</div>
+    <div class="page-footer">5</div>
+</div>
+
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">V. AI 요약</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            종합 평가
+        </h2>
+        <p>나눔비타민은 AI 기반 사회복지 플랫폼 산업에서 선도적인 역할을 하는 기업으로, SDG 2·17번에 부합합니다. 나눔비타민은 AI 기반 플랫폼 '나비얌'을 통해 실시간 1:1 매칭, 비대면 급식카드 인증 및 기부금의 재화 자동전환 기능을 제공함으로써 결식아동과 취약계층의 식사 접근성을 개선하고 심리적 낙인을 완화하며 기부 흐름의 투명성과 효율을 제고하여 지역 소상공인의 매출 증대와 지역경제 활성화에 기여하고, 기업·지자체·NGO 간 데이터·재원 연계를 촉진해 파트너십을 강화하고 국가 단위 복지 데이터 인프라 형성 등 지속가능한 미래를 추구하고 있습니다.</p>
+    </div>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            주요 성과 요약
+        </h2>
+        <div class="info-box-new">
+            <p>요약할 충분한 성과 데이터가 없습니다. 정확한 분석을 원하시면 관련 데이터를 업로드하여 리포트를 다시 생성해 주세요.</p>
+        </div>
+    </div>
+    <div class="page-footer">6</div>
+</div>
+
+<div class="page">
+    <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
+    <h1 class="main-title">VI. 부록</h1>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+            데이터 출처 및 방법론
+        </h2>
+        <ul>
+            <li><strong>핵심 성과 지표 데이터:</strong> 본 보고서의 핵심 성과 지표는 <strong>제출된 자료를 기반으로 산출</strong>되었으며, 분석 시점 및 데이터의 최신성에 따라 실제 값과 차이가 있을 수 있습니다.</li>
+            <li><strong>임팩트 측정 방법론:</strong> 본 보고서는 <strong>MSCI SDG Alignment Methodology</strong>, <strong>GRI Standards 2021</strong>, <strong>Impact Management Project (IMP) 프레임워크</strong>를 참고하여 작성되었습니다.</li>
+        </ul>
+    </div>
+    <div class="section">
+        <h2 class="section-title">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            용어 설명
+        </h2>
+        <p><strong>GRI (Global Reporting Initiative):</strong> <strong>지속가능성 보고서에 대한 가이드라인</strong>을 제시하는 국제기구. 전 세계적으로 가장 널리 채택되는 표준 중 하나입니다.</p>
+        <p><strong>IMP (Impact Management Project):</strong> 기업 및 투자자가 임팩트를 측정하고 관리하는 방법에 대한 글로벌 컨센서스를 구축하는 프로젝트입니다.</p>
+        <p><strong>SDGs (Sustainable Development Goals):</strong> 2030년까지 전 세계가 함께 달성하기로 약속한 17개의 지속가능발전목표입니다.</p>
+    </div>
+    <div class="page-footer">7</div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- Client-Side Enhancements ---
+    // 이 스크립트는 Jinja2에 의해 페이지가 렌더링된 후 브라우저에서 실행됩니다.
+
+    /**
+     * 숫자를 '만', '억', '조' 단위의 한글 형식으로 변환합니다.
+     * 10,000 미만의 숫자는 쉼표를 추가하여 반환합니다.
+     * 소수점 첫째 자리까지 표시하며, .0으로 끝나는 경우는 정수로 표시합니다.
+     * @param {number|string} num - 변환할 숫자
+     * @returns {string} - 변환된 문자열 (예: "1.2만", "50억")
+     */
+    const formatKoreanNumberUnit = (num) => {
+        const number = parseFloat(String(num).replace(/,/g, ''));
+        if (isNaN(number)) return num; // 숫자가 아니면 원래 값 반환
+
+        if (number >= 1000000000000) {
+            const formatted = (number / 1000000000000).toFixed(1).replace(/\.0$/, '');
+            return `${formatted}조`;
+        }
+        if (number >= 100000000) {
+            const formatted = (number / 100000000).toFixed(1).replace(/\.0$/, '');
+            return `${formatted}억`;
+        }
+        if (number >= 10000) {
+            const formatted = (number / 10000).toFixed(1).replace(/\.0$/, '');
+            return `${formatted}만`;
+        }
+        // 10,000 미만은 쉼표만 추가
+        return number.toLocaleString('ko-KR');
+    };
+
+    /**
+     * --- 수정된 함수 ---
+     * 요소의 텍스트가 부모 컨테이너 너비를 초과하지 않도록 폰트 크기를 동적으로 조절합니다.
+     * @param {HTMLElement} element - 폰트 크기를 조절할 텍스트 요소 (e.g., a <span>)
+     */
+    const adjustFontSize = (element) => {
+        // 너비의 기준이 되는 부모 컨테이너(.kpi-card-new)를 찾습니다.
+        const container = element.closest('.kpi-card-new');
+        if (!container) return;
+
+        const containerStyles = window.getComputedStyle(container);
+        // 컨테이너의 내부 패딩 값을 제외한 실제 사용 가능한 너비를 계산합니다.
+        const paddingLeft = parseFloat(containerStyles.paddingLeft);
+        const paddingRight = parseFloat(containerStyles.paddingRight);
+        const availableWidth = container.clientWidth - paddingLeft - paddingRight;
+
+        // 폰트 크기 조절 전, 원래 CSS에 지정된 값으로 초기화합니다.
+        element.style.fontSize = ''; 
+        let fontSize = parseFloat(window.getComputedStyle(element).fontSize);
+        
+        // 텍스트가 한 줄일 때의 전체 너비를 측정하기 위해 임시로 white-space 속성을 변경합니다.
+        element.style.whiteSpace = 'nowrap';
+
+        // 텍스트의 너비가 사용 가능한 너비보다 크면, 폰트 크기를 1px씩 줄입니다.
+        while (element.scrollWidth > availableWidth && fontSize > 8) {
+            fontSize -= 1; 
+            element.style.fontSize = `${fontSize}px`;
+        }
+        
+        // 측정이 끝난 후 white-space 속성을 원래대로 되돌립니다.
+        element.style.whiteSpace = '';
+    };
+
+    // --- 수정된 부분: 함수 호출 로직 ---
+    // 1. KPI 숫자를 한글 단위 포맷으로 변경하고 폰트 크기 조절
+    document.querySelectorAll('.number-to-format').forEach(span => {
+        const originalValue = span.textContent.trim();
+        const formattedValue = formatKoreanNumberUnit(originalValue);
+        span.textContent = formattedValue;
+        // 부모(.value) 요소의 폰트 크기를 조절
+        adjustFontSize(span.parentElement);
+    });
+
+    // 2. 차트 바 애니메이션 효과
+    document.querySelectorAll('.bar').forEach((bar, index) => {
+        const finalHeight = bar.dataset.height;
+        const barValue = bar.querySelector('.bar-value');
+        
+        // 순차적으로 애니메이션 시작
+        setTimeout(() => {
+            bar.style.height = finalHeight;
+            if(barValue) {
+                barValue.style.opacity = 1;
+            }
+        }, 150 * index);
+    });
+});
+</script>
+
+</body>
+</html>
