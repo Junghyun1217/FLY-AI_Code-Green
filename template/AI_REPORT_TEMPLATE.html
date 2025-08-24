@@ -305,13 +305,39 @@
         /* --- PDF 인쇄 전용 스타일 --- */
 
     @page {
-        margin: 0; /* << 📄 이 부분을 추가해야 합니다. */
-    }
+    margin: 0; /* 📄 이 부분이 브라우저의 기본 인쇄 여백을 제거합니다. */
+}
 
-    @media print {
+ @media print {
+        body {
+            background-color: #fff; /* 화면의 회색 배경 제거 */
+        }
+
         .page {
+            width: 100%; /* 너비는 용지에 꽉 채움 */
+            height: auto; /* 중요: 높이를 내용물에 맞게 자동으로 조절 */
+            min-height: 0; /* 최소 높이 제한 해제 */
             margin: 0;
+            padding: 25mm; /* A4 여백은 유지 */
             box-shadow: none;
+            animation: none; /* 애니메이션 효과 제거 */
+            overflow: hidden;
+
+            page-break-after: always; /* 각 .page 섹션이 끝나면 다음 페이지로! */
+        }
+
+        .page:last-of-type {
+            page-break-after: auto; /* 마지막 페이지 뒤에는 불필요한 빈 페이지 방지 */
+        }
+
+        /* 중요: 특정 요소 중간이 잘리는 현상 방지 */
+        .section, .sdg-goal-group, .analysis-item, .kpi-card-new, .grid-container-4 {
+            page-break-inside: avoid;
+        }
+
+        /* 제목 바로 뒤에서 페이지가 넘어가는 현상 방지 */
+        h1, h2, h3, h4 {
+            page-break-after: avoid;
         }
     }
     </style>
@@ -380,7 +406,7 @@
             </p>
         </div>
     </div>
-    <h1 class="main-title" style="margin-top: 20px; margin-bottom: 20px;">II. 임팩트-재무 KPI 연동 대시보드</h1>
+    <h1 class="main-title" style="margin-top: 0px; margin-bottom: 15px;">II. 임팩트-재무 KPI 연동 대시보드</h1>
     <div class="section">
         <h2 class="sub-title">핵심 성과 지표 (Total)</h2>
         <div class="grid-container-4">
@@ -541,91 +567,87 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // --- Client-Side Enhancements ---
-    // 이 스크립트는 Jinja2에 의해 페이지가 렌더링된 후 브라우저에서 실행됩니다.
-
-    /**
-     * 숫자를 '만', '억', '조' 단위의 한글 형식으로 변환합니다.
-     * 10,000 미만의 숫자는 쉼표를 추가하여 반환합니다.
-     * 소수점 첫째 자리까지 표시하며, .0으로 끝나는 경우는 정수로 표시합니다.
-     * @param {number|string} num - 변환할 숫자
-     * @returns {string} - 변환된 문자열 (예: "1.2만", "50억")
-     */
+    // --- 기존 기능: 숫자 포맷 변경 ---
     const formatKoreanNumberUnit = (num) => {
         const number = parseFloat(String(num).replace(/,/g, ''));
-        if (isNaN(number)) return num; // 숫자가 아니면 원래 값 반환
-
-        if (number >= 1000000000000) {
-            const formatted = (number / 1000000000000).toFixed(1).replace(/\.0$/, '');
-            return `${formatted}조`;
-        }
-        if (number >= 100000000) {
-            const formatted = (number / 100000000).toFixed(1).replace(/\.0$/, '');
-            return `${formatted}억`;
-        }
-        if (number >= 10000) {
-            const formatted = (number / 10000).toFixed(1).replace(/\.0$/, '');
-            return `${formatted}만`;
-        }
-        // 10,000 미만은 쉼표만 추가
+        if (isNaN(number)) return num;
+        if (number >= 1000000000000) return `${(number / 1000000000000).toFixed(1).replace(/\.0$/, '')}조`;
+        if (number >= 100000000) return `${(number / 100000000).toFixed(1).replace(/\.0$/, '')}억`;
+        if (number >= 10000) return `${(number / 10000).toFixed(1).replace(/\.0$/, '')}만`;
         return number.toLocaleString('ko-KR');
     };
 
-    /**
-     * --- 수정된 함수 ---
-     * 요소의 텍스트가 부모 컨테이너 너비를 초과하지 않도록 폰트 크기를 동적으로 조절합니다.
-     * @param {HTMLElement} element - 폰트 크기를 조절할 텍스트 요소 (e.g., a <span>)
-     */
-    const adjustFontSize = (element) => {
-        // 너비의 기준이 되는 부모 컨테이너(.kpi-card-new)를 찾습니다.
+    // --- 기존 기능: KPI 카드 내 숫자 너비에 맞춰 폰트 조절 ---
+    const adjustKpiFontSize = (element) => {
         const container = element.closest('.kpi-card-new');
         if (!container) return;
-
         const containerStyles = window.getComputedStyle(container);
-        // 컨테이너의 내부 패딩 값을 제외한 실제 사용 가능한 너비를 계산합니다.
         const paddingLeft = parseFloat(containerStyles.paddingLeft);
         const paddingRight = parseFloat(containerStyles.paddingRight);
         const availableWidth = container.clientWidth - paddingLeft - paddingRight;
-
-        // 폰트 크기 조절 전, 원래 CSS에 지정된 값으로 초기화합니다.
         element.style.fontSize = ''; 
         let fontSize = parseFloat(window.getComputedStyle(element).fontSize);
-        
-        // 텍스트가 한 줄일 때의 전체 너비를 측정하기 위해 임시로 white-space 속성을 변경합니다.
         element.style.whiteSpace = 'nowrap';
-
-        // 텍스트의 너비가 사용 가능한 너비보다 크면, 폰트 크기를 1px씩 줄입니다.
         while (element.scrollWidth > availableWidth && fontSize > 8) {
             fontSize -= 1; 
             element.style.fontSize = `${fontSize}px`;
         }
-        
-        // 측정이 끝난 후 white-space 속성을 원래대로 되돌립니다.
         element.style.whiteSpace = '';
     };
 
-    // --- 수정된 부분: 함수 호출 로직 ---
-    // 1. KPI 숫자를 한글 단위 포맷으로 변경하고 폰트 크기 조절
     document.querySelectorAll('.number-to-format').forEach(span => {
         const originalValue = span.textContent.trim();
-        const formattedValue = formatKoreanNumberUnit(originalValue);
-        span.textContent = formattedValue;
-        // 부모(.value) 요소의 폰트 크기를 조절
-        adjustFontSize(span.parentElement);
+        span.textContent = formatKoreanNumberUnit(originalValue);
+        adjustKpiFontSize(span.parentElement);
     });
 
-    // 2. 차트 바 애니메이션 효과
+    // --- 기존 기능: 차트 바 애니메이션 ---
     document.querySelectorAll('.bar').forEach((bar, index) => {
         const finalHeight = bar.dataset.height;
         const barValue = bar.querySelector('.bar-value');
-        
-        // 순차적으로 애니메이션 시작
         setTimeout(() => {
             bar.style.height = finalHeight;
             if(barValue) {
                 barValue.style.opacity = 1;
             }
         }, 150 * index);
+    });
+
+    // --- ✨ 새로 추가된 기능: 페이지 내용 넘칠 시 자동 폰트 크기 조절 ---
+    /**
+     * 페이지의 내용이 지정된 높이를 초과할 경우, 내용이 들어갈 때까지
+     * p, li 요소의 폰트 크기를 점진적으로 줄입니다.
+     * @param {HTMLElement} pageElement - .page 클래스를 가진 요소
+     */
+    const adjustPageFontSizeToFit = (pageElement) => {
+        const textElements = pageElement.querySelectorAll('p, li');
+        const minFontSizePt = 8; // 최소 폰트 크기 (pt 단위)
+        let attempts = 0;
+        const maxAttempts = 30; // 무한 반복 방지
+
+        // 내용의 실제 높이가 보이는 영역의 높이보다 크면 (넘치면) 반복 실행
+        while (pageElement.scrollHeight > pageElement.clientHeight && attempts < maxAttempts) {
+            let changed = false;
+            textElements.forEach(el => {
+                // 현재 폰트 크기를 pt 단위로 변환 (1px ≈ 0.75pt)
+                let currentSizePt = parseFloat(window.getComputedStyle(el).fontSize) * 0.75;
+                
+                if (currentSizePt > minFontSizePt) {
+                    // 폰트 크기를 0.2pt씩 미세하게 줄임
+                    el.style.fontSize = `${currentSizePt - 0.2}pt`;
+                    changed = true;
+                }
+            });
+
+            if (!changed) break; // 더 이상 줄일 폰트가 없으면 중단
+            attempts++;
+        }
+    };
+
+    // --- ✨ 추가된 기능 호출 ---
+    // 모든 .page 요소를 대상으로 내용 넘침을 확인하고 폰트 크기를 자동 조절합니다.
+    document.querySelectorAll('.page').forEach(page => {
+        adjustPageFontSizeToFit(page);
     });
 });
 </script>

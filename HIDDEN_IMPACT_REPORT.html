@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hidden Impact Scanner - 케이디 밀리의서재</title>
+    <title>Hidden Impact Scanner - 이삭엔지니어링(주)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -187,36 +187,25 @@
             color: #aaa;
             padding-top: 20px;
             border-top: 1px solid var(--border-color);
-            width: calc(100% - 40mm);
-            position: absolute;
-            bottom: 10mm;
-            left: 20mm;
+            width: 100%;
+        }
+        
+       @page {
+            margin: 0;
         }
 
-/* --- 인쇄용 스타일 (레이아웃 최소 변경 버전) --- */
-@media print {
-    body {
-        background-color: #fff;
-    }
-
-    /* 웹과 동일한 모양을 위해 그림자, 전환 효과 등은 그대로 둡니다. */
-    
-    .page {
-        margin: 0; /* 상단 여백 문제만 해결 */
-        box-shadow: none; /* 인쇄 시 불필요한 그림자만 제거 */
-        page-break-after: always;
-    }
-
-    .page:last-child {
-        page-break-after: auto;
-    }
-
-    /* 배경 이미지 강제 인쇄 */
-    .cover-page {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-    }
-}
+        /* --- 인쇄용 스타일 --- */
+        @media print {
+            body { background-color: #fff; }
+            .page { width: 100%; height: 100%; min-height: 0; margin: 0; padding: 15mm; box-shadow: none; border-radius: 0; page-break-after: always; }
+            .cover-page { 
+                height: 297mm; 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .ai-card, .sdg-rank-item, .sdg-chart-item { page-break-inside: avoid; }
+            .page-footer { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -226,15 +215,15 @@
         <div class="line1">Code Green</div>
         <div class="line2">Hidden Impact</div>
         <div class="line3">2025</div>
-        <div class="line4">케이디 밀리의서재</div>
+        <div class="line4"><b>이삭엔지니어링(주)</b></div>
     </div>
 </div>
 
 <div class="page">
     <img src="../image/A.Impact.png" alt="A.Impact Logo" class="page-logo">
     <div class="scanner-header">
-        <h1><span class="company-name">케이디 밀리의서재</span>의 Hidden Impact</h1>
-        <p>산업군: 통신 서비스>서비스>기타 서비스</p>
+        <h1><span class="company-name">이삭엔지니어링(주)</span>의 Hidden Impact</h1>
+        <p>산업군: 산업재>산업재>기계 및 장비</p>
     </div>
     <hr class="light-divider">
     <div class="scorecard-section">
@@ -245,16 +234,16 @@
                 <div class="rank-badge">
                     1st
                 </div>
-                <img src="../image/sdg_image/sdg8.png" alt="SDG 8 Icon" class="sdg-icon">
-                <h5 class="sdg-score">6.5 / 10</h5>
+                <img src="../image/sdg_image/sdg9.png" alt="SDG 9 Icon" class="sdg-icon">
+                <h5 class="sdg-score">7.5 / 10</h5>
             </div>
             
             <div class="sdg-rank-item rank-2">
                 <div class="rank-badge">
                     2nd
                 </div>
-                <img src="../image/sdg_image/sdg17.png" alt="SDG 17 Icon" class="sdg-icon">
-                <h5 class="sdg-score">6.0 / 10</h5>
+                <img src="../image/sdg_image/sdg7.png" alt="SDG 7 Icon" class="sdg-icon">
+                <h5 class="sdg-score">6.5 / 10</h5>
             </div>
             
             <div class="sdg-rank-item rank-3">
@@ -262,7 +251,7 @@
                     3rd
                 </div>
                 <img src="../image/sdg_image/sdg12.png" alt="SDG 12 Icon" class="sdg-icon">
-                <h5 class="sdg-score">5.5 / 10</h5>
+                <h5 class="sdg-score">6.0 / 10</h5>
             </div>
             
         </div>
@@ -270,11 +259,11 @@
             <h3>TOP 3 선정 이유</h3>
             <ul>
                 
-                <li><strong>1st (SDG 8):</strong> 전자책·오디오·오리지널 IP와 ‘밀리로드’ 등으로 창작자·출판사(제휴 2,000곳) 수익 기회를 확대해 창의경제에 기여. 매출 YoY+16.1%, 영업이익 최대·현금성자산 3,970억원, 가족친화인증 등으로 지속가능한 성장과 양질의 일자리 환경을 뒷받침.</li>
+                <li><strong>1st (SDG 9):</strong> <b>산업용 IoT(Ultivis, 150+ 디바이스), 디지털트윈, 초고압 설비 예방진단·ESS</b> 등으로 <b>제조·전력 인프라의 신뢰성·효율을 직접 향상</b>. R&D센터 운영·OT-IT 전주기 서비스, 지멘스·한전·델 등 파트너십과 R&D 투자(매출 1.06%)로 <b>산업 혁신 역량과 회복탄력 인프라 조성</b>에 기여.</li>
                 
-                <li><strong>2nd (SDG 17):</strong> 전자책 플랫폼으로 2,000여 출판사·창작자와의 파트너십, 통신사 B2BC 제휴 등으로 지식 생태계 협력을 확대해 SDG17에 직접 기여. 다만 과거 개인정보 유출 및 제재로 파트너 신뢰·거버넌스 측면은 일부 약점이 존재.</li>
+                <li><strong>2nd (SDG 7):</strong> 제품: PDS 기반 변전소 예방진단, ESS 파워컨버전/주파수제어, HVAC·유틸리티 최적화로 <b>전력 신뢰성·에너지 효율을 직접 향상</b>. 운영: 새만금 태양광·바이오매스 E&I 참여로 <b>청정에너지 인프라 확대</b>. 다만 정량 근거는 공개되지 않음.</li>
                 
-                <li><strong>3rd (SDG 12):</strong> 전자책·오디오북 구독이 종이 사용·물류를 대체해 자원·폐기물 저감에 간접 기여. 운영에선 다크패턴 규제 선제 반영·첫달 무료 정책 개선 등 책임 있는 마케팅을 시행하고, 디지털 중심으로 물리 재고를 101백만원 수준으로 최소화.</li>
+                <li><strong>3rd (SDG 12):</strong> 제품: 스마트팩토리/IoT, 디지털트윈, 예지정비로 <b>불량·다운타임·폐기물과 에너지·자원 낭비를 줄이는 솔루션</b>을 상용화했으나 정량 성과 공개는 제한적. 운영: ISO14001과 전주기 유지보수로 자원효율·수명연장에 기여하나 자체 정량 목표·지표는 부족.</li>
                 
             </ul>
         </div>
@@ -291,12 +280,12 @@
                 <circle class="score-circle-bg" cx="75" cy="75" r="65" stroke-width="15" fill="none"/>
                 <circle id="score-circle-fg" class="score-circle-fg" cx="75" cy="75" r="65" stroke-width="15" fill="none"/>
             </svg>
-            <div class="score-text" id="final-score-text">5.5/10</div>
+            <div class="score-text" id="final-score-text">6.0/10</div>
         </div>
         <div class="score-details">
             <h2>소셜 임팩트 최종 점수</h2>
             <h3>평가 근거:</h3>
-            <p id="justification-text">핵심 BM이 전자책·오디오북 구독으로 지식·문화 접근성을 높이나 취약계층 타깃·학습성과 등 직접 임팩트 근거는 제한적입니다. 창작자·출판사 2,000곳 제휴와 ‘밀리로드’로 수익기회 확대(SDG8), DAU 23.8만→25.1만·회원 710만 등 도달력은 확인됩니다. 전자책 중심으로 종이·물류 절감에 간접 기여(SDG12)하나 정량 근거·기후관리 체계 부재. 과거 개인정보 유출/제재로 거버넌스 약점. 가족친화인증·다크패턴 개선 등 운영 강점은 있으나 본업의 직접 사회문제 해결성은 제한적입니다.</p>
+            <p id="justification-text">산업용 IoT(Ultivis), 디지털트윈, 변전소 예방진단·ESS, HVAC/유틸리티 최적화 등 <b>본업이 제조·전력 인프라의 효율·신뢰성 향상(SDG7/9/12/13)에 직접 기여</b>. 지멘스·한전·델 등과 <b>파트너십</b>, R&D센터 운영 및 투자(매출 1.06%)로 확산 가능성도 확인됨. 다만 에너지 절감·정전 예방·폐기물 감축 등 <b>임팩트의 정량 성과와 범위가 대부분 미공개</b>. 운영 측면의 목표/지표도 부족. 핵심 BM의 임팩트 정렬은 있으나 ‘성과 뚜렷’ 기준 미달로 중간 상단.</p>
         </div>
     </div>
     <div class="page-footer">2</div>
@@ -307,48 +296,45 @@
     <div class="ai-consultant-section">
         <h2>AI 컨설턴트의 눈</h2>
         <div class="ai-cards-container">
-            <!-- Card 1: 정체성 진단 (하드코딩된 제목과 아이콘) -->
             <div class="ai-card">
                 <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
                 <h3>정체성 진단</h3>
                 <div class="ai-card-content">
                     <ul>
                         
-                        <li>구독형 전자책·오디오북·밀리로드로 지식 접근·창작자 수익 기회 확대(SDG4 4.5, SDG8 6.5)</li>
+                        <li>SDG9 7.5로 <b>산업 IoT·디지털트윈·예방진단</b>이 인프라 신뢰성·효율을 높임.</li>
                         
-                        <li>2,000여 출판사·통신사 B2BC 등 파트너십으로 생태계 협력 강화(SDG17 6.0)</li>
+                        <li><b>SDG7/12/13에 직접 기여</b>하나 정량 성과·목표 공개가 부족.</li>
                         
-                        <li>디지털 중심 운영으로 자원·폐기물 저감·책임 마케팅 시행(SDG12 5.5)</li>
+                        <li>SDG1·2·4·14·16은 낮거나 부재로 임팩트 1차 목적 기업 근거 미흡.</li>
                         
                     </ul>
                 </div>
             </div>
-            <!-- Card 2: 맞춤 컨설팅 (하드코딩된 제목과 아이콘) -->
             <div class="ai-card">
                 <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                 <h3>맞춤 컨설팅</h3>
                 <div class="ai-card-content">
                     <ul>
                         
-                        <li><strong>개인정보·거버넌스 강화(ISMS-P 고도화, 파트너 신뢰 회복):</strong> 과거 개인정보 유출로 거버넌스·신뢰 약점 존재 (KPI: 중대한 개인정보 유출 0건, 기한: 6~12개월)</li>
+                        <li><strong>제품별 임팩트 계량·공시 체계 구축:</strong> 핵심 SDG 기여의 <b>정량 근거 부재</b>. (KPI: 연간 공개 프로젝트 수(에너지 절감 MWh·CO2톤 포함), 기한: 6~12개월)</li>
                         
-                        <li><strong>기후·에너지 관리 체계 구축(배출 산정·공시·목표·재생전력 도입):</strong> SDG13/7 정렬 근거 부재로 리스크·기회 미노출 (KPI: Scope1·2 배출량·감축목표 공개 1건, 기한: 6~12개월)</li>
+                        <li><strong>고객·파트너 공동 파일럿로 성과 검증(변전소·ESS·HVAC):</strong> <b>레퍼런스·신뢰 확대 필요</b>. (KPI: 성과 리포트 발간 건수, 기한: 12~18개월)</li>
                         
-                        <li><strong>포용 접근성·가격정책 도입(저소득/장애인/청소년 우대):</strong> SDG1/10 직접 정책·성과 부족 (KPI: 우대요금제 론칭 1건, 기한: 12~18개월)</li>
+                        <li><strong>운영 KPI·목표 설정 및 공시(에너지·배출·자원·안전):</strong> 운영 지표·목표 부재로 <b>SDG12/13/8 영향 저평가</b>. (KPI: 공시 범위(% 사업장), 기한: 6~12개월)</li>
                         
                     </ul>
                 </div>
             </div>
-            <!-- Card 3: 전략적 방향 제시 (하드코딩된 제목과 아이콘) -->
             <div class="ai-card">
                 <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
                 <h3>전략적 방향 제시</h3>
                 <div class="ai-card-content">
-                   
+                    
                     <ul>
-                        <li><strong>장기 비전:</strong> 디지털 독서·창작 생태계를 통해 모두에게 접근 가능한 지식과 공정한 보상을 확장한다</li>
-                        <li><strong>포지셔닝:</strong> 저탄소·포용의 구독형 지식 인프라로 창작자와 독자를 잇는 플랫폼</li>
-                        <li><strong>기회/위협:</strong> 기회: 파트너 2,000곳, DAU 성장, 매출 YoY+16.1%, 현금 3,970억원. 과제: 개인정보 신뢰 회복, 기후·에너지 공시 부재, SDG1·5·7·13 정량 근거 부족</li>
+                        <li><strong>장기 비전:</strong> 데이터·디지털트윈·OT-IT 통합으로 신뢰성과 효율을 극대화하는 <b>산업 인프라 리더</b></li>
+                        <li><strong>포지셔닝:</strong> Ultivis·개방형 파트너십 기반의 '<b>인프라 신뢰성·효율 동반자</b>'</li>
+                        <li><strong>기회/위협:</strong> 정량 성과 부재, 물/사회 낮은 정렬이 도전. <b>초고압 예방진단·ESS·스마트팩토리·EV/이차전지·공기질 사업, OT 보안·데이터 표준화</b>는 기회.</li>
                     </ul>
                     
                 </div>
@@ -370,10 +356,10 @@
                             <div class="sdg-bar-inner negative" style="width: 0%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 5.0%"></div>
+                            <div class="sdg-bar-inner positive" style="width: 0%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">0.5</div>
+                    <div class="sdg-bar-score">0.0</div>
                 </div>
             </div>
             
@@ -400,60 +386,15 @@
                             <div class="sdg-bar-inner negative" style="width: 0%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 20.0%"></div>
+                            <div class="sdg-bar-inner positive" style="width: 55.0%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">2.0</div>
+                    <div class="sdg-bar-score">5.5</div>
                 </div>
             </div>
             
             <div class="sdg-chart-item">
                 <div class="sdg-bar-label">SDG 4 | 양질의 교육</div>
-                <div class="sdg-bar-row">
-                    <div class="sdg-bar-wrapper">
-                        <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
-                        </div>
-                        <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 45.0%"></div>
-                        </div>
-                    </div>
-                    <div class="sdg-bar-score">4.5</div>
-                </div>
-            </div>
-            
-            <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 5 | 성 평등</div>
-                <div class="sdg-bar-row">
-                    <div class="sdg-bar-wrapper">
-                        <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
-                        </div>
-                        <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 25.0%"></div>
-                        </div>
-                    </div>
-                    <div class="sdg-bar-score">2.5</div>
-                </div>
-            </div>
-            
-            <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 6 | 깨끗한 물과 위생</div>
-                <div class="sdg-bar-row">
-                    <div class="sdg-bar-wrapper">
-                        <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
-                        </div>
-                        <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 15.0%"></div>
-                        </div>
-                    </div>
-                    <div class="sdg-bar-score">1.5</div>
-                </div>
-            </div>
-            
-            <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 7 | 모두를 위한 깨끗한 에너지</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
@@ -468,7 +409,37 @@
             </div>
             
             <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 8 | 양질의 일자리와 경제성장</div>
+                <div class="sdg-bar-label">SDG 5 | 성 평등</div>
+                <div class="sdg-bar-row">
+                    <div class="sdg-bar-wrapper">
+                        <div class="sdg-bar-negative">
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
+                        </div>
+                        <div class="sdg-bar-positive">
+                            <div class="sdg-bar-inner positive" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <div class="sdg-bar-score">0.0</div>
+                </div>
+            </div>
+            
+            <div class="sdg-chart-item">
+                <div class="sdg-bar-label">SDG 6 | 깨끗한 물과 위생</div>
+                <div class="sdg-bar-row">
+                    <div class="sdg-bar-wrapper">
+                        <div class="sdg-bar-negative">
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
+                        </div>
+                        <div class="sdg-bar-positive">
+                            <div class="sdg-bar-inner positive" style="width: 20.0%"></div>
+                        </div>
+                    </div>
+                    <div class="sdg-bar-score">2.0</div>
+                </div>
+            </div>
+            
+            <div class="sdg-chart-item">
+                <div class="sdg-bar-label">SDG 7 | 모두를 위한 깨끗한 에너지</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
@@ -483,52 +454,7 @@
             </div>
             
             <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 9 | 산업, 혁신, 사회기반시설</div>
-                <div class="sdg-bar-row">
-                    <div class="sdg-bar-wrapper">
-                        <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 5.0%"></div>
-                        </div>
-                        <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="sdg-bar-score">-0.5</div>
-                </div>
-            </div>
-            
-            <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 10 | 불평등 감소</div>
-                <div class="sdg-bar-row">
-                    <div class="sdg-bar-wrapper">
-                        <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
-                        </div>
-                        <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 40.0%"></div>
-                        </div>
-                    </div>
-                    <div class="sdg-bar-score">4.0</div>
-                </div>
-            </div>
-            
-            <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 11 | 지속가능한 도시와 공동체</div>
-                <div class="sdg-bar-row">
-                    <div class="sdg-bar-wrapper">
-                        <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
-                        </div>
-                        <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 40.0%"></div>
-                        </div>
-                    </div>
-                    <div class="sdg-bar-score">4.0</div>
-                </div>
-            </div>
-            
-            <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 12 | 책임감 있는 소비와 생산</div>
+                <div class="sdg-bar-label">SDG 8 | 양질의 일자리와 경제성장</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
@@ -543,22 +469,22 @@
             </div>
             
             <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 13 | 기후변화 대응</div>
+                <div class="sdg-bar-label">SDG 9 | 산업, 혁신, 사회기반시설</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
                             <div class="sdg-bar-inner negative" style="width: 0%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 30.0%"></div>
+                            <div class="sdg-bar-inner positive" style="width: 75.0%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">3.0</div>
+                    <div class="sdg-bar-score">7.5</div>
                 </div>
             </div>
             
             <div class="sdg-chart-item">
-                <div class="sdg-bar-label">SDG 14 | 해양 생태계 보전</div>
+                <div class="sdg-bar-label">SDG 10 | 불평등 감소</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
@@ -573,6 +499,66 @@
             </div>
             
             <div class="sdg-chart-item">
+                <div class="sdg-bar-label">SDG 11 | 지속가능한 도시와 공동체</div>
+                <div class="sdg-bar-row">
+                    <div class="sdg-bar-wrapper">
+                        <div class="sdg-bar-negative">
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
+                        </div>
+                        <div class="sdg-bar-positive">
+                            <div class="sdg-bar-inner positive" style="width: 50.0%"></div>
+                        </div>
+                    </div>
+                    <div class="sdg-bar-score">5.0</div>
+                </div>
+            </div>
+            
+            <div class="sdg-chart-item">
+                <div class="sdg-bar-label">SDG 12 | 책임감 있는 소비와 생산</div>
+                <div class="sdg-bar-row">
+                    <div class="sdg-bar-wrapper">
+                        <div class="sdg-bar-negative">
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
+                        </div>
+                        <div class="sdg-bar-positive">
+                            <div class="sdg-bar-inner positive" style="width: 60.0%"></div>
+                        </div>
+                    </div>
+                    <div class="sdg-bar-score">6.0</div>
+                </div>
+            </div>
+            
+            <div class="sdg-chart-item">
+                <div class="sdg-bar-label">SDG 13 | 기후변화 대응</div>
+                <div class="sdg-bar-row">
+                    <div class="sdg-bar-wrapper">
+                        <div class="sdg-bar-negative">
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
+                        </div>
+                        <div class="sdg-bar-positive">
+                            <div class="sdg-bar-inner positive" style="width: 65.0%"></div>
+                        </div>
+                    </div>
+                    <div class="sdg-bar-score">6.5</div>
+                </div>
+            </div>
+            
+            <div class="sdg-chart-item">
+                <div class="sdg-bar-label">SDG 14 | 해양 생태계 보전</div>
+                <div class="sdg-bar-row">
+                    <div class="sdg-bar-wrapper">
+                        <div class="sdg-bar-negative">
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
+                        </div>
+                        <div class="sdg-bar-positive">
+                            <div class="sdg-bar-inner positive" style="width: 10.0%"></div>
+                        </div>
+                    </div>
+                    <div class="sdg-bar-score">1.0</div>
+                </div>
+            </div>
+            
+            <div class="sdg-chart-item">
                 <div class="sdg-bar-label">SDG 15 | 육상 생태계 보전</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
@@ -580,10 +566,10 @@
                             <div class="sdg-bar-inner negative" style="width: 0%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 20.0%"></div>
+                            <div class="sdg-bar-inner positive" style="width: 0%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">2.0</div>
+                    <div class="sdg-bar-score">0.0</div>
                 </div>
             </div>
             
@@ -592,13 +578,13 @@
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: 40.0%"></div>
+                            <div class="sdg-bar-inner negative" style="width: 0%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 0%"></div>
+                            <div class="sdg-bar-inner positive" style="width: 15.0%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">-4.0</div>
+                    <div class="sdg-bar-score">1.5</div>
                 </div>
             </div>
             
@@ -610,10 +596,10 @@
                             <div class="sdg-bar-inner negative" style="width: 0%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: 60.0%"></div>
+                            <div class="sdg-bar-inner positive" style="width: 55.0%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">6.0</div>
+                    <div class="sdg-bar-score">5.5</div>
                 </div>
             </div>
             
