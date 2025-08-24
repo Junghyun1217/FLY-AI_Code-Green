@@ -1,165 +1,153 @@
-// 페이지 로딩이 완료되면 즉시 실행
 document.addEventListener('DOMContentLoaded', () => {
-  // ===== 헤더/드롭다운/스크롤 등 기존 UI =====
-  let lastScrollTop = 0;
+  // --- 헤더 및 공통 UI 요소 ---
   const header = document.querySelector('.landing-page-header');
-  let scrollTimeout;
+  const dropdownBtn = document.querySelector('.dropdown-btn');
+  const dropdownContent = document.querySelector('.dropdown-content');
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  // --- 파일 업로드 UI 요소 ---
+  const dropArea = document.getElementById('drop-area');
+  const fileInput = document.getElementById('file-input');
+  const browseBtn = document.getElementById('browse-btn');
+  const fileList = document.getElementById('file-list');
+  const filePlaceholder = document.getElementById('file-placeholder');
+  const generateBtn = document.getElementById('generate-report-btn');
+  let uploadedFiles = []; // 업로드할 파일 목록 배열
+  // 1. 헤더 스크롤 효과
+  let lastScrollTop = 0;
   window.addEventListener('scroll', function () {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      const dropdownContent = document.querySelector('.dropdown-content');
-      const dropdownBtn = document.querySelector('.dropdown-btn');
-      if (dropdownContent && dropdownContent.classList.contains('show')) {
-        dropdownContent.classList.remove('show');
-        if (dropdownBtn) dropdownBtn.classList.remove('active');
-      }
-    }, 40);
-    if (scrollTop > lastScrollTop && scrollTop > 50) {
-      header && header.classList.add('header-hidden');
-    } else {
-      header && header.classList.remove('header-hidden');
-    }
-    if (scrollTop > 50) {
-      header && header.classList.add('header-solid-bg');
-    } else {
-      header && header.classList.remove('header-solid-bg');
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (header) {
+      if (scrollTop > lastScrollTop && scrollTop > 50) header.classList.add('header-hidden');
+      else header.classList.remove('header-hidden');
+      if (scrollTop > 50) header.classList.add('header-solid-bg');
+      else header.classList.remove('header-solid-bg');
     }
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   }, false);
-  const introObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add('is-visible');
-      else if (entry.boundingClientRect.top > 0) entry.target.classList.remove('is-visible');
-    });
-  }, { threshold: 0.1 });
-  const introSection = document.querySelector('.intro-section');
-  if (introSection) introObserver.observe(introSection);
-  const dropdownBtn = document.querySelector('.dropdown-btn');
-  const dropdownContent = document.querySelector('.dropdown-content');
+  // 2. 드랍다운 메뉴 기능
   if (dropdownBtn) {
     dropdownBtn.addEventListener('click', (event) => {
       event.stopPropagation();
-      const isShown = dropdownContent.classList.toggle('show');
-      dropdownBtn.classList.toggle('active', isShown);
+      const isShown = dropdownContent?.classList.toggle('show');
+      dropdownBtn.classList.toggle('active', !!isShown);
     });
   }
   window.addEventListener('click', () => {
-    if (dropdownContent && dropdownContent.classList.contains('show')) {
+    if (dropdownContent?.classList.contains('show')) {
       dropdownContent.classList.remove('show');
-      dropdownBtn && dropdownBtn.classList.remove('active');
+      dropdownBtn?.classList.remove('active');
     }
   });
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
-  window.addEventListener('scroll', () => {
-    if (!scrollTopBtn) return;
-    if (window.scrollY > 300) scrollTopBtn.classList.add('show');
-    else scrollTopBtn.classList.remove('show');
-  });
+  // 3. TOP 버튼 기능
   if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) scrollTopBtn.classList.add('show');
+      else scrollTopBtn.classList.remove('show');
+    });
     scrollTopBtn.addEventListener('click', (e) => {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
-  // ===== 결과/버튼 요소 =====
-  const previewContainer = document.querySelector('.preview-container');
-  const viewPdfBtn = document.getElementById('view-pdf-btn');
-  const downloadBtn = document.getElementById('download-pdf-btn');
-  const errorMessageDiv = document.getElementById('error-message');
-  function showError(message) {
-    console.error(message);
-    if (errorMessageDiv) errorMessageDiv.textContent = message;
-    if (viewPdfBtn) viewPdfBtn.style.display = 'none';
-    if (downloadBtn) downloadBtn.style.display = 'none';
+  // 4. 파일 업로드 기능 (드래그 앤 드롭 포함)
+  // 버튼/드롭영역 클릭 → 파일 선택창
+  if (browseBtn && fileInput) {
+    browseBtn.addEventListener('click', () => fileInput.click());
   }
-  // ===== job_id 파싱 =====
-  const urlParams = new URLSearchParams(window.location.search);
-  const jobId = urlParams.get('job_id');
-  if (!jobId) {
-    showError('오류: URL에서 작업 ID(job_id)를 찾을 수 없습니다.');
-    return;
+  if (dropArea && fileInput) {
+    dropArea.addEventListener('click', () => fileInput.click());
   }
-  console.log(`Job ID: ${jobId} 로 PDF 정보 요청을 시작합니다.`);
-  // ===== 상태 조회 후 링크 세팅 =====
-  const fetchPdfInfo = async () => {
-    try {
-      const response = await fetch(`/api/status/${jobId}`, { cache: 'no-store' });
-      console.log('백엔드 응답 수신:', response);
-      if (!response.ok) throw new Error(`서버 응답 오류: ${response.status}`);
-      const data = await response.json();
-      console.log('응답 데이터 (JSON):', data);
-      // 1) files 배열에서 report_pdf(우선) → .pdf 확장자(차선) 찾기
-      const files = data?.result?.files;
-      let pdfItem = null;
-      if (Array.isArray(files)) {
-        pdfItem = files.find(f => String(f.label || '').toLowerCase() === 'report_pdf')
-               || files.find(f => String(f.filename || '').toLowerCase().endsWith('.pdf'));
-      }
-      // 2) download_url 결정 (과거 단일 필드도 호환)
-      let downloadUrl = pdfItem?.download_url || data?.result?.download_url || null;
-      if (!(data?.status === 'completed' && downloadUrl)) {
-        throw new Error('보고서가 아직 준비되지 않았거나, PDF URL 정보가 없습니다.');
-      }
-      // 3) /api 접두사 보정(상대경로면 붙임)
-      if (downloadUrl.startsWith('/') && !downloadUrl.startsWith('/api/')) {
-        downloadUrl = '/api' + downloadUrl;
-      }
-      // 4) 보기 URL = download=1 제거
-      const viewUrl = downloadUrl.replace(/([?&])download=1\b/, '').replace(/\?$/, '');
-      // 5) 다운로드 버튼 세팅 (a 또는 button 모두 대응)
-      if (downloadBtn) {
-        if (downloadBtn.tagName === 'A') {
-          downloadBtn.href = downloadUrl;
-          downloadBtn.setAttribute('download', '');
-        } else {
-          downloadBtn.onclick = (e) => { e.preventDefault(); location.href = downloadUrl; };
-        }
-        downloadBtn.style.display = '';
-        downloadBtn.textContent = 'PDF 다운로드';
-      }
-      // 6) 보기 버튼: 클릭 시 iframe 표시
-      if (viewPdfBtn && previewContainer) {
-        viewPdfBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          console.log('PDF 보기 버튼 클릭됨.');
-          const coverContent = previewContainer.querySelector('.report-cover-new');
-          if (coverContent) coverContent.style.display = 'none';
-          const oldIframe = previewContainer.querySelector('iframe');
-          if (oldIframe) oldIframe.remove();
-          const iframe = document.createElement('iframe');
-          iframe.src = viewUrl;
-          iframe.style.width = '100%';
-          iframe.style.height = '80vh';
-          iframe.style.border = 'none';
-          previewContainer.appendChild(iframe);
-          previewContainer.classList.add('pdf-mode');
-          console.log('미리보기 영역을 PDF 뷰어로 교체 완료.');
-        });
-        viewPdfBtn.style.display = '';
-      }
-      if (errorMessageDiv) errorMessageDiv.textContent = '';
-    } catch (error) {
-      showError(`PDF 정보를 가져오는 중 문제가 발생했습니다: ${error.message}`);
-    }
-  };
-  fetchPdfInfo();
-  // ===== 모달 =====
-  const expertConsultBtn = document.getElementById('expert-consult-btn');
-  const reportModal = document.getElementById('report-modal');
-  const modalCancelBtn = document.getElementById('modal-cancel-btn');
-  if (expertConsultBtn && reportModal) {
-    expertConsultBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      reportModal.classList.add('show');
+  // 파일 선택 시 처리
+  if (fileInput) {
+    fileInput.addEventListener('change', () => handleFiles(fileInput.files));
+  }
+  // 드래그&드롭 공통 방지
+  if (dropArea) {
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, e => {
+        e.preventDefault();
+        e.stopPropagation();
+      }, false);
     });
-    if (modalCancelBtn) {
-      modalCancelBtn.addEventListener('click', () => {
-        reportModal.classList.remove('show');
-      });
-    }
-    reportModal.addEventListener('click', (e) => {
-      if (e.target === reportModal) reportModal.classList.remove('show');
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropArea.addEventListener(eventName, () => dropArea.classList.add('is-dragging'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, () => dropArea.classList.remove('is-dragging'), false);
+    });
+    dropArea.addEventListener('drop', (e) => handleFiles(e.dataTransfer?.files));
+  }
+  function handleFiles(files) {
+    if (!files || !files.length) return;
+    [...files].forEach(file => {
+      if (!uploadedFiles.some(f => f.name === file.name && f.size === file.size)) {
+        uploadedFiles.push(file);
+      }
+    });
+    updateFileList();
+  }
+  function updateFileList() {
+    if (!fileList) return;
+    fileList.innerHTML = '';
+    if (filePlaceholder) filePlaceholder.style.display = uploadedFiles.length > 0 ? 'none' : 'flex';
+    if (generateBtn) generateBtn.disabled = uploadedFiles.length === 0;
+    uploadedFiles.forEach((file, index) => {
+      const li = document.createElement('li');
+      li.className = 'file-item';
+      li.innerHTML = `
+        <div class="file-info">
+          <svg class="file-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+               viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+            <polyline points="13 2 13 9 20 9"></polyline>
+          </svg>
+          <span class="file-name">${file.name}</span>
+        </div>
+        <button class="remove-btn" data-index="${index}" type="button">&times;</button>
+      `;
+      fileList.appendChild(li);
+    });
+  }
+  // 삭제 버튼(위임)
+  if (fileList) {
+    fileList.addEventListener('click', (e) => {
+      const btn = e.target.closest?.('.remove-btn');
+      if (!btn) return;
+      const index = parseInt(btn.dataset.index, 10);
+      if (Number.isNaN(index)) return;
+      uploadedFiles.splice(index, 1);
+      updateFileList();
+    });
+  }
+  // 5. '리포트 생성하기' 버튼 클릭 시 서버로 파일 전송
+  if (generateBtn) {
+    generateBtn.addEventListener('click', async () => {
+      if (generateBtn.disabled || uploadedFiles.length === 0) return;
+      const formData = new FormData();
+      uploadedFiles.forEach(file => formData.append('files', file));
+      try {
+        generateBtn.disabled = true;
+        generateBtn.innerHTML = 'AI 분석 요청 중...';
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        });
+        if (!response.ok) {
+          throw new Error(`파일 업로드 실패 (서버 상태: ${response.status})`);
+        }
+        const data = await response.json();
+        if (data.job_id) {
+          window.location.href = `hd_generating.html?job_id=${data.job_id}`;
+        } else {
+          throw new Error('서버로부터 job_id를 받지 못했습니다.');
+        }
+      } catch (error) {
+        console.error('리포트 생성 실패:', error);
+        alert('리포트 생성에 실패했습니다. 서버 상태를 확인하거나 다시 시도해주세요.');
+        generateBtn.disabled = false;
+        generateBtn.innerHTML = ':반짝임: Hidden 임팩트 발굴하기';
+      }
     });
   }
 });

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("유효한 작업 ID가 없어 메인 페이지로 이동합니다.");
             window.location.href = 'landing.html'; // 메인 페이지로 이동
         }
-    }, 6000); // 6000ms = 6초
+    }, 30000); // 6000ms = 6초
 
 
     // ================================================================
