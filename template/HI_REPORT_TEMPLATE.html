@@ -120,21 +120,40 @@
         .score-circle { width: 100%; height: 100%; transform: rotate(-90deg); }
         .score-circle-bg { stroke: var(--border-color); }
         .score-circle-fg { stroke: url(#scoreGradientLight); stroke-dasharray: 410; stroke-dashoffset: 410; transition: stroke-dashoffset 1.5s ease-out; }
-        .score-text { position: absolute; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 30pt; color: var(--text-color); }
+        .score-text { position: absolute; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 28pt; color: var(--text-color); }
         .score-details { flex-grow: 1; }
         .score-details h2 { font-size: 16pt; color: var(--text-color); margin-bottom: 5px; }
         .score-details h3 { font-size: 12pt; color: var(--text-color); margin-bottom: 2px; }
         
         /* --- AI 컨설턴트 --- */
         .ai-consultant-section h2 { text-align: center; font-size: 16pt; color: #212529; margin-bottom: 25px; }
-        .ai-cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        .ai-card { background: #ffffff; border-radius: 12px; padding: 25px; text-align: left; transition: all 0.3s ease; box-shadow: 0 8px 25px rgba(108, 117, 125, 0.08); border-top: 4px solid var(--primary-color); }
+        .ai-cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+        .ai-card { 
+            background: #ffffff; 
+            border-radius: 12px; 
+            padding: 25px; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 8px 25px rgba(108, 117, 125, 0.08); 
+            border-top: 4px solid var(--primary-color);
+            height: 300px; /* 고정 높이 설정 */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 아이콘과 제목 중앙 정렬을 위해 추가 */
+            text-align: center;
+        }
         .ai-card:hover { transform: translateY(-8px) scale(1.03); box-shadow: 0 12px 35px rgba(108, 117, 125, 0.15); }
-        .ai-card-header { display: flex; align-items: center; margin-bottom: 15px; }
-        .ai-card-icon { width: 32px; height: 32px; margin-right: 12px; color: var(--primary-color); }
-        .ai-card h3 { color: var(--primary-color); font-size: 13pt; margin: 0; }
-        .ai-card ul { padding-left: 20px; margin-top: 10px; }
-        .ai-card li { font-size: 9.5pt; margin-bottom: 8px;}
+        .ai-card-icon { 
+            width: 45px; 
+            height: 45px; 
+            margin-bottom: 15px; /* auto 마진 제거 */
+            color: var(--primary-color); 
+            flex-shrink: 0; 
+        }
+        .ai-card h3 { color: var(--primary-color); font-size: 13pt; margin-bottom: 15px; flex-shrink: 0; }
+        .ai-card-content { flex-grow: 1; overflow: hidden; text-align: left; width: 100%;} /* 내용물은 다시 왼쪽 정렬, overflow: auto -> hidden으로 변경 */
+        .ai-card ul { padding-left: 20px; margin: 0; }
+        .ai-card li { font-size: 9pt; margin-bottom: 5px; line-height: 1.5;} /* 폰트 및 간격 조정 */
+        .ai-card p { text-align: left; margin: 0; font-size: 9pt; line-height: 1.6;} /* 폰트 및 간격 조정 */
 
 
         /* --- 전체 SDG 스코어카드 --- */
@@ -157,8 +176,7 @@
         .appendix-section { margin-top: 15px; }
         .appendix-title { font-size: 14pt; color: #212529; margin-bottom: 15px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px; }
         .appendix-content { border: none; padding: 0; }
-        .appendix-content ul { padding-left: 20px; margin: 0; column-count: 2; column-gap: 40px; }
-        .appendix-content li { font-size: 9pt; margin-bottom: 10px; }
+        .appendix-content p { white-space: pre-wrap; } /* 줄바꿈 유지를 위해 추가 */
         
         /* --- 페이지 푸터 --- */
         .page-footer {
@@ -236,7 +254,7 @@
                 <circle class="score-circle-bg" cx="75" cy="75" r="65" stroke-width="15" fill="none"/>
                 <circle id="score-circle-fg" class="score-circle-fg" cx="75" cy="75" r="65" stroke-width="15" fill="none"/>
             </svg>
-            <div class="score-text" id="final-score-text">{{ rating_result.social_impact_rate }}/10</div>
+            <div class="score-text" id="final-score-text">{{ "%.1f"|format(rating_result.social_impact_rate|float) }}/10</div>
         </div>
         <div class="score-details">
             <h2>소셜 임팩트 최종 점수</h2>
@@ -252,28 +270,44 @@
     <div class="ai-consultant-section">
         <h2>AI 컨설턴트의 눈</h2>
         <div class="ai-cards-container">
+            <!-- Card 1: 정체성 진단 -->
             <div class="ai-card">
-                <div class="ai-card-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
-                    <h3>정체성 진단: {{ consultant_report.identity_diagnosis.type }}</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></svg>
+                <h3>정체성 진단</h3>
+                <div class="ai-card-content">
+                    <ul>
+                        {% for basis_item in consultant_report.identity_diagnosis.basis %}
+                        <li>{{ basis_item }}</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <ul>
-                    {% for basis_item in consultant_report.identity_diagnosis.basis %}
-                    <li>{{ basis_item }}</li>
-                    {% endfor %}
-                </ul>
             </div>
-            {% for rec in consultant_report.recommendations[:2] %}
+            <!-- Card 2: 맞춤 컨설팅 -->
             <div class="ai-card">
-                <div class="ai-card-header">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                    <h3>핵심 제언 {{ loop.index }}</h3>
+                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                <h3>맞춤 컨설팅</h3>
+                <div class="ai-card-content">
+                    <ul>
+                        {% for rec in consultant_report.recommendations %}
+                        <li><strong>{{ rec.initiative }}:</strong> {{ rec.reason }} (KPI: {{ rec.kpi }}, 기한: {{ rec.timeline }})</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <p><strong>과제:</strong> {{ rec.initiative }}<br>
-                   <strong>근거:</strong> {{ rec.reason }}<br>
-                   <strong>핵심 성과 지표(KPI):</strong> {{ rec.kpi }}</p>
             </div>
-            {% endfor %}
+            <!-- Card 3: 전략적 방향 제시 -->
+            <div class="ai-card">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
+                <h3>전략적 방향 제시</h3>
+                <div class="ai-card-content">
+                    {% if consultant_report.strategic_direction %}
+                    <ul>
+                        <li><strong>장기 비전:</strong> {{ consultant_report.strategic_direction.long_term_vision }}</li>
+                        <li><strong>포지셔닝:</strong> {{ consultant_report.strategic_direction.narrative_positioning }}</li>
+                        <li><strong>기회/위협:</strong> {{ consultant_report.strategic_direction.challenges_and_opportunities }}</li>
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -282,19 +316,19 @@
     <div class="sdg-chart-section">
         <h2>Hidden Impact Scorecard</h2>
         <div class="sdg-chart-container">
-            {% for sdg in scorecard_full %}
+            {% for sdg in scorecard %}
             <div class="sdg-chart-item">
-                <div class="sdg-bar-label">{{ sdg.name }}</div>
+                <div class="sdg-bar-label">{{ sdg.sdg }}</div>
                 <div class="sdg-bar-row">
                     <div class="sdg-bar-wrapper">
                         <div class="sdg-bar-negative">
-                            <div class="sdg-bar-inner negative" style="width: {% if sdg.score < 0 %}{{ sdg.score|abs * 10 }}{% else %}0{% endif %}%"></div>
+                            <div class="sdg-bar-inner negative" style="width: {% if sdg.net_alignment_score < 0 %}{{ sdg.net_alignment_score|abs * 10 }}{% else %}0{% endif %}%"></div>
                         </div>
                         <div class="sdg-bar-positive">
-                            <div class="sdg-bar-inner positive" style="width: {% if sdg.score > 0 %}{{ sdg.score * 10 }}{% else %}0{% endif %}%"></div>
+                            <div class="sdg-bar-inner positive" style="width: {% if sdg.net_alignment_score > 0 %}{{ sdg.net_alignment_score * 10 }}{% else %}0{% endif %}%"></div>
                         </div>
                     </div>
-                    <div class="sdg-bar-score">{{ "%.1f"|format(sdg.score|float) }}</div>
+                    <div class="sdg-bar-score">{{ "%.1f"|format(sdg.net_alignment_score|float) }}</div>
                 </div>
             </div>
             {% endfor %}
@@ -308,11 +342,7 @@
     <div class="appendix-section" style="margin-top: 0;">
         <h3 class="appendix-title">(부록) 17개 지속가능발전목표(SDGs)</h3>
         <div class="appendix-content">
-            <ul>
-                {% for sdg in scorecard_full %}
-                <li><strong>{{ sdg.name }}:</strong> {{ sdg.description }}</li>
-                {% endfor %}
-            </ul>
+           <p>{{ sdg_intro }}</p>
         </div>
     </div>
     <div class="page-footer">4</div>
@@ -366,6 +396,29 @@
                 justificationElement.style.fontSize = `${fontSize}px`;
             }
         }
+
+        // AI 카드 컨텐츠 폰트 크기 동적 조절
+        function adjustCardFontSize(cardContentElement) {
+            const children = cardContentElement.querySelectorAll('ul, p, li, strong');
+            if (children.length === 0) return;
+
+            // 폰트 크기를 재설정하여 기본값으로 시작
+            children.forEach(child => child.style.fontSize = '');
+
+            // 첫 번째 자식 요소에서 기본 폰트 크기를 가져옴
+            const defaultFontSize = parseFloat(window.getComputedStyle(children[0]).fontSize);
+            let currentFontSize = defaultFontSize;
+
+            // 내용이 컨테이너를 벗어나면 폰트 크기를 줄임
+            while (cardContentElement.scrollHeight > cardContentElement.clientHeight && currentFontSize > 8) {
+                currentFontSize -= 0.5;
+                children.forEach(child => {
+                    child.style.fontSize = `${currentFontSize}px`;
+                });
+            }
+        }
+
+        document.querySelectorAll('.ai-card-content').forEach(adjustCardFontSize);
     });
 </script>
 
