@@ -302,6 +302,18 @@
             font-size: 9pt;
             line-height: 1.7;
         }
+        /* --- PDF 인쇄 전용 스타일 --- */
+
+    @page {
+        margin: 0; /* << 📄 이 부분을 추가해야 합니다. */
+    }
+
+    @media print {
+        .page {
+            margin: 0;
+            box-shadow: none;
+        }
+    }
     </style>
 </head>
 <body>

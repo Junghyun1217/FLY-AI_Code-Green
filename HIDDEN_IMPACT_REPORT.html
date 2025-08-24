@@ -193,14 +193,30 @@
             left: 20mm;
         }
 
-        /* --- 인쇄용 스타일 --- */
-        @media print {
-            body { background-color: #fff; }
-            .page { width: 100%; height: 100%; min-height: 0; margin: 0; padding: 15mm; box-shadow: none; border-radius: 0; page-break-after: always; }
-            .cover-page { height: 297mm; }
-            .ai-card, .sdg-rank-item, .sdg-chart-item { page-break-inside: avoid; }
-            .page-footer { display: none; }
-        }
+/* --- 인쇄용 스타일 (레이아웃 최소 변경 버전) --- */
+@media print {
+    body {
+        background-color: #fff;
+    }
+
+    /* 웹과 동일한 모양을 위해 그림자, 전환 효과 등은 그대로 둡니다. */
+    
+    .page {
+        margin: 0; /* 상단 여백 문제만 해결 */
+        box-shadow: none; /* 인쇄 시 불필요한 그림자만 제거 */
+        page-break-after: always;
+    }
+
+    .page:last-child {
+        page-break-after: auto;
+    }
+
+    /* 배경 이미지 강제 인쇄 */
+    .cover-page {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
     </style>
 </head>
 <body>

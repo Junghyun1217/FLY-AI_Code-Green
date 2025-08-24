@@ -2,11 +2,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. 현재 주소창에서 job_id를 가져오는 코드를 추가합니다. ---
+    // --- 1. 현재 주소창에서 job_id를 가져오는 코드 ---
     const urlParams = new URLSearchParams(window.location.search);
     const jobId = urlParams.get('job_id');
 
-    // --- 2. 6초 후 페이지를 이동시킬 때, 위에서 찾은 job_id를 주소에 포함시킵니다. ---
+    // --- 2. 6초 후 결과 페이지로 이동시키는 코드 ---
     setTimeout(() => {
         // job_id가 정상적으로 존재할 경우에만 결과 페이지로 이동
         if (jobId) {

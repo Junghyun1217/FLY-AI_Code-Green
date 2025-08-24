@@ -10,7 +10,7 @@ template_folder = 'template'
 
 # 2. JSON 파일 경로를 지정합니다. 
 #    (이 스크립트가 있는 폴더 기준 'result' 폴더 안의 'result.json')
-json_file_path = 'result/result(1).json'
+json_file_path = 'result/result.json'
 
 # 3. 결과물을 저장할 파일 이름을 지정합니다.
 output_filename = 'IMPACT_REPORT.html'
