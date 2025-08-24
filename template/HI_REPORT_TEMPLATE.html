@@ -300,13 +300,13 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="ai-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
                 <h3>전략적 방향 제시</h3>
                 <div class="ai-card-content">
-                    {% if consultant_report.strategic_direction %}
+                   
                     <ul>
                         <li><strong>장기 비전:</strong> {{ consultant_report.strategic_direction.long_term_vision }}</li>
                         <li><strong>포지셔닝:</strong> {{ consultant_report.strategic_direction.narrative_positioning }}</li>
                         <li><strong>기회/위협:</strong> {{ consultant_report.strategic_direction.challenges_and_opportunities }}</li>
                     </ul>
-                    {% endif %}
+                    
                 </div>
             </div>
         </div>

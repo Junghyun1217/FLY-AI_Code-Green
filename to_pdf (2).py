@@ -8,7 +8,7 @@ template_folder = 'template'
 template_filename = 'HI_REPORT_TEMPLATE.html'
 
 # 2. 백엔드에서 받은 JSON 데이터 파일 경로
-json_file_path = 'result/result(1).json' # 실제 사용하는 파일 이름으로 지정해주세요.
+json_file_path = 'result/result(4).json' # 실제 사용하는 파일 이름으로 지정해주세요.
 
 # 3. 결과물을 저장할 최종 HTML 파일 이름
 output_filename = 'HIDDEN_IMPACT_REPORT.html'
