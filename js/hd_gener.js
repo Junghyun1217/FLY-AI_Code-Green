@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // jobId가 있으면, 6초(6000ms) 후에 결과 페이지로 이동시킵니다.
             setTimeout(() => {
                 window.location.href = `hd_report_result.html?job_id=${jobId}`;
-            }, 6000);
+            }, 1800000);
         } else {
             // jobId가 없으면 오류 메시지를 표시합니다.
             generatingContainer.innerHTML = `
