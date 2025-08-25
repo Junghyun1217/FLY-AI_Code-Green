@@ -189,7 +189,7 @@ body {
 .generating-animation {
     position: relative;
     top: 0px;  /* 이 값을 조절해서 위아래로 움직이세요 */
-    left: 140px; /* 이 값을 조절해서 좌우로 움직이세요 */
+    left: 150px; /* 이 값을 조절해서 좌우로 움직이세요 */
 }
 .generating-main {
     flex: 1; /* 헤더와 푸터 사이의 모든 공간을 차지 */
